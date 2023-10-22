@@ -1,1 +1,27 @@
-<p>history works!</p>
+<div class="menu-bar">
+    <ul>
+      <li><a routerLink="/tagger">Tagger</a></li>
+      <li><a routerLink="/history" routerLinkActive="active">History</a></li>
+      <li><a routerLink="/about">About</a></li>
+    </ul>
+  </div>
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Resently tagged Sentences </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sentence of historyData">
+                <td>
+                    <span *ngFor="let item of sentence">
+                        <span style="color: #ff5733">{{ item[0] + ' ' }}</span>
+                        <span style="color: black">{{ item[1] + ' ' }}</span>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
