@@ -28,7 +28,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let sentence of historyData">
-        <td>{{ sentence.date }}</td>
+        <td style="white-space: nowrap;">{{ sentence.date | date:'yyyy-MM-dd HH:mm:ss' }}</td>
         <td>
           <span *ngFor="let item of sentence.tagged_sentence">
             <span style="color: #ff5733">{{ item[0] + ' ' }}</span>
