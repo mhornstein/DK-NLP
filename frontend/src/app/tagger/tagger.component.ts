@@ -4,7 +4,7 @@ import { TaggerService } from '../services/tagger.service';
 @Component({
   selector: 'app-tagger',
   templateUrl: './tagger.component.html',
-  styleUrls: ['./tagger.component.scss']
+  styleUrls: ['./tagger.component.scss', '../app.component.scss']
 })
 export class TaggerComponent {
   inputText: string = '';
