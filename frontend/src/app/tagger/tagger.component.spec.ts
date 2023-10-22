@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PosTaggerComponent } from './pos-tagger.component';
+import { TaggerComponent } from './tagger.component';
 
 describe('PosTaggerComponent', () => {
-  let component: PosTaggerComponent;
-  let fixture: ComponentFixture<PosTaggerComponent>;
+  let component: TaggerComponent;
+  let fixture: ComponentFixture<TaggerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PosTaggerComponent]
+      declarations: [TaggerComponent]
     });
-    fixture = TestBed.createComponent(PosTaggerComponent);
+    fixture = TestBed.createComponent(TaggerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

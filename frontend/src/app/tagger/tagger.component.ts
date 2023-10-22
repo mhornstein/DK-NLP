@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { TaggerService } from '../services/tagger.service';
 
 @Component({
-  selector: 'app-pos-tagger',
-  templateUrl: './pos-tagger.component.html',
-  styleUrls: ['./pos-tagger.component.scss']
+  selector: 'app-tagger',
+  templateUrl: './tagger.component.html',
+  styleUrls: ['./tagger.component.scss']
 })
-export class PosTaggerComponent {
+export class TaggerComponent {
   inputText: string = '';
   tagType: string = 'pos'; // Default value
   

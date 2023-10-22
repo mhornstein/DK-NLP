@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PosTaggerComponent } from './pos-tagger/pos-tagger.component';
+import { TaggerComponent } from './tagger/tagger.component';
 
 
 const routes: Routes = [
-  { path: 'pos-tagger', component: PosTaggerComponent }
+  { path: 'tagger', component: TaggerComponent }
 ];
 
 @NgModule({
