@@ -31,13 +31,13 @@ frontend/!.vscode/extensions.json
 frontend/.history/*
 
 # Miscellaneous
-frontend//.angular/cache
+frontend/.angular/cache
 frontend/.sass-cache/
-frontend//connect.lock
-frontend//coverage
-frontend//libpeerconnection.log
+frontend/connect.lock
+frontend/coverage
+frontend/libpeerconnection.log
 frontend/testem.log
-frontend//typings
+frontend/typings
 
 # System files
 frontend/.DS_Store

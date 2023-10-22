@@ -1,0 +1,12 @@
+<div class="tagger-container">
+    <h2>Part of Speech Tagger</h2>
+    <textarea [(ngModel)]="inputText" placeholder="Enter text"></textarea>
+    <button (click)="tagText()">Tag</button>
+    <div class="tagged-text">
+      <span *ngFor="let word of taggedWords" class="tagged-word">
+        <span class="wow">wow</span>
+        {{ word }}
+      </span>
+    </div>
+  </div>
+  
