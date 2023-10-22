@@ -6,22 +6,24 @@
   </ul>
 </div>
 
-<div class="tagger-container">
-  <h2>Text Tagger</h2>
-  <div class="radio-buttons">
-    <label>
-      <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'pos'"> Part of Speech
-    </label>
-    <label>
-      <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'ner'"> Named Entity Recognition
-    </label>
-  </div>
-  <textarea [(ngModel)]="inputText" placeholder="Enter text"></textarea>
-  <button (click)="tagText()">Tag</button>
-  <div class="tagged-text">
-    <span *ngFor="let tuple of taggedWords" class="tagged-word">
-      <span class="tag">{{ tuple[0] }}</span>
-      {{ tuple[1] }}
-    </span>
+<div class="container">
+  <div class="tagger-container">
+    <h2>Text Tagger</h2>
+    <div class="radio-buttons">
+      <label>
+        <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'pos'"> Part of Speech
+      </label>
+      <label>
+        <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'ner'"> Named Entity Recognition
+      </label>
+    </div>
+    <textarea [(ngModel)]="inputText" placeholder="Enter text"></textarea>
+    <button (click)="tagText()">Tag</button>
+    <div class="tagged-text">
+      <span *ngFor="let tuple of taggedWords" class="tagged-word">
+        <span class="tag">{{ tuple[0] }}</span>
+        {{ tuple[1] }}
+      </span>
+    </div>
   </div>
 </div>

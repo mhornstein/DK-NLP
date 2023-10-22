@@ -1,3 +1,10 @@
+.container {
+    display: flex; /* Use Flexbox to arrange the two divs vertically */
+    flex-direction: column; /* Stack the divs vertically */
+    align-items: center; /* Center the divs horizontally */
+    margin: 20px; /* Add margin to the container for spacing */
+}
+
 .menu-bar {
     background-color: #007bff;
     color: #fff;
