@@ -8,7 +8,7 @@ import { TaggerService } from '../services/tagger.service';
 })
 export class PosTaggerComponent {
   inputText: string = '';
-  taggedWords: string[] = [];
+  taggedWords: [string, string][] = [];
 
   constructor(private taggerService: TaggerService) {}
 
