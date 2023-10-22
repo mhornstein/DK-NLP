@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TaggerService } from '../services/tagger.service';
 
 @Component({
   selector: 'app-pos-tagger',
@@ -9,11 +10,9 @@ export class PosTaggerComponent {
   inputText: string = '';
   taggedWords: string[] = [];
 
-  tagText() {
-    // Split the input text into words
-    const words = this.inputText.split(' ');
+  constructor(private taggerService: TaggerService) {}
 
-    // Add "wow" above each word
-    this.taggedWords = words.map(word => `${word}`);
+  tagText() {
+    this.taggedWords = this.taggerService.tagText(this.inputText);
   }
 }
