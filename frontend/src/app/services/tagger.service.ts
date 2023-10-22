@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TaggerService {
-  tagText(inputText: string): [string, string][] {
+  tagText(inputText: string, tagType: string): [string, string][] {
     const words = inputText.split(' ');
     return words.map((word, index) => [(index + 1).toString(), word]);
   }  

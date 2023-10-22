@@ -8,11 +8,13 @@ import { TaggerService } from '../services/tagger.service';
 })
 export class PosTaggerComponent {
   inputText: string = '';
+  tagType: string = 'pos'; // Default value
+  
   taggedWords: [string, string][] = [];
 
   constructor(private taggerService: TaggerService) {}
 
   tagText() {
-    this.taggedWords = this.taggerService.tagText(this.inputText);
+    this.taggedWords = this.taggerService.tagText(this.inputText, this.tagType);
   }
 }

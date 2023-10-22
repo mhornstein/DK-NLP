@@ -1,7 +1,13 @@
 <div class="tagger-container">
   <h2>Part of Speech Tagger</h2>
+  <label>
+    <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'pos'"> Part of Speech
+  </label>
+  <label>
+    <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'ner'"> Named Entity Recognition
+  </label>
   <textarea [(ngModel)]="inputText" placeholder="Enter text"></textarea>
-    <button (click)="tagText()">Tag</button>
+  <button (click)="tagText()">Tag</button>
   <div class="tagged-text">
     <span *ngFor="let tuple of taggedWords" class="tagged-word">
       <span class="tag">{{ tuple[0] }}</span>
