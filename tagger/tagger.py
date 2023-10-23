@@ -5,18 +5,9 @@ from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
 from itertools import zip_longest
 
-'''
-
-Example for config line:
-
-c model_c_pos.pth ./data/pos/test pos ./configs.json
-c model_c_ner.pth ./data/ner/test ner ./configs.json
-
-'''
-MODEL_FILE = sys.argv[2]
 INPUT_FILE = sys.argv[3]
 TASK = sys.argv[4]
-CONFIG_DICT = json.load(open(sys.argv[5]))
+CONFIG_DICT = json.load(open('./configs.json'))
 
 SENTENCE_END_TOKEN = '\n'
 DELIM = ' ' if TASK == 'pos' else '\t'
