@@ -65,10 +65,3 @@ class Tagger:
 
                 for word, tag in zip(words, tags):
                     print("{0} {1}".format(word, tag))
-
-if __name__ == '__main__':
-    pos_tagger = Tagger(model_path='./pos_model/model.pth', vocab_file='./pos_model/vocabs', dicts_file='./pos_model/dicts')
-    pos_tagger.tag("Influential members of the House Ways and Means Committee introduced legislation that would restrict how the new savings-and-loan bailout agency can raise capital, creating another potential obstacle to the government's sale of sick thrifts.")
-
-    ner_tagger = Tagger(model_path='./ner_model/model.pth', vocab_file='./ner_model/vocabs', dicts_file='./ner_model/dicts')
-    #ner_tagger.tag("Japan began the defense of their Asian Cup title with a lucky 2-1 win against Syria in a Group C championship match on Friday.")
