@@ -28,12 +28,10 @@ PADDING_VALUE = 0
 BATCH_SIZE = 1 # classify one sentence at a time
 
 # configs keys
-CONFIG_DICT = CONFIG_DICT[TASK][REPR]
+CONFIG_DICT = CONFIG_DICT[TASK]
 
 BILSTM_OUTPUT_DIM = CONFIG_DICT["bilstm_output_dim"]
 WORD_EMBEDDING_DIM = CONFIG_DICT["word_embedding_dim"]
-CHAR_EMBEDDING_DIM = CONFIG_DICT["char_embedding_dim"]
-CHAR_LSTM_OUTPUT_DIM = CONFIG_DICT["char_lstm_output_dim"]
 SUBWORDS_EMBEDDING_DIM = CONFIG_DICT["subwords_embedding_dim"]
 
 # train output file
