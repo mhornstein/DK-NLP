@@ -80,23 +80,6 @@ def create_features(sentences_x, x2i, unknown_token):
         train.append(indexes)
     return np.array(train, dtype=object)
 
-def create_chars_tensor(sentences_words, c2i, max_chars_in_word):
-    '''
-    Converts a list of words into 3-dim tensor.
-    Note: unseen chars will be set to the char DEFAULT_FOR_UNKNOWN_CHAR by default
-    '''
-    train_chars_features = [[[c2i[c] if c in c2i else c2i[DEFAULT_FOR_UNKNOWN_CHAR] for c in word] for word in sentence] for sentence in sentences_words]
-    sentences_dim = len(sentences_words)
-    words_dim = max([len(s) for s in sentences_words])
-
-    features = np.zeros((sentences_dim, words_dim, max_chars_in_word), dtype=int)
-
-    for i, words in enumerate(train_chars_features):
-        for j, chars in enumerate(words):
-            features[i, j, :len(chars)] = np.array(chars)
-
-    return torch.LongTensor(features)
-
 ################
 
 # Step #1: load models and vocabs
@@ -107,7 +90,6 @@ vocabs = torch.load(VOCABS_FILE)
 vocab = vocabs['vocab']
 prefix_vocab = vocabs['prefix_vocab']
 suffix_vocab = vocabs['suffix_vocab']
-char_vocab = vocabs['char_vocab']
 
 dicts = torch.load(DICTS_FILE)
 w2i = dicts['w2i']
@@ -116,8 +98,6 @@ p2i = dicts['p2i']
 i2p = dicts['i2p']
 s2i = dicts['s2i']
 i2s = dicts['i2s']
-c2i = dicts['c2i']
-i2c = dicts['i2c']
 t2i = dicts['t2i']
 i2t = dicts['i2t']
 
