@@ -13,8 +13,6 @@ c model_c_pos.pth ./data/pos/test pos ./configs.json
 c model_c_ner.pth ./data/ner/test ner ./configs.json
 
 '''
-
-REPR = sys.argv[1]
 MODEL_FILE = sys.argv[2]
 INPUT_FILE = sys.argv[3]
 TASK = sys.argv[4]
@@ -136,44 +134,15 @@ i2t = dicts['i2t']
 sentences_words, sentences_prefixes, sentences_suffixes = load_unlabeled_data(INPUT_FILE)
 sentences_length = [len(sentence) for sentence in sentences_words]
 
-if REPR == 'a':
-    words_features = create_features(sentences_words, w2i, UNKNOWN_TOKEN)
-    test_data_set = TensorDataset(lists_to_padded_tensor(words_features),
-                                   torch.LongTensor(np.array(sentences_length)))
-    test_data_loader = DataLoader(dataset=test_data_set, batch_size=BATCH_SIZE, shuffle=False)
-elif REPR == 'b':
-    max_chars_in_word = MAX_WORD_LENTGH_POS if TASK == 'pos' else MAX_WORD_LENTGH_NER #max word in train set for pos and ner tasks
-    chars_tensor = create_chars_tensor(sentences_words, c2i, max_chars_in_word)
+words_features = create_features(sentences_words, w2i, UNKNOWN_TOKEN)
+prefix_features = create_features(sentences_prefixes, p2i, UNKNOWN_TOKEN[:3])
+suffix_features = create_features(sentences_suffixes, s2i, UNKNOWN_TOKEN[-3:])
 
-    test_data_set = TensorDataset(chars_tensor,
-                                  torch.LongTensor(np.array(sentences_length)))
-    test_data_loader = DataLoader(dataset=test_data_set, batch_size=BATCH_SIZE, shuffle=False)
-
-elif REPR == 'c':
-    words_features = create_features(sentences_words, w2i, UNKNOWN_TOKEN)
-    prefix_features = create_features(sentences_prefixes, p2i, UNKNOWN_TOKEN[:3])
-    suffix_features = create_features(sentences_suffixes, s2i, UNKNOWN_TOKEN[-3:])
-
-    test_data_set = TensorDataset(lists_to_padded_tensor(words_features),
-                                   lists_to_padded_tensor(prefix_features),
-                                   lists_to_padded_tensor(suffix_features),
-                                   torch.LongTensor(np.array(sentences_length)))
-    test_data_loader = DataLoader(dataset=test_data_set, batch_size=BATCH_SIZE, shuffle=False)
-
-elif REPR == 'd':
-    words_features = create_features(sentences_words, w2i, UNKNOWN_TOKEN)
-
-    max_chars_in_word = MAX_WORD_LENTGH_POS if TASK == 'pos' else MAX_WORD_LENTGH_NER #max word in train set for pos and ner tasks
-    chars_tensor = create_chars_tensor(sentences_words, c2i, max_chars_in_word)
-
-    test_data_set = TensorDataset(lists_to_padded_tensor(words_features),
-                                   chars_tensor,
-                                   torch.LongTensor(np.array(sentences_length)))
-    test_data_loader = DataLoader(dataset=test_data_set, batch_size=BATCH_SIZE, shuffle=False)
-
-else:
-    raise Exception("Unknown representation: " + REPR)
-
+test_data_set = TensorDataset(lists_to_padded_tensor(words_features),
+                               lists_to_padded_tensor(prefix_features),
+                               lists_to_padded_tensor(suffix_features),
+                               torch.LongTensor(np.array(sentences_length)))
+test_data_loader = DataLoader(dataset=test_data_set, batch_size=BATCH_SIZE, shuffle=False)
 
 # Step #3: Start predicting
 f = open("./test4." + TASK, "w")
