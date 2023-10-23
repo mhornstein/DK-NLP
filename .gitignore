@@ -42,3 +42,8 @@ frontend/typings
 # System files
 frontend/.DS_Store
 frontend/Thumbs.db
+
+######################
+# Ignoring dal files #
+######################
+/dal/.idea
