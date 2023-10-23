@@ -21,7 +21,42 @@ if COLLECTION_NAME not in db.list_collection_names(): # Create the 'history' col
     db.create_collection(COLLECTION_NAME)
 history_collection = db[COLLECTION_NAME]
 
-# Endpoint to add data to the database
+def validate_entry_data(data):
+    '''
+    Validates the structure and content of input data for an entry.
+
+    Parameters:
+        data (dict): The input data to be validated.
+
+    Returns:
+        str or None: If validation fails, returns an error message. If validation passes, returns None.
+    '''
+    if not isinstance(data, dict):
+        return 'Data must be a JSON object'
+
+    if len(data) != 2:
+        return 'Data must have exactly two keys: date and tagged_sentence'
+
+    if 'date' not in data or 'tagged_sentence' not in data:
+        return 'Data must include both date and tagged_sentence'
+
+    try:
+        date = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')
+    except ValueError:
+        return 'Invalid date format. Date should be in the format: 2023-10-24T14:30:00+00:00'
+
+    if not isinstance(data['tagged_sentence'], list):
+        return 'tagged_sentence must be a list of lists'
+
+    if len(data['tagged_sentence']) > 250:
+        return 'tagged_sentence cannot have more than 250 elements'
+
+    for item in data['tagged_sentence']:
+        if not (isinstance(item, list) and len(item) == 2 and all(isinstance(el, str) for el in item)):
+            return 'tagged_sentence should be a list of lists, each containing two strings'
+
+    return None
+
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
     '''
@@ -32,16 +67,17 @@ def add_entry():
     '''
     try:
         data = request.get_json()
-        if 'date' in data and 'tagged_sentence' in data:
-            data['date'] = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z') # Parse the date string into a datetime object
-            history_collection.insert_one(data)
-            return jsonify({'message': 'Tag added successfully'}), 201
-        else:
-            return jsonify({'error': 'Invalid JSON format'}), 400
+        error_message = validate_entry_data(data)
+
+        if error_message:
+            return jsonify({'error': error_message}), 400
+
+        data['date'] = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')  # Parse the date string into a datetime object
+        history_collection.insert_one(data)
+        return jsonify({'message': 'Tag added successfully'}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# Endpoint to fetch data from the database
 @app.route('/fetch_entries', methods=['GET'])
 def fetch_entries():
     '''
