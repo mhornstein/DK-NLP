@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from datetime import datetime
 import sys
+from bson import ObjectId
 
 app = Flask(__name__)
 
@@ -86,16 +87,16 @@ def fetch_entries():
     - 'entry_id' (optional): The ID of the entry from which to start fetching.
     - 'num_entries' (optional): The number of entries to fetch. Default is 10 entries.
     Example usage with 'curl':
-    curl http://localhost:5000/fetch_entries
-    curl http://localhost:5000/fetch_entries?entry_id=<entry_id>&num_entries=<number>
+    curl "http://localhost:5000/fetch_entries"
+    curl "http://localhost:5000/fetch_entries?entry_id=<entry_id>&num_entries=<number>"
     '''
     try:
         entry_id = request.args.get('entry_id')
-        num_entries_to_fetch = int(request.args.get('num_entries_to_fetch', 10))
+        num_entries_to_fetch = int(request.args.get('num_entries', 10))
 
         query = {}
         if entry_id:
-            query['_id'] = {'$lt': entry_id}
+            query['_id'] = {'$lt': ObjectId(entry_id)}
 
         entries = list(history_collection.find(query).sort([('_id', -1)]).limit(num_entries_to_fetch))
         result = [{"_id": str(entry['_id']), "date": entry['date'], "tagged_sentence": entry['tagged_sentence']} for entry in entries]
