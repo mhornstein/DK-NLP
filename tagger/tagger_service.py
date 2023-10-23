@@ -7,9 +7,10 @@ from torch.utils.data import TensorDataset, DataLoader
 nltk.download('punkt')  # Download the NLTK data required for tokenization
 UNKNOWN_TOKEN = '<UNK>'
 PADDING_VALUE = 0
+MAX_SENTENCE_LENGTH = 100
 
 class Tagger:
-    def __init__(self, model_path, vocab_file, dicts_file, max_sent_length):
+    def __init__(self, model_path, vocab_file, dicts_file):
         self.model = torch.load(model_path)
         self.model.eval()
 
@@ -27,8 +28,6 @@ class Tagger:
         self.i2s = dicts['i2s']
         self.i2t = dicts['i2t']
 
-        self.max_sent_length = max_sent_length
-
     def create_features(self, sentences_x, x2i, unknown_token):
         indexes = [x2i[xj] if xj in x2i else x2i[unknown_token] for xj in sentences_x]
         return np.array([indexes], dtype='int32')
@@ -41,8 +40,8 @@ class Tagger:
         tokens = word_tokenize(sent)
         sent_length = len(tokens)
 
-        if sent_length >= self.max_sent_length:
-            raise Exception(f'Sentence is too long: it contains {sent_length} tokens: {sent}')
+        if sent_length >= MAX_SENTENCE_LENGTH:
+            raise Exception(f'Sentence is too long - it contains {sent_length} tokens while maximum allowed is {MAX_SENTENCE_LENGTH}: {sent}')
 
         sentence_words = tokens
         sentence_prefixes = [t[:3] for t in tokens]
@@ -68,10 +67,8 @@ class Tagger:
                     print("{0} {1}".format(word, tag))
 
 if __name__ == '__main__':
-    pos_tagger = Tagger(model_path='./pos_model/model.pth', vocab_file='./pos_model/vocabs',
-                        dicts_file='./pos_model/dicts', max_sent_length=54)
+    pos_tagger = Tagger(model_path='./pos_model/model.pth', vocab_file='./pos_model/vocabs', dicts_file='./pos_model/dicts')
     pos_tagger.tag("Influential members of the House Ways and Means Committee introduced legislation that would restrict how the new savings-and-loan bailout agency can raise capital, creating another potential obstacle to the government's sale of sick thrifts.")
 
-    ner_tagger = Tagger(model_path='./ner_model/model.pth', vocab_file='./ner_model/vocabs',
-                        dicts_file='./ner_model/dicts', max_sent_length=61)
+    ner_tagger = Tagger(model_path='./ner_model/model.pth', vocab_file='./ner_model/vocabs', dicts_file='./ner_model/dicts')
     #ner_tagger.tag("Japan began the defense of their Asian Cup title with a lucky 2-1 win against Syria in a Group C championship match on Friday.")
