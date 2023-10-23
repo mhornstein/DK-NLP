@@ -85,20 +85,26 @@ def fetch_entries():
     To fetch tagged entries, send a GET request to this endpoint.
     You can provide the 'entry_id' and 'num_entries' query parameters to customize the query.
     - 'entry_id' (optional): The ID of the entry from which to start fetching.
-    - 'num_entries' (optional): The number of entries to fetch. Default is 10 entries.
+    - 'num_entries' (optional): The maximal number of entries to fetch (with regard to the db capacity). Default is 10 entries.
     Example usage with 'curl':
     curl "http://localhost:5000/fetch_entries"
     curl "http://localhost:5000/fetch_entries?entry_id=<entry_id>&num_entries=<number>"
     '''
     try:
         entry_id = request.args.get('entry_id')
-        num_entries_to_fetch = int(request.args.get('num_entries', 10))
+        num_entries = int(request.args.get('num_entries', 10))
+
+        if not isinstance(num_entries, int) or num_entries <= 0:
+            return jsonify({'error': "num_entries must be a positive integer."}), 400
+
+        if entry_id is not None and not history_collection.find_one({"_id": ObjectId(entry_id)}):
+            return jsonify({'error': "entry_id not found in the database."}), 400
 
         query = {}
         if entry_id:
             query['_id'] = {'$lt': ObjectId(entry_id)}
 
-        entries = list(history_collection.find(query).sort([('_id', -1)]).limit(num_entries_to_fetch))
+        entries = list(history_collection.find(query).sort([('_id', -1)]).limit(num_entries))
         result = [{"_id": str(entry['_id']), "date": entry['date'], "tagged_sentence": entry['tagged_sentence']} for entry in entries]
 
         return jsonify(result), 200
