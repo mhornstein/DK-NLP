@@ -37,8 +37,8 @@ CHAR_LSTM_OUTPUT_DIM = CONFIG_DICT["char_lstm_output_dim"]
 SUBWORDS_EMBEDDING_DIM = CONFIG_DICT["subwords_embedding_dim"]
 
 # train output file
-VOCABS_FILE = f'./output_{REPR}_{TASK}/vocabs'
-DICTS_FILE = f'./output_{REPR}_{TASK}/dicts'
+VOCABS_FILE = f'./{TASK}_model/vocabs'
+DICTS_FILE = f'./{TASK}_model/dicts'
 
 # Note: this length can be of words that were in train set but not in vocab.
 # The reason: char training took all words into account
@@ -112,7 +112,7 @@ def create_chars_tensor(sentences_words, c2i, max_chars_in_word):
 ################
 
 # Step #1: load models and vocabs
-model = torch.load(MODEL_FILE)
+model = torch.load(f'./{TASK}_model/model.pth')
 model.eval()
 
 vocabs = torch.load(VOCABS_FILE)
