@@ -58,10 +58,10 @@ class Tagger:
         test_data_loader = DataLoader(dataset=test_data_set, batch_size=1, shuffle=False)
 
         with torch.no_grad():
-            for words, batch in zip([sentence_words], test_data_loader):
-                output = self.model(*batch)
-                prediction = np.argmax(output, axis=-1)
-                tags = [self.i2t[pred.item()] for pred in prediction[0]]
+            batch = next(iter(test_data_loader))
+            output = self.model(*batch)
+            prediction = np.argmax(output, axis=-1)
+            tags = [self.i2t[pred.item()] for pred in prediction[0]]
 
-                for word, tag in zip(words, tags):
-                    print("{0} {1}".format(word, tag))
+            res = [list(pair) for pair in zip(sentence_words, tags)]
+            return res
