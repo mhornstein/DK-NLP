@@ -52,3 +52,4 @@ frontend/Thumbs.db
 # Ignoring tagger files #
 #########################
 /tagger/.idea
+/tagger/__pycache__/*.pyc
