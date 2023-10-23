@@ -47,3 +47,8 @@ frontend/Thumbs.db
 # Ignoring dal files #
 ######################
 /dal/.idea
+
+#########################
+# Ignoring tagger files #
+#########################
+/tagger/.idea
