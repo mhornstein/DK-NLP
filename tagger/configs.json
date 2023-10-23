@@ -1,0 +1,78 @@
+{
+	"pos": {
+		"a": {
+			"lr": 0.001,
+			"bilstm_output_dim": 85,
+			"word_embedding_dim": 50,
+			"char_embedding_dim": null,
+			"char_lstm_output_dim": null,
+			"subwords_embedding_dim": null,
+			"train_batch_size": 100
+		},
+		"b": {
+			"lr": 0.001,
+			"bilstm_output_dim": 180,
+			"word_embedding_dim": null,
+			"char_embedding_dim": 8,
+			"char_lstm_output_dim": 45,
+			"subwords_embedding_dim": null,
+			"train_batch_size": 100
+		},
+		"c": {
+			"lr": 0.001,
+			"bilstm_output_dim": 128,
+			"word_embedding_dim": 50,
+			"char_embedding_dim": null,
+			"char_lstm_output_dim": null,
+			"subwords_embedding_dim": 50,
+			"train_batch_size": 100
+		},
+		"d": {
+			"lr": 0.001,
+			"bilstm_output_dim": 70,
+			"word_embedding_dim": 40,
+			"char_embedding_dim": 6,
+			"char_lstm_output_dim": 8,
+			"subwords_embedding_dim": null,
+			"train_batch_size": 100
+		}
+	},
+	"ner": {
+		"a": {
+			"lr": 0.002,
+			"bilstm_output_dim": 80,
+			"word_embedding_dim": 50,
+			"char_embedding_dim": null,
+			"char_lstm_output_dim": null,
+			"subwords_embedding_dim": null,
+			"train_batch_size": 50
+		},
+		"b": {
+			"lr": 0.002,
+			"bilstm_output_dim": 256,
+			"word_embedding_dim": null,
+			"char_embedding_dim": 128,
+			"char_lstm_output_dim": 256,
+			"subwords_embedding_dim": null,
+			"train_batch_size": 50
+		},
+		"c": {
+			"lr": 0.002,
+			"bilstm_output_dim": 128,
+			"word_embedding_dim": 128,
+			"char_embedding_dim": null,
+			"char_lstm_output_dim": null,
+			"subwords_embedding_dim": 128,
+			"train_batch_size": 100
+		},
+		"d": {
+			"lr": 0.002,
+			"bilstm_output_dim": 80,
+			"word_embedding_dim": 50,
+			"char_embedding_dim": 6,
+			"char_lstm_output_dim": 10,
+			"subwords_embedding_dim": null,
+			"train_batch_size": 100
+		}
+	}
+}
