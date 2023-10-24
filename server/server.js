@@ -89,7 +89,7 @@ app.get('/fetch_entries', validateFetchEntriesRequest, async (req, res) => {
     const response = await axios.get(`http://127.0.0.1:5000/fetch_entries${queryParams}`);
     res.status(response.status).json(response.data);
   } catch (error) {
-    res.status(500).json({ error: 'Error in DAL service.', details: error.response.data });
+    res.status(500).json({ error: 'Error in DAL service.', details: extractErrorDetails(error) });
   }
 });
 
