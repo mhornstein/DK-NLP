@@ -53,3 +53,8 @@ frontend/Thumbs.db
 #########################
 /tagger/.idea
 /tagger/__pycache__/*.pyc
+
+#########################
+# Ignoring server files #
+#########################
+/server/node_modules
