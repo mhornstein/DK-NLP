@@ -46,30 +46,33 @@ function extractErrorDetails(error) {
 // Routes
 app.get('/tag', validateTagSentenceRequest, async (req, res) => {
   const { mode, sentence } = req.query;
+  let response;
   try {
-    const response = await axios.get(`http://127.0.0.1:4000/tag?mode=${mode}&sentence=${encodeURIComponent(sentence)}`);
+    response = await axios.get(`http://127.0.0.1:4000/tag?mode=${mode}&sentence=${encodeURIComponent(sentence)}`);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error in tagging service.', details: extractErrorDetails(error) });
+  }
 
-    // Prepare data for the POST request to DAL layer
-    const now = new Date();
-    const date = formatISO(now, { representation: 'complete' });
-    const tagged_sentence = response.data.result;
+  // update the history in the db with the new tagging
+  const now = new Date();
+  const date = formatISO(now, { representation: 'complete' });
+  const tagged_sentence = response.data.result;
 
-    const postData = {
-      date,
-      mode,
-      tagged_sentence,
-    };
+  const postData = {
+    date,
+    mode,
+    tagged_sentence,
+  };
 
-    // Send a POST request to the DAL layer
+  try {
     const dalResponse = await axios.post('http://127.0.0.1:5000/add_entry', postData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
-    res.status(response.status).json(response.data);
+    return res.status(response.status).json(tagged_sentence);
   } catch (error) {
-    res.status(500).json({ error: 'Error in tagging service.', details: extractErrorDetails(error) });
+    return res.status(500).json({ error: 'Error in DAL service. Sentence was tagged but not logged.', details: extractErrorDetails(error), tagged_sentence: tagged_sentence});
   }
 });
 
