@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const { formatISO } = require('date-fns');
 
 const app = express();
 const port = 3000;
@@ -32,14 +33,43 @@ function validateFetchEntriesRequest(req, res, next) {
   }
 }
 
+function extractErrorDetails(error) {
+  let details = (error.response && error.response.data) || error.message;
+  
+  if (!details) {
+    details = "An unknown error occurred.";
+  }
+
+  return details;
+}
+
 // Routes
 app.get('/tag', validateTagSentenceRequest, async (req, res) => {
   const { mode, sentence } = req.query;
   try {
     const response = await axios.get(`http://127.0.0.1:4000/tag?mode=${mode}&sentence=${encodeURIComponent(sentence)}`);
+
+    // Prepare data for the POST request to DAL layer
+    const now = new Date();
+    const date = formatISO(now, { representation: 'complete' });
+    const tagged_sentence = response.data.result;
+
+    const postData = {
+      date,
+      mode,
+      tagged_sentence,
+    };
+
+    // Send a POST request to the DAL layer
+    const dalResponse = await axios.post('http://127.0.0.1:5000/add_entry', postData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
     res.status(response.status).json(response.data);
   } catch (error) {
-    res.status(500).json({ error: 'Error in tagging service.', details: error.response.data });
+    res.status(500).json({ error: 'Error in tagging service.', details: extractErrorDetails(error) });
   }
 });
 
