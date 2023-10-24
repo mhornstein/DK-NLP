@@ -69,6 +69,13 @@ def add_entry():
     '''
     To add a new tag, send a POST request to this endpoint with JSON data containing a date and tagged_sentence.
 
+    Parameters:
+        - date (str, required): A date in ISO 8601 format with timezone information (e.g., "2023-10-24T14:30:00+00:00").
+        - mode (str, required): A string specifying the tagging mode, either "ner" (Named Entity Recognition) or "pos" (Part-of-Speech tagging).
+        - tagged_sentence (list of lists, required): A list of tagged words, where each inner list contains two elements:
+            - The first element is a tag (str).
+            - The second element is the corresponding word (str).
+
     Example for Curl command:
         curl -X POST -H "Content-Type: application/json" -d "{\"date\":\"2023-10-24T14:30:00+00:00\",\"mode\":\"ner\",\"tagged_sentence\":[[\"tag11\",\"word1\"],[\"tag2\",\"word2\"]]}" http://localhost:5000/add_entry
     '''
@@ -93,9 +100,9 @@ def fetch_entries():
     To fetch tagged entries, send a GET request to this endpoint.
 
     Query Parameters:
-    - 'entry_id' (optional): The ID of the entry from which to start fetching.
-    - 'num_entries' (optional): The maximum number of entries to fetch (with regard to the db capacity). Default is 10 entries.
-    - 'mode' (mandatory): The tagging mode to filter entries by. Options are "ner" or "pos."
+    - entry_id (hex number, optional): The ID of the entry from which to start fetching.
+    - num_entries (int, optional): The maximum number of entries to fetch (with regard to the db capacity). Default is 10 entries.
+    - mode (string, required): The tagging mode to filter entries by. Options are "ner" or "pos."
 
     Example Usage with 'curl':
     - Retrieve 10 entries from a specific mode (e.g., "ner"):
