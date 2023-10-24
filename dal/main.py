@@ -11,7 +11,6 @@ mongo_url = sys.argv[1] if len(sys.argv) >= 2 else 'localhost'
 mongo_port = sys.argv[2] if len(sys.argv) >= 3 else '27017'
 MONGO_URI = f'mongodb://{mongo_url}:{mongo_port}/'
 client = MongoClient(MONGO_URI)
-print(f'Listening on: {MONGO_URI}')
 
 DB_NAME = "tags"
 
