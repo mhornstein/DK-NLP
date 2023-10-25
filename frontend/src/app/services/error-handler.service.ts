@@ -8,8 +8,17 @@ import { ErrorComponent } from '../error/error.component';
 export class ErrorHandlerService {
   constructor(private dialog: MatDialog) {}
 
-  handle(header: string, body: string) {
-    this.openErrorDialog(header, body);
+  handle(err: any) {
+    debugger
+    let header = '', body = '';
+    if (err.status === 0 || err.status === 503) { // server not responding
+      header = 'Server Unavailable'
+      body = `Please check the server connection. Details: ${err.message}`;
+    } else {
+      header = err.error.error;
+      body = err.error.details;
+    }
+    this.openErrorDialog(header, body);   
   }
 
   private openErrorDialog(header: string, body: string) {

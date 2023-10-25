@@ -22,7 +22,7 @@ export class TaggerComponent {
         },
         error: (err) => {
           console.error('Error while tagging text:', err);
-          this.errorHandlerService.handle(err.error.error, err.error.details);
+          this.errorHandlerService.handle(err);
         }
       });
   }
