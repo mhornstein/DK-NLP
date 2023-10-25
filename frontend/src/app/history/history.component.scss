@@ -20,4 +20,18 @@ table {
       color: black;
     }
   }
-  
+
+.reload-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.reload-button:hover {
+  background-color: #0056b3;
+}
