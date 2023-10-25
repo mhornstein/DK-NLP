@@ -8,6 +8,13 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // TODO - remove upon production!
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 // Middleware for request validation
 function validateTagSentenceRequest(req, res, next) {
   const { mode, sentence } = req.query;

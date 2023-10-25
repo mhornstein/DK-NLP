@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { DbService } from './db.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaggerService {
-  constructor(private dbService: DbService) {}
+  constructor(private http: HttpClient) {}
 
-  tagText(inputText: string, tagType: string): [string, string][] {
-    debugger
-    const words = inputText.split(' ');
-    const results: [string, string][] = words.map((word, index) => [(index + 1).toString(), word]);
-    this.dbService.addToDatabase(results);
-    return results;
-  }  
+  tagText(inputText: string, tagType: string): Observable<[string, string][]> {
+    const url = `http://127.0.0.1:3000/tag?mode=${tagType}&sentence=${encodeURIComponent(inputText)}`;
+    return this.http.get<[string, string][]>(url);
+  }
 }

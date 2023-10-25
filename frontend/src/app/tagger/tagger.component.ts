@@ -9,12 +9,20 @@ import { TaggerService } from '../services/tagger.service';
 export class TaggerComponent {
   inputText: string = '';
   tagType: string = 'pos'; // Default value
-  
   taggedWords: [string, string][] = [];
 
   constructor(private taggerService: TaggerService) {}
 
   tagText() {
-    this.taggedWords = this.taggerService.tagText(this.inputText, this.tagType);
+    this.taggerService.tagText(this.inputText, this.tagType)
+      .subscribe({
+        next: (result: [string, string][]) => {
+          this.taggedWords = result;
+        },
+        error: (error) => {
+          console.error('Error while tagging text:', error);
+          // Handle error as needed
+        }
+      });
   }
 }

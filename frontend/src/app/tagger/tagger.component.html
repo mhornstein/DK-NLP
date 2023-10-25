@@ -21,8 +21,8 @@
     <button (click)="tagText()">Tag</button>
     <div class="tagged-text">
       <span *ngFor="let tuple of taggedWords" class="tagged-word">
-        <span class="tag">{{ tuple[0] }}</span>
-        {{ tuple[1] }}
+        <span class="tag">{{ tuple[1] }}</span>
+        {{ tuple[0] }}
       </span>
     </div>
   </div>
