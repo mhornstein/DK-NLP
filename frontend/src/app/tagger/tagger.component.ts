@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TaggerService } from '../services/tagger.service';
+import { ErrorHandlerService } from '../services/error-handler.service';
 
 @Component({
   selector: 'app-tagger',
@@ -11,7 +12,7 @@ export class TaggerComponent {
   tagType: string = 'pos'; // Default value
   taggedWords: [string, string][] = [];
 
-  constructor(private taggerService: TaggerService) {}
+  constructor(private taggerService: TaggerService, private errorHandlerService: ErrorHandlerService) {}
 
   tagText() {
     this.taggerService.tagText(this.inputText, this.tagType)
@@ -21,7 +22,7 @@ export class TaggerComponent {
         },
         error: (error) => {
           console.error('Error while tagging text:', error);
-          // Handle error as needed
+          this.errorHandlerService.handle('a', 'b');
         }
       });
   }
