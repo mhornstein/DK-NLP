@@ -90,7 +90,20 @@ app.get('/tag', validateTagSentenceRequest, async (req, res) => {
     });
     return res.status(response.status).json(tagged_sentence);
   } catch (error) {
-    return res.status(500).json({ error: 'Error in DAL service. Sentence was tagged but not logged.', details: extractErrorDetails(error), tagged_sentence: tagged_sentence});
+    if (error.code == 'ECONNREFUSED') { // The service wasn't avaiable
+      return res.status(503).json({
+        error: 'DAL Service unavailable',
+        details: `Please check the DAL service connection. Details: ${error.message}`,
+        tagged_sentence: tagged_sentence
+      });
+    } else { // this is an error reported by the service
+      const errorDetails = extractErrorDetails(error);
+      return res.status(503).json({
+        error: 'Error reported by DAL Service',
+        details: errorDetails,
+        tagged_sentence: tagged_sentence
+      });
+    }
   }
 });
 

@@ -21,8 +21,13 @@ export class TaggerComponent {
           this.taggedWords = result;
         },
         error: (err) => {
-          console.error('Error while tagging text:', err);
-          this.errorHandlerService.handle(err);
+          if (err.status == 503) {
+            console.warn(`The sentence was processed but not logged. Error information:\n${err.error.details}`)
+            this.taggedWords = err.error.tagged_sentence;
+          } else {
+            console.error('Error while tagging text:', err);
+            this.errorHandlerService.handle(err);
+          }
         }
       });
   }
