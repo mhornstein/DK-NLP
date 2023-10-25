@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-error',
@@ -7,11 +7,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent {
-  @Input() header: string = '';
-  @Input() body: string = '';
+  header: string = '';
+  body: string = '';
   @Output() close = new EventEmitter<void>();
 
-  constructor(public dialogRef: MatDialogRef<ErrorComponent>) {}
+  constructor(public dialogRef: MatDialogRef<ErrorComponent>, @Inject(MAT_DIALOG_DATA) data: any) {
+    this.header = data.header;
+    this.body = data.body;
+  }
 
   closeError() {
     this.close.emit();

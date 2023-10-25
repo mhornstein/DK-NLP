@@ -20,9 +20,9 @@ export class TaggerComponent {
         next: (result: [string, string][]) => {
           this.taggedWords = result;
         },
-        error: (error) => {
-          console.error('Error while tagging text:', error);
-          this.errorHandlerService.handle('a', 'b');
+        error: (err) => {
+          console.error('Error while tagging text:', err);
+          this.errorHandlerService.handle(err.error.error, err.error.details);
         }
       });
   }
