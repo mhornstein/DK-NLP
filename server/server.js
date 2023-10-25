@@ -41,13 +41,13 @@ function validateFetchEntriesRequest(req, res, next) {
 }
 
 function extractErrorDetails(error) {
-  let details = (error.response && error.response.data) || error.message;
-  
-  if (!details) {
-    details = "An unknown error occurred.";
+  let errorDetails = error.message;
+
+  if (error.response && error.response.data && error.response.data.error) {
+    errorDetails = error.response.data.error;
   }
 
-  return details;
+  return errorDetails;
 }
 
 // Routes
@@ -57,7 +57,18 @@ app.get('/tag', validateTagSentenceRequest, async (req, res) => {
   try {
     response = await axios.get(`http://127.0.0.1:4000/tag?mode=${mode}&sentence=${encodeURIComponent(sentence)}`);
   } catch (error) {
-    return res.status(500).json({ error: 'Error in tagging service.', details: extractErrorDetails(error) });
+    if (error.code == 'ECONNREFUSED') { // The service wasn't avaiable
+      return res.status(500).json({
+        error: 'Tagging Service unavailable',
+        details: `Please check the tagging service connection. Details: ${error.message}`
+      });
+    } else { // this is an error reported by the service
+      const errorDetails = extractErrorDetails(error);
+      return res.status(500).json({
+        error: 'Error reported by Tagging Service',
+        details: errorDetails
+      });
+    }
   }
 
   // update the history in the db with the new tagging
