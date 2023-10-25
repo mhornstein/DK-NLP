@@ -10,10 +10,10 @@
   <h2>Resently tagged Sentences</h2>
   <div class="radio-buttons">
     <label>
-      <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'pos'"> Part of Speech
+      <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'pos'" (ngModelChange)="loadHistory()"> Part of Speech
     </label>
     <label>
-      <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'ner'"> Named Entity Recognition
+      <input type="radio" name="tag-type" [(ngModel)]="tagType" [value]="'ner'" (ngModelChange)="loadHistory()"> Named Entity Recognition
     </label>
   </div>
 </div>
@@ -27,12 +27,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let sentence of historyData">
+      <tr *ngFor="let sentence of historyDataDict[tagType]">
         <td style="white-space: nowrap;">{{ sentence.date | date:'yyyy-MM-dd HH:mm:ss' }}</td>
         <td>
           <span *ngFor="let item of sentence.tagged_sentence">
-            <span style="color: #ff5733">{{ item[0] + ' ' }}</span>
-            <span style="color: black">{{ item[1] + ' ' }}</span>
+            <span style="color: #ff5733">{{ item[1] + ' ' }}</span>
+            <span style="color: black">{{ item[0] + ' ' }}</span>
           </span>
         </td>
       </tr>

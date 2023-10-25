@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HistoryData } from '../shared/history-data';
+import { HistoryService } from '../services/history.service';
 
 @Component({
   selector: 'app-history',
@@ -6,10 +8,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./history.component.scss', '../app.component.scss']
 })
 export class HistoryComponent {
-  historyData: any = [
-    {id: 1, date: '2014-03-12T13:37:27+00:00', tagged_sentence: [["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"],["1","hello"],["2","word"],["3","!"]]},
-    {id: 2, date: '2023-03-12T13:37:27+00:00', tagged_sentence: [["5","bye"],["7","bili"]]}
-  ];
+  historyDataDict: { [key: string]: HistoryData[] } = {
+    pos: [],
+    ner: [],
+  };
   tagType: string = 'pos'; // Default value
+
+  constructor(private historyService: HistoryService) {}
+  
+  ngOnInit(): void {
+    this.loadHistory();
+  }
+
+  loadHistory(): void {
+    debugger
+    const historyData = this.historyDataDict[this.tagType];
+    if (historyData.length === 0) { // If historyData is empty, call fetchHistory with just tagType
+      this.fetchHistory(historyData, this.tagType);
+    } else { // If historyData is not empty, get the last_id and call fetchHistory with both tagType and last_id - TODO: move it to loading button functionality
+      const lastItem = historyData[historyData.length - 1];
+      const lastId = lastItem._id;
+      this.fetchHistory(historyData, this.tagType, lastId);
+    }
+  }
+
+  private fetchHistory(historyData: HistoryData[], tagType: string, lastId?: string): void {
+    this.historyService.fetchHistory(tagType, lastId).subscribe((data: HistoryData[]) => {
+      debugger
+      historyData.push(...data);
+    });
+  }
 
 }
