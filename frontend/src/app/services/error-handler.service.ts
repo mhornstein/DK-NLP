@@ -21,7 +21,7 @@ export class ErrorHandlerService {
     this.openErrorDialog(header, body);   
   }
 
-  private openErrorDialog(header: string, body: string) {
+  public openErrorDialog(header: string, body: string) { // TODO: move to a service of its own (like: user-notification service)
     const dialogRef = this.dialog.open(ErrorComponent, {
       data: {
         header: header,
