@@ -39,5 +39,5 @@
     </tbody>
   </table>
 
-  <button class="reload-button" (click)="reloadHistory()">Load more</button>
+  <button class="reload-button" (click)="reloadHistory()" [disabled]="buttonDisabled[tagType]">Load more</button>
 </div>

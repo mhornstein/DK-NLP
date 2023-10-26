@@ -5,23 +5,25 @@ table {
   margin: 10px;
   margin: 0 auto;
   
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border: 1px solid #ccc;
-    }
-  
-    th {
-      background-color: #ff5733;
-      color: white;
-    }
-  
-    td {
-      color: black;
-    }
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ccc;
   }
 
+  th {
+    background-color: #ff5733;
+    color: white;
+  }
+
+  td {
+    color: black;
+  }
+}
+
 .reload-button {
+  position: relative; // Add relative positioning to the button container
+
   background-color: #007bff;
   color: #fff;
   padding: 12px 20px;
@@ -30,8 +32,34 @@ table {
   cursor: pointer;
   margin-top: 20px;
   transition: background-color 0.3s;
-}
 
-.reload-button:hover {
-  background-color: #0056b3;
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+
+    &::before {
+      content: "No history to load"; // Add the tooltip text
+      position: absolute;
+      top: -30px; // Adjust the distance from the button
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap; // Prevent line breaks in the tooltip text
+      background-color: #000;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 5px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    &:hover::before {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
