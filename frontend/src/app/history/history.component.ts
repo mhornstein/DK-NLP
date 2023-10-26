@@ -27,7 +27,6 @@ export class HistoryComponent {
   }
 
   loadHistory(): void {
-    debugger
     const historyData = this.historyDataDict[this.tagType];
     if (!this.buttonDisabled[this.tagType] && historyData.length === 0) { // If historyData is empty, call fetchHistory with just tagType
       this.fetchHistory(historyData, this.tagType).subscribe((history_added) => {
@@ -39,12 +38,15 @@ export class HistoryComponent {
   }
 
   reloadHistory() {
-    debugger
     if (this.buttonDisabled[this.tagType] == true) {
       console.error('No history can be reloaded when button is disabled');
-      return
+      return;
     }
     const historyData = this.historyDataDict[this.tagType];
+    if (historyData.length == 0) {
+      console.error('Something went wrong: cannot reload history from empty history list');
+      return;
+    }
     const lastItem = historyData[historyData.length - 1];
     const lastId = lastItem._id;
     this.fetchHistory(historyData, this.tagType, lastId).subscribe((history_added) => {
