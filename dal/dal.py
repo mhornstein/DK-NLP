@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from datetime import datetime
 import sys
 from bson import ObjectId
+import messages as messages
 
 app = Flask(__name__)
 
@@ -13,6 +14,8 @@ MONGO_URI = f'mongodb://{mongo_url}:{mongo_port}/'
 client = MongoClient(MONGO_URI)
 
 DB_NAME = "tags"
+NER_COLLECTION = "ner_collection"
+POS_COLLECTION = "pos_collection"
 
 db = client[DB_NAME]  # create the "tags" database if it doesn't exist
 
@@ -21,8 +24,8 @@ def create_collection_if_not_exists(collection_name):
         db.create_collection(collection_name)
 
 # Create collections for 'ner' and 'pos'
-create_collection_if_not_exists("ner_collection")
-create_collection_if_not_exists("pos_collection")
+create_collection_if_not_exists(NER_COLLECTION)
+create_collection_if_not_exists(POS_COLLECTION)
 
 def validate_entry_data(data):
     '''
@@ -35,32 +38,32 @@ def validate_entry_data(data):
         str or None: If validation fails, returns an error message. If validation passes, returns None.
     '''
     if not isinstance(data, dict):
-        return 'Data must be a JSON object'
+        return messages.INVALID_JSON_OBJECT
 
     if len(data) != 3:
-        return 'Data must have exactly three keys: mode, date, tagged_sentence'
+        return messages.INVALID_DATA_KEYS
 
     data_keys = list(data.keys())
     if not all(key in data_keys for key in ['mode', 'date', 'tagged_sentence']):
-        return 'Data keys must include the following keys: mode, date, tagged_sentence'
+        return messages.INVALID_DATA_KEYS
 
     if data['mode'] not in ['ner', 'pos']:
-        return 'Invalid mode. Mode should be either "ner" or "pos'
+        return messages.INVALID_MODE
 
     try:
         date = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')
     except ValueError:
-        return 'Invalid date format. Date should be in the format: 2023-10-24T14:30:00+00:00'
+        return messages.INVALID_DATE_FORMAT
 
     if not isinstance(data['tagged_sentence'], list):
-        return 'tagged_sentence must be a list of lists'
+        return messages.INVALID_TAGGED_SENTENCE_TYPE
 
     if len(data['tagged_sentence']) > 250:
-        return 'tagged_sentence cannot have more than 250 elements'
+        return messages.TAGGED_SENTENCE_LENGTH_EXCEEDED
 
     for item in data['tagged_sentence']:
         if not (isinstance(item, list) and len(item) == 2 and all(isinstance(el, str) for el in item)):
-            return 'tagged_sentence should be a list of lists, each containing two strings'
+            return messages.INVALID_TAGGED_SENTENCE_STRUCTURE
 
     return None
 
@@ -90,7 +93,7 @@ def add_entry():
         data['date'] = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')  # Parse the date string into a datetime object
         history_collection = db['ner_collection'] if mode == 'ner' else db['pos_collection']
         history_collection.insert_one(data)
-        return jsonify({'message': 'Tag added successfully'}), 201
+        return jsonify({'message': messages.TAG_ADDED_SUCCESSFULLY}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -117,15 +120,15 @@ def fetch_entries():
         mode = request.args.get('mode')
 
         if not isinstance(num_entries, int) or num_entries <= 0:
-            return jsonify({'error': "num_entries must be a positive integer."}), 400
+            return jsonify({'error': messages.NUM_ENTRIES_INVALID}), 400
 
         if mode is None or mode not in ['ner', 'pos']:
-            return jsonify({'error': 'Invalid mode: Mode is mandatory and should be either "ner" or "pos"'}), 400
+            return jsonify({'error': messages.INVALID_MODE_PARAMETER}), 400
 
         history_collection = db[mode + '_collection']
 
         if entry_id is not None and not history_collection.find_one({"_id": ObjectId(entry_id)}):
-            return jsonify({'error': "entry_id not found in the database."}), 400
+            return jsonify({'error': messages.ENTRY_ID_NOT_FOUND}), 400
 
         query = {}
         if entry_id:
