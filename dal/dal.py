@@ -91,7 +91,7 @@ def add_entry():
 
         mode = data['mode']
         data['date'] = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')  # Parse the date string into a datetime object
-        history_collection = db['ner_collection'] if mode == 'ner' else db['pos_collection']
+        history_collection = db[NER_COLLECTION] if mode == 'ner' else db[POS_COLLECTION]
         history_collection.insert_one(data)
         return jsonify({'message': messages.TAG_ADDED_SUCCESSFULLY}), 201
     except Exception as e:
