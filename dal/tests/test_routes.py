@@ -111,5 +111,46 @@ class TestAddEntryEndpoint(unittest.TestCase):
         self.assertIn('error', data)
         self.assertEqual(data['error'], messages.INVALID_DATE_FORMAT)
 
+    def test_missing_tagged_sentence(self):
+        invalid_data = {
+            'date': '2023-10-24T14:30:00+00:00',
+            'mode': 'pos'
+        }
+
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_DATA_KEYS)
+
+    def test_invalid_tagged_sentence_structure(self):
+        invalid_data = {
+            'date': '2023-10-24T14:30:00+00:00',
+            'mode': 'pos',
+            'tagged_sentence': [['tag1', 'word1'], ['tag2', 'word2', 'extra']]
+        }
+
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_TAGGED_SENTENCE_STRUCTURE)
+
+    def test_invalid_tagged_sentence_element(self):
+        invalid_data = {
+            'date': '2023-10-24T14:30:00+00:00',
+            'mode': 'pos',
+            'tagged_sentence': [['tag1', 'word1'], ['tag2', 123]]
+        }
+
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_TAGGED_SENTENCE_STRUCTURE)
+
 if __name__ == '__main__':
     unittest.main()
