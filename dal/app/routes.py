@@ -1,31 +1,9 @@
-from flask import Flask, request, jsonify
-from pymongo import MongoClient
 from datetime import datetime
-import sys
+from flask import request, jsonify
 from bson import ObjectId
-import messages as messages
-
-app = Flask(__name__)
-
-# MongoDB Configuration
-mongo_url = sys.argv[1] if len(sys.argv) >= 2 else 'localhost'
-mongo_port = sys.argv[2] if len(sys.argv) >= 3 else '27017'
-MONGO_URI = f'mongodb://{mongo_url}:{mongo_port}/'
-client = MongoClient(MONGO_URI)
-
-DB_NAME = "tags"
-NER_COLLECTION = "ner_collection"
-POS_COLLECTION = "pos_collection"
-
-db = client[DB_NAME]  # create the "tags" database if it doesn't exist
-
-def create_collection_if_not_exists(collection_name):
-    if collection_name not in db.list_collection_names():
-        db.create_collection(collection_name)
-
-# Create collections for 'ner' and 'pos'
-create_collection_if_not_exists(NER_COLLECTION)
-create_collection_if_not_exists(POS_COLLECTION)
+from app import app
+import app.messages as messages
+from app.db_util import get_collection
 
 def validate_entry_data(data):
     '''
@@ -91,7 +69,7 @@ def add_entry():
 
         mode = data['mode']
         data['date'] = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')  # Parse the date string into a datetime object
-        history_collection = db[NER_COLLECTION] if mode == 'ner' else db[POS_COLLECTION]
+        history_collection = get_collection(mode)
         history_collection.insert_one(data)
         return jsonify({'message': messages.TAG_ADDED_SUCCESSFULLY}), 201
     except Exception as e:
@@ -125,7 +103,7 @@ def fetch_entries():
         if mode is None or mode not in ['ner', 'pos']:
             return jsonify({'error': messages.INVALID_MODE_PARAMETER}), 400
 
-        history_collection = db[mode + '_collection']
+        history_collection = get_collection(mode)
 
         if entry_id is not None and not history_collection.find_one({"_id": ObjectId(entry_id)}):
             return jsonify({'error': messages.ENTRY_ID_NOT_FOUND}), 400
@@ -141,6 +119,3 @@ def fetch_entries():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)

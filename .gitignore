@@ -58,3 +58,6 @@ frontend/Thumbs.db
 # Ignoring server files #
 #########################
 /server/node_modules
+/dal/__pycache__/*.pyc
+/dal/app/__pycache__/*.pyc
+/dal/tests/__pycache__/*.pyc
