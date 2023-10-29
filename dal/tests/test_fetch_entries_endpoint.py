@@ -76,6 +76,19 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json(), {'error': messages.NUM_ENTRIES_INVALID})
 
+    @patch('app.routes.get_collection')
+    def test_valid_entry_id(self, mock_get_collection):
+        mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
+             "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
+
+        mock_get_collection.return_value.find_one.return_value = 'some returned value'
+        mock_get_collection.return_value.find.return_value.sort.return_value.limit.return_value = mocked_db_entry
+
+        # Make a valid request
+        response = self.app.get('/fetch_entries?entry_id=653eac8162d523d831ddcf98&num_entries=5&mode=ner')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json(), mocked_db_entry)
 
 if __name__ == '__main__':
     unittest.main()
