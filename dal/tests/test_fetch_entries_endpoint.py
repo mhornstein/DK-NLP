@@ -26,5 +26,23 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json(), mocked_db_entry)
 
+    def test_missing_mode(self):
+        response = self.app.get('/fetch_entries')
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.get_json(), {'error': messages.INVALID_MODE_PARAMETER})
+
+    def test_wrong_mode(self):
+        response = self.app.get('/fetch_entries?mode=wrong_mode')
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.get_json(), {'error': messages.INVALID_MODE_PARAMETER})
+
+    def test_mode_as_number(self):
+        response = self.app.get('/fetch_entries?mode=123')
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.get_json(), {'error': messages.INVALID_MODE_PARAMETER})
+
 if __name__ == '__main__':
     unittest.main()
