@@ -94,10 +94,13 @@ def fetch_entries():
     '''
     try:
         entry_id = request.args.get('entry_id')
-        num_entries = int(request.args.get('num_entries', 10))
         mode = request.args.get('mode')
+        try:
+            num_entries = int(request.args.get('num_entries', 10))
+        except Exception as e:
+            return jsonify({'error': messages.NUM_ENTRIES_INVALID}), 400
 
-        if not isinstance(num_entries, int) or num_entries <= 0:
+        if num_entries <= 0:
             return jsonify({'error': messages.NUM_ENTRIES_INVALID}), 400
 
         if mode is None or mode not in ['ner', 'pos']:
