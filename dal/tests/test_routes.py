@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../')
+
 import unittest
 import json
 from unittest.mock import patch
@@ -95,7 +98,6 @@ class TestAddEntryEndpoint(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('error', data)
         self.assertEqual(data['error'], messages.INVALID_DATE_FORMAT)
-
 
     def test_date_as_number(self):
         invalid_data = {
