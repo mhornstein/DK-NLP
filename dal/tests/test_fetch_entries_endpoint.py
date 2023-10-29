@@ -90,5 +90,19 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json(), mocked_db_entry)
 
+    @patch('app.routes.get_collection')
+    def test_missing_entry_id(self, mock_get_collection):
+        mock_get_collection.return_value.find_one.return_value = None
+        response = self.app.get('/fetch_entries?entry_id=653eac8162d523d831ddcf98&num_entries=5&mode=ner')
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.get_json(), {'error': messages.ENTRY_ID_NOT_FOUND})
+
+    def test_invalid_entry_id(self):
+        response = self.app.get('/fetch_entries?entry_id=653eac8162d523d831ddcf9X&num_entries=5&mode=ner')
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.get_json(), {'error': messages.INVALID_ENTRY_ID_FORMAT})
+
 if __name__ == '__main__':
     unittest.main()

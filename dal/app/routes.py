@@ -4,6 +4,7 @@ from bson import ObjectId
 from app import app
 import app.messages as messages
 from app.db_util import get_collection
+import re
 
 def validate_entry_data(data):
     '''
@@ -44,6 +45,11 @@ def validate_entry_data(data):
             return messages.INVALID_TAGGED_SENTENCE_STRUCTURE
 
     return None
+
+objectid_pattern = re.compile(r'^[0-9a-fA-F]{24}$')
+
+def is_valid_objectid(entry_id):
+    return bool(objectid_pattern.match(entry_id))
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
@@ -105,6 +111,9 @@ def fetch_entries():
 
         if mode is None or mode not in ['ner', 'pos']:
             return jsonify({'error': messages.INVALID_MODE_PARAMETER}), 400
+
+        if entry_id is not None and not is_valid_objectid(entry_id):
+            return jsonify({'error': messages.INVALID_ENTRY_ID_FORMAT}), 400
 
         history_collection = get_collection(mode)
 
