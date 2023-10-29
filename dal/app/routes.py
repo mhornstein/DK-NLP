@@ -30,7 +30,7 @@ def validate_entry_data(data):
 
     try:
         date = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')
-    except ValueError:
+    except Exception:
         return messages.INVALID_DATE_FORMAT
 
     if not isinstance(data['tagged_sentence'], list):

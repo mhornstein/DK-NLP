@@ -69,5 +69,47 @@ class TestAddEntryEndpoint(unittest.TestCase):
         self.assertIn('error', data)
         self.assertEqual(data['error'], messages.INVALID_MODE)
 
+    def test_missing_date(self):
+        invalid_data = {
+            'mode': 'pos',
+            'tagged_sentence': [['tag11', 'word1'], ['tag2', 'word2']]
+        }
+
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_DATA_KEYS)
+
+    def test_wrong_date_format(self):
+        invalid_data = {
+            'date': '2023-10-24T14:30:00',  # Missing timezone information
+            'mode': 'pos',
+            'tagged_sentence': [['tag11', 'word1'], ['tag2', 'word2']]
+        }
+
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_DATE_FORMAT)
+
+
+    def test_date_as_number(self):
+        invalid_data = {
+            'date': 123,  # Date as a number
+            'mode': 'pos',
+            'tagged_sentence': [['tag11', 'word1'], ['tag2', 'word2']]
+        }
+
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_DATE_FORMAT)
+
 if __name__ == '__main__':
     unittest.main()
