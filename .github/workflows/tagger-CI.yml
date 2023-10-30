@@ -20,16 +20,15 @@ jobs:
       with:
         python-version: 3.10.8
 
-    - name: change directory to tagger
-      run: cd tagger
-
     - name: Install dependencies
       run: |
-        pip install -r ./requirements.txt
+        pip install -r ./tagger/requirements.txt
         pip install pytest
 
     - name: List files in the directory
       run: dir .
 
     - name: Run tests
-      run: python -m pytest -vv ./tests/
+      run: |
+        cd tagger
+        python -m pytest -vv ./tests/
