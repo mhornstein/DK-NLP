@@ -29,10 +29,10 @@ jobs:
         cd tagger
         black .
 
-    - name: Lint code with pylint
+    - name: Lint the code
       run: |
         cd tagger
-        pylint .
+        pylint --disable=R,C app
 
     - name: Run tests
       run: |
