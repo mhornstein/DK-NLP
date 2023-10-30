@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from app.tagger_util import get_tagger
 from app import app
+import app.messages as messages
 
 @app.route('/tag', methods=['GET'])
 def tag_sentence():
@@ -25,13 +26,13 @@ def tag_sentence():
     sentence = request.args.get('sentence')
 
     if mode is None or sentence is None:
-        return jsonify({'error': 'Both "mode" and "sentence" parameters are required.'}), 400
+        return jsonify({'error': messages.MODE_AND_SENTENCE_REQUIRED_ERROR}), 400
 
     if mode not in ['ner', 'pos']:
-        return jsonify({'error': 'Invalid "mode" parameter. It should be either "ner" or "pos".'}), 400
+        return jsonify({'error': messages.INVALID_MODE_ERROR}), 400
 
     if not isinstance(sentence, str) or len(sentence) < 1:
-        return jsonify({'error': 'The "sentence" parameter must be a string with a length of at least 1 character.'}), 400
+        return jsonify({'error': messages.INVALID_SENTENCE_LENGTH_ERROR}), 400
 
     try:
         tagger = get_tagger(mode)
