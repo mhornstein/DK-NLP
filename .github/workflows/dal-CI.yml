@@ -22,7 +22,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r ./tagger/requirements.txt
+        pip install -r ./dal/requirements.txt
 
     - name: Format code with black
       run: |
