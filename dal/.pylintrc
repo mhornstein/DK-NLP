@@ -1,0 +1,7 @@
+[MESSAGES CONTROL]
+# Ignore E1101 (Module 'torch' has no 'LongTensor' member) globally
+# Ignore W0603 (Using the global statement) globally
+# Ignore R (Refactor) and C (Convention) messages
+# Ignore W0703 (Catching too general exception Exception) in 'app/routes.py'
+# Ignore W0604 (Using the global statement at the module level) in 'app/tagger_util.py'
+disable=E1101,W0603,R,C,W0703,W0604

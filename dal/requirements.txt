@@ -1,2 +1,5 @@
 Flask==3.0.0
 pymongo==4.3.3
+pytest==7.4.3
+black==23.10.1
+pylint==2.9.6
