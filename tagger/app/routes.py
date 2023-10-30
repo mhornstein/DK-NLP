@@ -1,9 +1,6 @@
 from flask import request, jsonify
-from app.tagger import Tagger
+from app.tagger import pos_tagger, ner_tagger
 from app import app
-
-pos_tagger = Tagger(model_path='./models/pos_model/model.pth', vocab_file='./models/pos_model/vocabs', dicts_file='./models/pos_model/dicts')
-ner_tagger = Tagger(model_path='./models/ner_model/model.pth', vocab_file='./models/ner_model/vocabs', dicts_file='./models/ner_model/dicts')
 
 @app.route('/tag', methods=['GET'])
 def tag_sentence():
