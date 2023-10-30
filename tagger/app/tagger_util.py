@@ -90,8 +90,8 @@ class Tagger:
 # Though this approach wasn't used in the final implementation, the following serves as a clear example:
 # https://dev.to/reritom/unit-testing-pymongo-flask-applications-with-mongomock-and-patches-1m23
 
+global pos_tagger, ner_tagger
 pos_tagger, ner_tagger = None, None
-
 
 def get_tagger(mode):
     global pos_tagger, ner_tagger

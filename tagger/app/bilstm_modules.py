@@ -49,9 +49,9 @@ class BiLSTM_Tagger_C(nn.Module):
         )
         packed_embedded = pack_padded_sequence(embedded, text_lengths, batch_first=True)
 
-        output, (h_n, c_n) = self.lstm(packed_embedded)
+        output, _ = self.lstm(packed_embedded)
 
-        output_unpacked, output_lengths = pad_packed_sequence(output, batch_first=True)
+        output_unpacked, _ = pad_packed_sequence(output, batch_first=True)
 
         x = self.linear(output_unpacked)
         return x
