@@ -39,3 +39,15 @@ class TestTagEndpoint(unittest.TestCase):
         data = response.get_json()
         self.assertEqual(response.status_code, 400)
         self.assertEqual(data, {'error': messages.INVALID_MODE_ERROR})
+
+    def test_sentence_missing(self):
+        response = self.client.get('/tag?mode=pos')
+        data = response.get_json()
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data, {'error': messages.MODE_AND_SENTENCE_REQUIRED_ERROR})
+
+    def test_empty_sentence(self):
+        response = self.client.get('/tag?mode=pos&sentence=')
+        data = response.get_json()
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data, {'error': messages.INVALID_SENTENCE_LENGTH_ERROR})
