@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'tagger/**' # Trigger the workflow when there's a commit in the 'tagger' directory
+  workflow_dispatch: # This event allows manual triggering
 
 jobs:
   build-linux:
@@ -19,10 +20,10 @@ jobs:
         python-version: 3.10.8
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r tagger/requirements.txt
 
     - name: Run tests
-      run: pytest tagger/tests/
+      run: python -m pytest -vv tagger/tests/
 
   build-windows:
     runs-on: windows-latest
@@ -37,10 +38,10 @@ jobs:
         python-version: 3.10.8
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r tagger/requirements.txt
 
     - name: Run tests
-      run: pytest tagger/tests/
+      run: python -m pytest -vv tagger/tests/
 
   finalize:
     runs-on: ubuntu-latest
