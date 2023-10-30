@@ -7,31 +7,6 @@ on:
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-20.04
-
-    steps:
-  
-    - name: Check out code
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.10.8
-
-    - name: Install dependencies
-      run: |
-        cd tagger
-        pip install -r ./requirements.txt
-        pip install pytest
-
-    - name: List files in the directory
-      run: |
-        ls -R ./tagger
-
-    - name: Run tests
-      run: python -m pytest -vv ./tests/
 
   build-windows:
     runs-on: windows-latest
@@ -45,9 +20,11 @@ jobs:
       with:
         python-version: 3.10.8
 
+    - name: change directory to tagger
+      run: cd tagger
+
     - name: Install dependencies
       run: |
-        cd tagger
         pip install -r ./requirements.txt
         pip install pytest
 
