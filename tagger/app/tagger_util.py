@@ -71,6 +71,17 @@ class Tagger:
             res = [list(pair) for pair in zip(sentence_words, tags)]
             return res
 
+####################
 
-pos_tagger = Tagger(model_path='./models/pos_model/model.pth', vocab_file='./models/pos_model/vocabs', dicts_file='./models/pos_model/dicts')
-ner_tagger = Tagger(model_path='./models/ner_model/model.pth', vocab_file='./models/ner_model/vocabs', dicts_file='./models/ner_model/dicts')
+pos_tagger, ner_tagger = None, None
+
+def get_tagger(mode):
+    global pos_tagger, ner_tagger
+    if mode == 'pos':
+        if pos_tagger is None:
+            pos_tagger = Tagger(model_path='./models/pos_model/model.pth', vocab_file='./models/pos_model/vocabs', dicts_file='./models/pos_model/dicts')
+        return pos_tagger
+    else: # this is ner
+        if ner_tagger is None:
+            ner_tagger = Tagger(model_path='./models/ner_model/model.pth', vocab_file='./models/ner_model/vocabs', dicts_file='./models/ner_model/dicts')
+        return ner_tagger

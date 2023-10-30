@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from app.tagger import pos_tagger, ner_tagger
+from app.tagger_util import get_tagger
 from app import app
 
 @app.route('/tag', methods=['GET'])
@@ -34,10 +34,8 @@ def tag_sentence():
         return jsonify({'error': 'The "sentence" parameter must be a string with a length of at least 1 character.'}), 400
 
     try:
-        if mode == 'pos':
-            result = pos_tagger.tag(sentence)
-        else:
-            result = ner_tagger.tag(sentence)
+        tagger = get_tagger(mode)
+        result = tagger.tag(sentence)
 
         return jsonify({'result': result})
 
