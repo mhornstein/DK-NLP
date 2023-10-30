@@ -11,10 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: List files in the directory
-      run: |
-        dir tagger /s
-    
+  
     - name: Check out code
       uses: actions/checkout@v2
 
@@ -27,6 +24,10 @@ jobs:
       run: |
         pip install -r ./tagger/requirements.txt
         pip install pytest
+
+    - name: List files in the directory
+      run: |
+        ls -R ./tagger
 
     - name: Run tests
       run: python -m pytest -vv ./tagger/tests/
@@ -47,6 +48,10 @@ jobs:
       run: |
         pip install -r ./tagger/requirements.txt
         pip install pytest
+
+    - name: List files in the directory
+      run: |
+        dir ./tagger /s
 
     - name: Run tests
       run: python -m pytest -vv ./tagger/tests/
