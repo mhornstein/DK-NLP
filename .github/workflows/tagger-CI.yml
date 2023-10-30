@@ -24,6 +24,18 @@ jobs:
       run: |
         pip install -r ./tagger/requirements.txt
 
+    - name: Format code with black
+      run: |
+        cd tagger
+        pip install black
+        black .
+
+    - name: Lint code with pylint
+      run: |
+        cd tagger
+        pip install pylint
+        pylint .
+
     - name: Run tests
       run: |
         cd tagger
