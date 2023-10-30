@@ -29,6 +29,11 @@ jobs:
         cd tagger
         black .
 
+    - name: Lint the code
+      run: |
+        cd tagger
+        pylint --disable=R,C app
+
     - name: Run tests
       run: |
         cd tagger
