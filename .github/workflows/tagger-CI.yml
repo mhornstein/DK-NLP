@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'tagger/**' # Trigger the workflow when there's a commit in the 'tagger' directory
+  workflow_dispatch: # This event allows manual triggering
 
 jobs:
   build-linux:
