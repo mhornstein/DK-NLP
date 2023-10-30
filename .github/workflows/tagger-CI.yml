@@ -22,7 +22,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r ./tagger/requirements.txt
+        cd tagger
+        pip install -r ./requirements.txt
         pip install pytest
 
     - name: List files in the directory
@@ -30,7 +31,7 @@ jobs:
         ls -R ./tagger
 
     - name: Run tests
-      run: python -m pytest -vv ./tagger/tests/
+      run: python -m pytest -vv ./tests/
 
   build-windows:
     runs-on: windows-latest
@@ -46,15 +47,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r ./tagger/requirements.txt
+        cd tagger
+        pip install -r ./requirements.txt
         pip install pytest
 
-    - name: List files in the directory
-      run: |
-        dir ./tagger
-
     - name: Run tests
-      run: python -m pytest -vv ./tagger/tests/
+      run: python -m pytest -vv ./tests/
 
   finalize:
     runs-on: ubuntu-latest
