@@ -23,7 +23,7 @@ jobs:
       run: pip install -r tagger/requirements.txt
 
     - name: Run tests
-      run: pytest tagger/tests/
+      run: python -m pytest -vv tagger/tests/
 
   build-windows:
     runs-on: windows-latest
@@ -41,7 +41,7 @@ jobs:
       run: pip install -r tagger/requirements.txt
 
     - name: Run tests
-      run: pytest tagger/tests/
+      run: python -m pytest -vv tagger/tests/
 
   finalize:
     runs-on: ubuntu-latest
