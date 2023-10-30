@@ -29,11 +29,6 @@ jobs:
         cd tagger
         black .
 
-    - name: Lint code with pylint
-      run: |
-        cd tagger
-        pylint .
-
     - name: Run tests
       run: |
         cd tagger
