@@ -38,3 +38,35 @@ jobs:
       run: |
         cd tagger
         python -m pytest -vv ./tests/
+
+  build-ubuntu:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        cd tagger
+		make install
+
+    - name: Format code with black
+      run: |
+        cd tagger
+        make format
+
+    - name: Lint the code
+      run: |
+        cd tagger
+        make lint
+
+    - name: Run tests
+      run: |
+        cd tagger
+        make test
