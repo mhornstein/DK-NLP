@@ -51,7 +51,7 @@ jobs:
 
     - name: List files in the directory
       run: |
-        dir ./tagger /s
+        dir ./tagger
 
     - name: Run tests
       run: python -m pytest -vv ./tagger/tests/
