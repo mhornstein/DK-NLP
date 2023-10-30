@@ -73,6 +73,10 @@ class Tagger:
 
 ####################
 
+# Note: To avoid circular import issues, I chose to load the taggers as an extention upon request.
+# Though this approach wasn't used in the final implementation, the following serves as a clear example:
+# https://dev.to/reritom/unit-testing-pymongo-flask-applications-with-mongomock-and-patches-1m23
+
 pos_tagger, ner_tagger = None, None
 
 def get_tagger(mode):
