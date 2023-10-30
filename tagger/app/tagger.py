@@ -1,10 +1,15 @@
 import torch as torch
 import nltk
+nltk.download('punkt')  # Download the NLTK data required for tokenization
 from nltk.tokenize import word_tokenize
 import numpy as np
 from torch.utils.data import TensorDataset, DataLoader
+import sys
+import os
 
-nltk.download('punkt')  # Download the NLTK data required for tokenization
+bilstm_modules_dir = os.path.abspath('./app')
+sys.path.append(bilstm_modules_dir) # this is required for torch.load(model_path) call
+
 UNKNOWN_TOKEN = '<UNK>'
 PADDING_VALUE = 0
 MAX_SENTENCE_LENGTH = 100

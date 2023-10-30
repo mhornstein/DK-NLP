@@ -47,17 +47,18 @@ frontend/Thumbs.db
 # Ignoring dal files #
 ######################
 /dal/.idea
+/dal/__pycache__/*.pyc
+/dal/app/__pycache__/*.pyc
+/dal/tests/__pycache__/*.pyc
 
 #########################
 # Ignoring tagger files #
 #########################
 /tagger/.idea
 /tagger/__pycache__/*.pyc
+/tagger/app/__pycache__/*.pyc
 
 #########################
 # Ignoring server files #
 #########################
 /server/node_modules
-/dal/__pycache__/*.pyc
-/dal/app/__pycache__/*.pyc
-/dal/tests/__pycache__/*.pyc

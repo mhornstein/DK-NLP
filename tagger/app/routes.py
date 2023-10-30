@@ -1,10 +1,9 @@
-from flask import Flask, request, jsonify
-from tagger import Tagger
+from flask import request, jsonify
+from app.tagger import Tagger
+from app import app
 
-app = Flask(__name__)
-
-pos_tagger = Tagger(model_path='./pos_model/model.pth', vocab_file='./pos_model/vocabs', dicts_file='./pos_model/dicts')
-ner_tagger = Tagger(model_path='./ner_model/model.pth', vocab_file='./ner_model/vocabs', dicts_file='./ner_model/dicts')
+pos_tagger = Tagger(model_path='./models/pos_model/model.pth', vocab_file='./models/pos_model/vocabs', dicts_file='./models/pos_model/dicts')
+ner_tagger = Tagger(model_path='./models/ner_model/model.pth', vocab_file='./models/ner_model/vocabs', dicts_file='./models/ner_model/dicts')
 
 @app.route('/tag', methods=['GET'])
 def tag_sentence():
@@ -47,6 +46,3 @@ def tag_sentence():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(debug=True, port=4000)
