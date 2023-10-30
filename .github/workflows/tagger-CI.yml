@@ -54,7 +54,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd tagger
-		make install
+        make install
 
     - name: Format code with black
       run: |
