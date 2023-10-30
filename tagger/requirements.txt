@@ -3,3 +3,5 @@ nltk==3.7
 numpy==1.23.4
 torch==1.13.0
 pytest==7.4.3
+black==21.5b2
+pylint==2.9.6
