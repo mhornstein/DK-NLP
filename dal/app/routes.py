@@ -30,7 +30,7 @@ def validate_entry_data(data):
         return messages.INVALID_MODE
 
     try:
-        date = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')
+        _ = datetime.strptime(data['date'], '%Y-%m-%dT%H:%M:%S%z')
     except Exception:
         return messages.INVALID_DATE_FORMAT
 
