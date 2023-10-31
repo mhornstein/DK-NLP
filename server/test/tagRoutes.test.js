@@ -60,5 +60,16 @@ describe('Tagging Route', () => {
     expect(response).to.have.status(400);
     expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
   });
+
+  it('should return a 400 error when "sentence" parameter is missing', async () => {
+    // Step 1: Perform a simulated GET request with missing "sentence" parameter
+    const response = await chai.request(server)
+      .get('/tag')
+      .query({ mode: 'pos' }); // Missing "sentence" parameter
   
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
+  });
+    
 });
