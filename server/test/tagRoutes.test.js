@@ -36,7 +36,6 @@ describe('Tagging Route', () => {
       status: 201,
     };
 
-
     axiosGetStub.withArgs(sinon.match(/127\.0\.0\.1:4000/)).resolves(axiosGetResponse);
     axiosPostStub.withArgs(sinon.match(/127\.0\.0\.1:5000/)).resolves(axiosPostResponse);
 
@@ -71,5 +70,21 @@ describe('Tagging Route', () => {
     expect(response).to.have.status(400);
     expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
   });
+
+  it('should return a 400 error when the GET call to the tag service returns a 400 error code', async () => {
+    // Step 1: Mock the axios get method to return a 400 error
+    const error_details = 'Some error'
+    const axiosGetStub = sandbox.stub(axios, 'get');
+    axiosGetStub.rejects({ response: { status: 400, data: { error: error_details } } });
+  
+    // Step 2: Perform a simulated GET request
+    const response = await chai.request(server)
+      .get('/tag')
+      .query({ mode: 'pos', sentence: 'some sentence to tag' });
+  
+    // Step 3: Assertions
+    expect(response).to.have.status(500);
+    expect(response.body).to.deep.equal({error: messages.ERROR_REPORTED_BY_TAGGING_SERVICE, details: error_details});
+  });  
     
 });

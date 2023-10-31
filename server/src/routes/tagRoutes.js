@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const requestValidation = require('../middleware/requestValidation');
 const { extractErrorDetails } = require('../util/errorExtractor');
 const { formatISO } = require('date-fns');
+const messages = require('../util/messages');
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.get('/tag', requestValidation.validateTagSentenceRequest, async (req, res
       } else { // this is an error reported by the service
         const errorDetails = extractErrorDetails(error);
         return res.status(500).json({
-          error: 'Error reported by Tagging Service',
+          error: messages.ERROR_REPORTED_BY_TAGGING_SERVICE,
           details: errorDetails
         });
       }
