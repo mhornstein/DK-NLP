@@ -1,5 +1,5 @@
 const express = require('express');
-const axios = require('axios');
+const axios = require('../util/axiosInstance');
 const bodyParser = require('body-parser');
 const requestValidation = require('../middleware/requestValidation');
 const { extractErrorDetails } = require('../util/errorExtractor');
