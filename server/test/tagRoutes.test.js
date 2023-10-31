@@ -102,5 +102,31 @@ describe('Tagging Route', () => {
     expect(response).to.have.status(500);
     expect(response.body).to.include({ error: messages.TAGGING_SERVICE_UNAVAILABLE });
   });
+
+  it('should return a 503 error when the POST call to the DAL service encounters "ECONNREFUSED" error, but contain tagged sentence', async () => {
+    // Step 1: Mock the axios post method to return an "ECONNREFUSED" error + Simulate a successful GET request to get the response
+    const axiosPostStub = sandbox.stub(axios, 'post');
+    axiosPostStub.rejects({ code: 'ECONNREFUSED' });
+  
+    const tagged_sentence = [["some","DT"],["sentence","NN"],["to","IN"],["tag","VB"]]
+    const axiosGetResponse = {
+      status: 200,
+      data: { result: tagged_sentence }
+    };
+    const axiosGetStub = sandbox.stub(axios, 'get');
+    axiosGetStub.withArgs(sinon.match(/127\.0\.0\.1:4000/)).resolves(axiosGetResponse);
+  
+    // Step 2: Perform a simulated GET request
+    const response = await chai.request(server)
+      .get('/tag')
+      .query({ mode: 'pos', sentence: 'some sentence to tag' });
+  
+    // Step 3: Assertions
+    expect(response).to.have.status(503);
+    expect(response.body).to.deep.include({
+      error: messages.DAL_SERVICE_UNAVAILABLE,
+      tagged_sentence: tagged_sentence
+    });
+  });
     
 });

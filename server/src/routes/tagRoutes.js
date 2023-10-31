@@ -51,7 +51,7 @@ router.get('/tag', requestValidation.validateTagSentenceRequest, async (req, res
     } catch (error) {
       if (error.code == 'ECONNREFUSED') { // The service wasn't avaiable
         return res.status(503).json({
-          error: 'DAL Service unavailable',
+          error: messages.DAL_SERVICE_UNAVAILABLE,
           details: `Please check the DAL service connection. Details: ${error.message}`,
           tagged_sentence: tagged_sentence
         });
