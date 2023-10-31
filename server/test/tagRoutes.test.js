@@ -6,6 +6,7 @@ chai.use(chaiHttp);
 
 const server = require('../src/server');
 const axios = require('../src/util/axiosInstance');
+const messages = require('../src/util/messages');
 
 describe('Tagging Route', () => {
   let sandbox;
@@ -48,4 +49,16 @@ describe('Tagging Route', () => {
     expect(response).to.have.status(200);
     expect(response.body).to.deep.equal(tagged_sentence);
   });
+
+  it('should return a 400 error when "mode" parameter is missing', async () => {
+    // Step 1: Perform a simulated GET request with missing "mode" parameter
+    const response = await chai.request(server)
+      .get('/tag')
+      .query({ sentence: 'some sentence to tag' }); // Missing "mode" parameter
+  
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
+  });
+  
 });
