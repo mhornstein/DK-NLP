@@ -58,7 +58,7 @@ router.get('/tag', requestValidation.validateTagSentenceRequest, async (req, res
       } else { // this is an error reported by the service
         const errorDetails = extractErrorDetails(error);
         return res.status(503).json({
-          error: 'Error reported by DAL Service',
+          error: messages.DAL_SERVICE_ERROR,
           details: errorDetails,
           tagged_sentence: tagged_sentence
         });
