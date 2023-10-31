@@ -24,13 +24,15 @@ describe('Tagging Route', () => {
     const axiosGetStub = sandbox.stub(axios, 'get');
     const axiosPostStub = sandbox.stub(axios, 'post');
 
+    tagged_sentence = [["some","DT"],["sentence","NN"],["to","IN"],["tag","VB"]]
+
     const axiosGetResponse = {
       status: 200,
-      data: { result: 'tagged_sentence' },
+      data: { result: tagged_sentence}
     };
 
     const axiosPostResponse = {
-      status: 200,
+      status: 201,
     };
 
 
@@ -40,10 +42,10 @@ describe('Tagging Route', () => {
     // Step 2: Perform a simulated GET request
     const response = await chai.request(server)
       .get('/tag')
-      .query({ mode: 'ner', sentence: 'testSentence' });
+      .query({ mode: 'pos', sentence: 'some sentence to tag' });
 
     // Step 3: Assertions
     expect(response).to.have.status(200);
-    expect(response.body).to.deep.equal('tagged_sentence');
+    expect(response.body).to.deep.equal(tagged_sentence);
   });
 });
