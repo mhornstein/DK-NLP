@@ -11,17 +11,9 @@ const messages = require('../src/util/messages');
 describe('Tagging Route', () => {
   let sandbox;
 
-  before(() => {
-    sandbox = sinon.createSandbox(); // To mock the axios instance we will use a sinon sandbox
-  });
-
-  after(() => {
-    sandbox.restore(); // Restore axios to its original implementation
-  });
-
   it('should simulate a successful GET request', async () => {
-    
     // Step 1: Mock the axios get and post methods
+    sandbox = sinon.createSandbox(); // To mock the axios instance we will use a sinon sandbox
     const axiosGetStub = sandbox.stub(axios, 'get');
     const axiosPostStub = sandbox.stub(axios, 'post');
 
@@ -47,10 +39,14 @@ describe('Tagging Route', () => {
     // Step 3: Assertions
     expect(response).to.have.status(200);
     expect(response.body).to.deep.equal(tagged_sentence);
+
+    // Step 4: last - Restore axios to its original implementation
+    sandbox.restore();
   });
 
   it('should return a 400 error when "mode" parameter is missing', async () => {
     // Step 1: Perform a simulated GET request with missing "mode" parameter
+    sandbox = sinon.createSandbox(); // To mock the axios instance we will use a sinon sandbox
     const response = await chai.request(server)
       .get('/tag')
       .query({ sentence: 'some sentence to tag' }); // Missing "mode" parameter
@@ -58,10 +54,14 @@ describe('Tagging Route', () => {
     // Step 2: Assertions
     expect(response).to.have.status(400);
     expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
+
+    // Step 3: last - Restore axios to its original implementation
+    sandbox.restore();
   });
 
   it('should return a 400 error when "sentence" parameter is missing', async () => {
     // Step 1: Perform a simulated GET request with missing "sentence" parameter
+    sandbox = sinon.createSandbox(); // To mock the axios instance we will use a sinon sandbox
     const response = await chai.request(server)
       .get('/tag')
       .query({ mode: 'pos' }); // Missing "sentence" parameter
@@ -69,10 +69,14 @@ describe('Tagging Route', () => {
     // Step 2: Assertions
     expect(response).to.have.status(400);
     expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
+
+    // Step 3: last - Restore axios to its original implementation
+    sandbox.restore();
   });
 
   it('should return a 400 error when the GET call to the tag service returns a 400 error code', async () => {
     // Step 1: Mock the axios get method to return a 400 error
+    sandbox = sinon.createSandbox(); // To mock the axios instance we will use a sinon sandbox
     const error_details = 'Some error'
     const axiosGetStub = sandbox.stub(axios, 'get');
     axiosGetStub.rejects({ response: { status: 400, data: { error: error_details } } });
@@ -85,6 +89,9 @@ describe('Tagging Route', () => {
     // Step 3: Assertions
     expect(response).to.have.status(500);
     expect(response.body).to.deep.equal({error: messages.ERROR_REPORTED_BY_TAGGING_SERVICE, details: error_details});
+
+    // Step 4: last - Restore axios to its original implementation
+    sandbox.restore();
   });  
     
 });
