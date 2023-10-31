@@ -1,0 +1,72 @@
+name: Dal CI
+
+on:
+  push:
+    paths:
+      - 'dal/**'
+  workflow_dispatch: # This event allows manual triggering
+
+jobs:
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10.8
+
+    - name: Install dependencies
+      run: |
+        pip install -r ./dal/requirements.txt
+
+    - name: Format code with black
+      run: |
+        cd dal
+        black .
+
+    - name: Lint the code
+      run: |
+        cd dal
+        pylint --disable=R,C app
+
+    - name: Run tests
+      run: |
+        cd dal
+        python -m pytest -vv ./tests/
+
+  build-ubuntu:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        cd dal
+        make install
+
+    - name: Format code with black
+      run: |
+        cd dal
+        make format
+
+    - name: Lint the code
+      run: |
+        cd dal
+        make lint
+
+    - name: Run tests
+      run: |
+        cd dal
+        make test
