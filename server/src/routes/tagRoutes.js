@@ -18,7 +18,7 @@ router.get('/tag', requestValidation.validateTagSentenceRequest, async (req, res
     } catch (error) {
       if (error.code == 'ECONNREFUSED') { // The service wasn't avaiable
         return res.status(500).json({
-          error: 'Tagging Service unavailable',
+          error: messages.TAGGING_SERVICE_UNAVAILABLE,
           details: `Please check the tagging service connection. Details: ${error.message}`
         });
       } else { // this is an error reported by the service

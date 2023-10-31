@@ -92,6 +92,25 @@ describe('Tagging Route', () => {
 
     // Step 4: last - Restore axios to its original implementation
     sandbox.restore();
-  });  
+  });
+
+  it('should return a 500 error when the GET call to the tag service encounters "ECONNREFUSED" error', async () => {
+    // Step 1: Mock the axios get method to return an "ECONNREFUSED" error
+    sandbox = sinon.createSandbox(); // To mock the axios instance we will use a sinon sandbox
+    const axiosGetStub = sandbox.stub(axios, 'get');
+    axiosGetStub.rejects({ code: 'ECONNREFUSED' });
+  
+    // Step 2: Perform a simulated GET request
+    const response = await chai.request(server)
+      .get('/tag')
+      .query({ mode: 'pos', sentence: 'some sentence to tag' });
+  
+    // Step 3: Assertions
+    expect(response).to.have.status(500);
+    expect(response.body).to.include({ error: messages.TAGGING_SERVICE_UNAVAILABLE });
+
+    // Step 4: last - Restore axios to its original implementation
+    sandbox.restore();
+  });
     
 });
