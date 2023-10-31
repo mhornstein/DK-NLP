@@ -72,7 +72,7 @@ describe('Tagging Route', () => {
     expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
   });
 
-  it('should return a 400 error when the GET call to the tag service returns a 400 error code', async () => {
+  it('should return a 500 error when the GET call to the tag service returns a 400 error code (or any other error code)', async () => {
     // Step 1: Mock the axios get method to return a 400 error
     const error_details = 'Some error'
     const axiosGetStub = sandbox.stub(axios, 'get');
