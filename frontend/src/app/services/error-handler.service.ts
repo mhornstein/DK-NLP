@@ -9,7 +9,6 @@ export class ErrorHandlerService {
   constructor(private dialog: MatDialog) {}
 
   handle(err: any) {
-    debugger
     let header = '', body = '';
     if (err.status === 0 || err.status === 503) { // server not responding
       header = 'Server Unavailable'
@@ -37,7 +36,7 @@ export class ErrorHandlerService {
       }
     });    
 
-    dialogRef.componentInstance.close.subscribe(() => {
+    dialogRef.componentInstance.closeEvent.subscribe(() => {
       dialogRef.close();
     });
   }

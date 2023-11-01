@@ -8,8 +8,8 @@ import { ErrorHandlerService } from '../services/error-handler.service';
   styleUrls: ['./tagger.component.scss', '../app.component.scss']
 })
 export class TaggerComponent {
-  inputText: string = '';
-  tagType: string = 'pos'; // Default value
+  inputText = '';
+  tagType = 'pos'; // Default value
   taggedWords: [string, string][] = [];
 
   constructor(private taggerService: TaggerService, private errorHandlerService: ErrorHandlerService) {}

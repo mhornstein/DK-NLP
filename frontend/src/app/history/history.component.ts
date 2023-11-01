@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { HistoryData } from '../shared/history-data';
 import { HistoryService } from '../services/history.service';
 import { ErrorHandlerService } from '../services/error-handler.service';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss', '../app.component.scss']
 })
-export class HistoryComponent {
+export class HistoryComponent implements OnInit {
   historyDataDict: { [key: string]: HistoryData[] } = {
     pos: [],
     ner: [],
@@ -18,7 +18,7 @@ export class HistoryComponent {
     pos: false,
     ner: false,
   };
-  tagType: string = 'pos'; // Default value
+  tagType = 'pos'; // Default value
 
   constructor(private historyService: HistoryService, private errorService: ErrorHandlerService) {}
   

@@ -11,7 +11,7 @@ export class HistoryService {
   constructor(private http: HttpClient) { }
 
   fetchHistory(tagType: string, last_id?: string): Observable<HistoryData[]> {
-    var url = '';
+    let url = '';
     if (last_id == undefined) {
       url = `http://127.0.0.1:3000/fetch_entries?mode=${tagType}`;
     } else{
