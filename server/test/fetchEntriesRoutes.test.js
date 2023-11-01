@@ -152,11 +152,11 @@ describe('Fetch Entries Route', () => {
 
   it('should return a 500 response when the GET call to the dal service returns a status code of 400 or 500 with an error message', async () => {
     // Step 1: Mock the axios get method to return a 500 response with an error message
-    const error_message = 'Internal server error in the DAL service'
+    const errorMessage = 'Internal server error in the DAL service'
 
     const errorResponse = {
       status: 500,
-      message: error_message
+      message: errorMessage
     }
     const axiosGetStub = sandbox.stub(axios, 'get')
     axiosGetStub.rejects(errorResponse)
@@ -168,6 +168,6 @@ describe('Fetch Entries Route', () => {
 
     // Step 3: Assertions
     expect(response).to.have.status(500)
-    expect(response.body).to.deep.equal({ error: messages.DAL_SERVICE_ERROR, details: error_message })
+    expect(response.body).to.deep.equal({ error: messages.DAL_SERVICE_ERROR, details: errorMessage })
   })
 })

@@ -26,11 +26,11 @@ describe('Tagging Route', () => {
     const axiosGetStub = sandbox.stub(axios, 'get')
     const axiosPostStub = sandbox.stub(axios, 'post')
 
-    tagged_sentence = [['some', 'DT'], ['sentence', 'NN'], ['to', 'IN'], ['tag', 'VB']]
+    const taggedSentence = [['some', 'DT'], ['sentence', 'NN'], ['to', 'IN'], ['tag', 'VB']]
 
     const axiosGetResponse = {
       status: 200,
-      data: { result: tagged_sentence }
+      data: { result: taggedSentence }
     }
 
     const axiosPostResponse = {
@@ -47,7 +47,7 @@ describe('Tagging Route', () => {
 
     // Step 3: Assertions
     expect(response).to.have.status(200)
-    expect(response.body).to.deep.equal(tagged_sentence)
+    expect(response.body).to.deep.equal(taggedSentence)
   })
 
   it('should return a 400 error when "mode" parameter is missing', async () => {
@@ -96,9 +96,9 @@ describe('Tagging Route', () => {
 
   it('should return a 500 error when the GET call to the tag service returns a 400 error code (or any other error code)', async () => {
     // Step 1: Mock the axios get method to return a 400 error
-    const error_details = 'Some error'
+    const errorDetails = 'Some error'
     const axiosGetStub = sandbox.stub(axios, 'get')
-    axiosGetStub.rejects({ response: { status: 400, data: { error: error_details } } })
+    axiosGetStub.rejects({ response: { status: 400, data: { error: errorDetails } } })
 
     // Step 2: Perform a simulated GET request
     const response = await chai.request(server)
@@ -107,7 +107,7 @@ describe('Tagging Route', () => {
 
     // Step 3: Assertions
     expect(response).to.have.status(500)
-    expect(response.body).to.deep.equal({ error: messages.ERROR_REPORTED_BY_TAGGING_SERVICE, details: error_details })
+    expect(response.body).to.deep.equal({ error: messages.ERROR_REPORTED_BY_TAGGING_SERVICE, details: errorDetails })
   })
 
   it('should return a 500 error when the GET call to the tag service encounters "ECONNREFUSED" error', async () => {
@@ -157,10 +157,10 @@ describe('Tagging Route', () => {
     const axiosPostStub = sandbox.stub(axios, 'post')
     axiosPostStub.rejects({ code: 'ECONNREFUSED' })
 
-    const tagged_sentence = [['some', 'DT'], ['sentence', 'NN'], ['to', 'IN'], ['tag', 'VB']]
+    const taggedSentence = [['some', 'DT'], ['sentence', 'NN'], ['to', 'IN'], ['tag', 'VB']]
     const axiosGetResponse = {
       status: 200,
-      data: { result: tagged_sentence }
+      data: { result: taggedSentence }
     }
     const axiosGetStub = sandbox.stub(axios, 'get')
     axiosGetStub.withArgs(sinon.match(/127\.0\.0\.1:4000/)).resolves(axiosGetResponse)
@@ -174,7 +174,7 @@ describe('Tagging Route', () => {
     expect(response).to.have.status(503)
     expect(response.body).to.deep.include({
       error: messages.DAL_SERVICE_UNAVAILABLE,
-      tagged_sentence
+      tagged_sentence: taggedSentence
     })
   })
 })
