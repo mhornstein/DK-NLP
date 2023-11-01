@@ -21,6 +21,66 @@ describe('Fetch Entries Route', () => {
     sandbox.restore();
   });
 
+  it('should return a 200 response when a GET request with mode as "pos" is successful', async () => {
+    // Step 1: Mock the axios get method to return a successful response
+    const responseData = [{
+      _id: '6541ee58581af05899ccf7c6',
+      date: 'Wed, 01 Nov 2023 06:21:09 GMT',
+      tagged_sentence: [['How', 'WRB'], ['John', 'NNP'], ['is', 'VBZ'], ['doing', 'VBG'], ['in', 'IN'], ['Japan', 'NNP'], ['?', '.']],
+    }];
+    const axiosGetStub = sandbox.stub(axios, 'get');
+    axiosGetStub.resolves({ status: 200, data: responseData });
+  
+    // Step 2: Perform a simulated GET request
+    const response = await chai.request(server)
+      .get('/fetch_entries')
+      .query({ mode: 'pos' });
+  
+    // Step 3: Assertions
+    expect(response).to.have.status(200);
+    expect(response.body).to.deep.equal(responseData);
+  });
+
+  it('should return a 200 response when a GET request with mode as "pos" and num_entries=5 is successful', async () => {
+    // Step 1: Mock the axios get method to return a successful response
+    const responseData = [{
+      _id: '6541ee58581af05899ccf7c6',
+      date: 'Wed, 01 Nov 2023 06:21:09 GMT',
+      tagged_sentence: [['How', 'WRB'], ['John', 'NNP'], ['is', 'VBZ'], ['doing', 'VBG'], ['in', 'IN'], ['Japan', 'NNP'], ['?', '.']],
+    }];
+    const axiosGetStub = sandbox.stub(axios, 'get');
+    axiosGetStub.resolves({ status: 200, data: responseData });
+  
+    // Step 2: Perform a simulated GET request
+    const response = await chai.request(server)
+      .get('/fetch_entries')
+      .query({ mode: 'pos', num_entries: 5 });
+  
+    // Step 3: Assertions
+    expect(response).to.have.status(200);
+    expect(response.body).to.deep.equal(responseData);
+  });
+
+  it('should return a 200 response when a GET request with mode as "pos" and entry_id is successful', async () => {
+    // Step 1: Mock the axios get method to return a successful response
+    const responseData = [{
+      _id: '6541ee58581af05899ccf7c6',
+      date: 'Wed, 01 Nov 2023 06:21:09 GMT',
+      tagged_sentence: [['How', 'WRB'], ['John', 'NNP'], ['is', 'VBZ'], ['doing', 'VBG'], ['in', 'IN'], ['Japan', 'NNP'], ['?', '.']],
+    }];
+    const axiosGetStub = sandbox.stub(axios, 'get');
+    axiosGetStub.resolves({ status: 200, data: responseData });
+  
+    // Step 2: Perform a simulated GET request
+    const response = await chai.request(server)
+      .get('/fetch_entries')
+      .query({ mode: 'pos', entry_id: '6541ee58581af05899ccf7c5' });
+  
+    // Step 3: Assertions
+    expect(response).to.have.status(200);
+    expect(response.body).to.deep.equal(responseData);
+  });
+
   it('should return a 500 error when the GET call to the dal service encounters "ECONNREFUSED" error', async () => {
     // Step 1: Mock the axios get method to return an "ECONNREFUSED" error
     const axiosGetStub = sandbox.stub(axios, 'get');
