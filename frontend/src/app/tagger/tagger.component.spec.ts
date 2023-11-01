@@ -8,7 +8,7 @@ describe('PosTaggerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TaggerComponent]
+      declarations: [TaggerComponent],
     });
     fixture = TestBed.createComponent(TaggerComponent);
     component = fixture.componentInstance;
