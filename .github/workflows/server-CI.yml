@@ -1,0 +1,63 @@
+name: Server CI
+
+on:
+  push:
+    paths:
+      - 'server/**'
+  workflow_dispatch: # This event allows manual triggering
+
+jobs:
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18.16.0
+
+    - name: Install dependencies
+      run: |
+        cd server
+        make install
+
+    - name: Lint and format code with ESLint
+      run: |
+        cd server
+        make eslint
+
+    - name: Run tests
+      run: |
+        cd server
+        make test
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18.16.0
+
+    - name: Install dependencies
+      run: |
+        cd server
+        npm install
+
+    - name: Lint and format code with ESLint
+      run: |
+        cd server
+        npx eslint .
+
+    - name: Run tests
+      run: |
+        cd server
+        npm test
