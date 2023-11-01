@@ -1,0 +1,12 @@
+.PHONY: default start test install
+
+default: start
+
+start:
+	npm start
+
+test:
+	npm test
+
+install:
+	npm install
