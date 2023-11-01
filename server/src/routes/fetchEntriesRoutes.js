@@ -3,6 +3,7 @@ const axios = require('../util/axiosInstance');
 const bodyParser = require('body-parser');
 const requestValidation = require('../middleware/requestValidation');
 const { extractErrorDetails } = require('../util/errorExtractor');
+const messages = require('../util/messages');
 
 const router = express.Router();
 
@@ -26,13 +27,13 @@ router.get('/fetch_entries', requestValidation.validateFetchEntriesRequest, asyn
     } catch (error) {
       if (error.code == 'ECONNREFUSED') { // The service wasn't avaiable
         return res.status(500).json({
-          error: 'DAL Service unavailable',
+          error: messages.DAL_SERVICE_UNAVAILABLE,
           details: `Please check the DAL service connection. Details: ${error.message}`,
         });
       } else { // this is an error reported by the service
         const errorDetails = extractErrorDetails(error);
         return res.status(500).json({
-          error: 'Error reported by DAL Service',
+          error: messages.DAL_SERVICE_ERROR,
           details: errorDetails,
         });
       }
