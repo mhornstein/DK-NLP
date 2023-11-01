@@ -81,6 +81,27 @@ describe('Fetch Entries Route', () => {
     expect(response.body).to.deep.equal(responseData);
   });
 
+  it('should return a 400 response when a GET request with mode missing', async () => {
+    // Step 1: Perform a simulated GET request with mode missing
+    const response = await chai.request(server)
+      .get('/fetch_entries');
+  
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.include({ error: messages.ILLEGAL_OR_MISSING_MODE });
+  });
+
+  it('should return a 400 response when a GET request with incorrect mode', async () => {
+    // Step 1: Perform a simulated GET request with an incorrect mode
+    const response = await chai.request(server)
+      .get('/fetch_entries')
+      .query({ mode: 'invalid_mode' });
+  
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.include({ error: messages.ILLEGAL_OR_MISSING_MODE });
+  });
+
   it('should return a 500 error when the GET call to the dal service encounters "ECONNREFUSED" error', async () => {
     // Step 1: Mock the axios get method to return an "ECONNREFUSED" error
     const axiosGetStub = sandbox.stub(axios, 'get');
