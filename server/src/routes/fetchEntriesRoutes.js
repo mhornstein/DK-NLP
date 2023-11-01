@@ -25,7 +25,7 @@ router.get('/fetch_entries', requestValidation.validateFetchEntriesRequest, asyn
     const response = await axios.get(`http://127.0.0.1:5000/fetch_entries${queryParams}`)
     res.status(response.status).json(response.data)
   } catch (error) {
-    if (error.code == 'ECONNREFUSED') { // The service wasn't avaiable
+    if (error.code === 'ECONNREFUSED') { // The service wasn't avaiable
       return res.status(500).json({
         error: messages.DAL_SERVICE_UNAVAILABLE,
         details: `Please check the DAL service connection. Details: ${error.message}`
