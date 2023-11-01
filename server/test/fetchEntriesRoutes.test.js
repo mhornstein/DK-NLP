@@ -102,6 +102,39 @@ describe('Fetch Entries Route', () => {
     expect(response.body).to.include({ error: messages.ILLEGAL_OR_MISSING_MODE });
   });
 
+  it('should return a 400 response when a GET request with num_entries as a non-numeric string', async () => {
+    // Step 1: Perform a simulated GET request with num_entries as a non-numeric string
+    const response = await chai.request(server)
+      .get('/fetch_entries')
+      .query({ mode: 'pos', num_entries: 'some string' });
+  
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.include({ error: messages.NUM_ENTRIES_MUST_BE_INT });
+  });
+
+  it('should return a 400 response when a GET request with num_entries as zero', async () => {
+    // Step 1: Perform a simulated GET request with num_entries as zero
+    const response = await chai.request(server)
+      .get('/fetch_entries')
+      .query({ mode: 'pos', num_entries: 0 });
+  
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.include({ error: messages.NUM_ENTRIES_MUST_BE_POSITIVE });
+  });
+
+  it('should return a 400 response when a GET request with num_entries as a negative number', async () => {
+    // Step 1: Perform a simulated GET request with num_entries as a negative number
+    const response = await chai.request(server)
+      .get('/fetch_entries')
+      .query({ mode: 'pos', num_entries: -5 });
+  
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.include({ error: messages.NUM_ENTRIES_MUST_BE_POSITIVE });
+  });
+
   it('should return a 500 error when the GET call to the dal service encounters "ECONNREFUSED" error', async () => {
     // Step 1: Mock the axios get method to return an "ECONNREFUSED" error
     const axiosGetStub = sandbox.stub(axios, 'get');
