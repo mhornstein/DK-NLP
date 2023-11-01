@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "format": "prettier --write ."
+    "lint:fix": "ng lint --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "private": true,
   "dependencies": {
