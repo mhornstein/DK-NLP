@@ -1,4 +1,4 @@
-.PHONY: default start test install
+.PHONY: default start test install eslint
 
 default: start
 
@@ -10,3 +10,6 @@ test:
 
 install:
 	npm install
+
+eslint:
+	npx eslint .
