@@ -10,15 +10,15 @@ const router = express.Router()
 router.use(bodyParser.json())
 
 router.get('/fetch_entries', requestValidation.validateFetchEntriesRequest, async (req, res) => {
-  const { entry_id, num_entries, mode } = req.query
+  const { entry_id: entryId, num_entries: numEntries, mode } = req.query
   let queryParams = `?mode=${mode}`
 
-  if (entry_id) {
-    queryParams += `&entry_id=${entry_id}`
+  if (entryId) {
+    queryParams += `&entry_id=${entryId}`
   }
 
-  if (num_entries) {
-    queryParams += `&num_entries=${num_entries}`
+  if (numEntries) {
+    queryParams += `&num_entries=${numEntries}`
   }
 
   try {
