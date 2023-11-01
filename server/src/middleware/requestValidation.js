@@ -11,13 +11,14 @@ function validateTagSentenceRequest (req, res, next) {
 }
 
 function validateFetchEntriesRequest (req, res, next) {
-  const { entry_id, num_entries, mode } = req.query
+  const mode = req.query.mode
+  const numEntries = req.query.num_entries
 
   if (!mode || (mode !== 'ner' && mode !== 'pos')) {
     res.status(400).json({ error: messages.ILLEGAL_OR_MISSING_MODE })
-  } else if (num_entries && !Number.isInteger(Number(num_entries))) {
+  } else if (numEntries && !Number.isInteger(Number(numEntries))) {
     res.status(400).json({ error: messages.NUM_ENTRIES_MUST_BE_INT })
-  } else if (num_entries && Number.isInteger(Number(num_entries)) && Number(num_entries) <= 0) {
+  } else if (numEntries && Number.isInteger(Number(numEntries)) && Number(numEntries) <= 0) {
     res.status(400).json({ error: messages.NUM_ENTRIES_MUST_BE_POSITIVE })
   } else {
     next()
