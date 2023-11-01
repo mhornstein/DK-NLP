@@ -96,9 +96,9 @@ describe('Tagging Route', () => {
 
   it('should return a 500 error when the GET call to the tag service returns a 400 error code (or any other error code)', async () => {
     // Step 1: Mock the axios get method to return a 400 error
-    const errorDetails = 'Some error'
+    const error_details = 'Some error'
     const axiosGetStub = sandbox.stub(axios, 'get')
-    axiosGetStub.rejects({ response: { status: 400, data: { error: errorDetails } } })
+    axiosGetStub.rejects({ response: { status: 400, data: { error: error_details } } })
 
     // Step 2: Perform a simulated GET request
     const response = await chai.request(server)
@@ -107,7 +107,7 @@ describe('Tagging Route', () => {
 
     // Step 3: Assertions
     expect(response).to.have.status(500)
-    expect(response.body).to.deep.equal({ error: messages.ERROR_REPORTED_BY_TAGGING_SERVICE, details: errorDetails })
+    expect(response.body).to.deep.equal({ error: messages.ERROR_REPORTED_BY_TAGGING_SERVICE, details: error_details })
   })
 
   it('should return a 500 error when the GET call to the tag service encounters "ECONNREFUSED" error', async () => {
