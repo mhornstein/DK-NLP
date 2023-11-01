@@ -84,6 +84,17 @@ describe('Tagging Route', () => {
     expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
   });
 
+  it('should return a 400 error when "sentence" parameter is empty', async () => {
+    // Step 1: Perform a simulated GET request with missing "sentence" parameter
+    const response = await chai.request(server)
+      .get('/tag')
+      .query({ mode: 'invalid_mode', sentence: '' }); // Missing "sentence" parameter
+  
+    // Step 2: Assertions
+    expect(response).to.have.status(400);
+    expect(response.body).to.deep.equal({ error: messages.INVALID_TAG_REQUEST });
+  });
+
   it('should return a 500 error when the GET call to the tag service returns a 400 error code (or any other error code)', async () => {
     // Step 1: Mock the axios get method to return a 400 error
     const error_details = 'Some error'
