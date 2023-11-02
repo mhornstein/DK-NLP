@@ -39,3 +39,35 @@ jobs:
       run: |
         cd frontend
         make test
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18.16.0
+
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm install
+
+    - name: Format code
+      run: |
+        cd frontend
+        npm run format
+
+    - name: Lint the code
+      run: |
+        cd frontend
+        npm run lint
+
+    - name: Run tests
+      run: |
+        cd frontend
+        npx ng test --watch=false --browsers=ChromeHeadless
