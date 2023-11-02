@@ -17,4 +17,4 @@ format:
 	npm run format
 
 test:
-	npx ng test -- --watch=false
+	npx ng test --watch=false --browsers=ChromeHeadless
