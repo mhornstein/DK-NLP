@@ -15,3 +15,6 @@ lint:
 # Check code formatting. To automatically fix formatting issues, run 'npm run format:fix' (defined in package.json)
 format:
 	npm run format
+
+test:
+	ng test
