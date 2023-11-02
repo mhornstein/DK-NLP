@@ -1,0 +1,41 @@
+name: Frontend CI
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+  workflow_dispatch: # This event allows manual triggering
+
+jobs:
+
+  build-ubuntu:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18.16.0
+
+    - name: Install dependencies
+      run: |
+        cd frontend
+        make install
+
+    - name: Format code
+      run: |
+        cd frontend
+        make format
+
+    - name: Lint the code
+      run: |
+        cd frontend
+        make lint
+
+    - name: Run tests
+      run: |
+        cd frontend
+        make test
