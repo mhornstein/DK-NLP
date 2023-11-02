@@ -2,7 +2,7 @@
 
 default: start
 
-start:
+run:
 	npm start
 
 test:

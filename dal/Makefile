@@ -9,5 +9,8 @@ lint:
 	
 test:
 	python -m pytest -vv ./tests/
+
+run:
+	python run.py
 	
 all: install lint test
