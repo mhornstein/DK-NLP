@@ -17,4 +17,4 @@ format:
 	npm run format
 
 test:
-	ng test
+	ng test --browsers=ChromeHeadless
