@@ -57,11 +57,6 @@ jobs:
         cd frontend
         npm install
 
-    - name: Format code
-      run: |
-        cd frontend
-        npm run format
-
     - name: Lint the code
       run: |
         cd frontend
