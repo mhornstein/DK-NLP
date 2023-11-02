@@ -9,12 +9,12 @@ import { HistoryData } from '../shared/history-data';
 export class HistoryService {
   constructor(private http: HttpClient) {}
 
-  fetchHistory(tagType: string, last_id?: string): Observable<HistoryData[]> {
+  fetchHistory(tagType: string, lastId?: string): Observable<HistoryData[]> {
     let url = '';
-    if (last_id == undefined) {
+    if (lastId == undefined) {
       url = `http://127.0.0.1:3000/fetch_entries?mode=${tagType}`;
     } else {
-      url = `http://127.0.0.1:3000/fetch_entries?mode=${tagType}&entry_id=${last_id}`;
+      url = `http://127.0.0.1:3000/fetch_entries?mode=${tagType}&entry_id=${lastId}`;
     }
     return this.http.get<HistoryData[]>(url);
   }
