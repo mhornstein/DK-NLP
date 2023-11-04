@@ -3,6 +3,12 @@ import { HistoryData } from '../shared/history-data';
 import { HistoryService } from '../services/history.service';
 import { ErrorHandlerService } from '../services/error-handler.service';
 import { Observable } from 'rxjs';
+import {
+  BUTTON_DISABLED_NO_HISTORY_ERROR_MSG,
+  EMPTY_HISTORY_RELOAD_ERROR_MSG,
+  END_OF_TAGGING_HISTORY,
+  NO_MORE_HISTORY_FOUND_MSG,
+} from '../shared/error-constants';
 
 @Component({
   selector: 'app-history',
@@ -45,14 +51,12 @@ export class HistoryComponent implements OnInit {
 
   reloadHistory() {
     if (this.buttonDisabled[this.tagType] == true) {
-      console.error('No history can be reloaded when button is disabled');
+      console.error(BUTTON_DISABLED_NO_HISTORY_ERROR_MSG);
       return;
     }
     const historyData = this.historyDataDict[this.tagType];
     if (historyData.length == 0) {
-      console.error(
-        'Something went wrong: cannot reload history from empty history list',
-      );
+      console.error(EMPTY_HISTORY_RELOAD_ERROR_MSG);
       return;
     }
     const lastItem = historyData[historyData.length - 1];
@@ -62,8 +66,8 @@ export class HistoryComponent implements OnInit {
         if (!history_added) {
           this.buttonDisabled[this.tagType] = true;
           this.errorService.openErrorDialog(
-            'End of tagging history',
-            'No more history found for reload',
+            END_OF_TAGGING_HISTORY,
+            NO_MORE_HISTORY_FOUND_MSG,
           );
         }
       },
