@@ -10,6 +10,7 @@ import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ErrorComponent } from './error/error.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ErrorComponent } from './error/error.component';
     HistoryComponent,
     AboutComponent,
     ErrorComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
