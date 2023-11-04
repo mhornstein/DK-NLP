@@ -48,6 +48,12 @@ describe('HistoryComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should call loadHistory on ngOnInit', () => {
+    const loadHistorySpy = spyOn(component, 'loadHistory');
+    component.ngOnInit();
+    expect(loadHistorySpy).toHaveBeenCalled();
+  });
+
   // loadHistory tests
 
   it('should not call fetchHistory when button is disabled', () => {
