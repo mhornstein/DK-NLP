@@ -3,12 +3,13 @@ import {
   TestBed,
   async,
   fakeAsync,
+  tick,
 } from '@angular/core/testing';
 import { HistoryComponent } from './history.component';
 import { HistoryService } from '../services/history.service';
 import { ErrorHandlerService } from '../services/error-handler.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import {
   BUTTON_DISABLED_NO_HISTORY_ERROR_MSG,
   END_OF_TAGGING_HISTORY,
@@ -19,8 +20,8 @@ import { HistoryData } from '../shared/history-data';
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
   let fixture: ComponentFixture<HistoryComponent>;
-  let historyService: jasmine.SpyObj<HistoryService>; // eslint-disable-line @typescript-eslint/no-unused-vars
-  let errorHandlerService: jasmine.SpyObj<ErrorHandlerService>; // eslint-disable-line @typescript-eslint/no-unused-vars
+  let historyService: jasmine.SpyObj<HistoryService>;
+  let errorHandlerService: jasmine.SpyObj<ErrorHandlerService>;
   const mockHistoryList: HistoryData[] = [
     {
       _id: '1',
@@ -174,4 +175,77 @@ describe('HistoryComponent', () => {
       NO_MORE_HISTORY_FOUND_MSG,
     );
   });
+
+  // fetchHistory tests
+
+  it('should return false when historyService.fetchHistory ends up with an empty list', fakeAsync(() => {
+    const historyData = component.historyDataDict[component.tagType];
+
+    historyService.fetchHistory.and.returnValue(of([]));
+    const observer = (component as any).fetchHistory(
+      historyData,
+      component.tagType,
+    );
+
+    let result: boolean | undefined;
+    observer.subscribe((value: boolean) => {
+      result = value;
+    });
+
+    tick();
+
+    expect(result).toBe(false);
+  }));
+
+  it('should return true and add data to historyData when historyService.fetchHistory does not end up with an empty list', fakeAsync(() => {
+    const historyData = [
+      { _id: '3', date: '2023-11-05', tagged_sentence: [['word5', 'tag5']] },
+    ];
+    const exprectedHistoryData = [...historyData, ...mockHistoryList];
+
+    historyService.fetchHistory.and.returnValue(of(mockHistoryList));
+    const observer = (component as any).fetchHistory(
+      historyData,
+      component.tagType,
+    );
+
+    let result: boolean | undefined;
+    observer.subscribe((value: boolean) => {
+      result = value;
+    });
+
+    tick();
+
+    expect(result).toBe(true);
+    expect(historyData).toEqual(exprectedHistoryData);
+  }));
+
+  it('should call errorService.handle when historyService.fetchHistory returns an error', fakeAsync(() => {
+    const historyData = component.historyDataDict[component.tagType];
+    const testError = new Error('Test error');
+
+    historyService.fetchHistory.and.returnValue(throwError(testError));
+
+    const observer = (component as any).fetchHistory(
+      historyData,
+      component.tagType,
+    );
+
+    let result: boolean | undefined;
+    observer.subscribe({
+      next: (value: boolean) => {
+        result = value;
+      },
+      error: (error: any) => {
+        expect(error).toBe(testError);
+      },
+    });
+
+    expect(result).toBeUndefined();
+    expect(historyService.fetchHistory).toHaveBeenCalledOnceWith(
+      component.tagType,
+      undefined,
+    );
+    expect(errorHandlerService.handle).toHaveBeenCalledWith(testError);
+  }));
 });
