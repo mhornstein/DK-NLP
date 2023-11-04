@@ -4,8 +4,8 @@ import { TaggerComponent } from './tagger/tagger.component';
 import { HistoryComponent } from './history/history.component';
 import { AboutComponent } from './about/about.component';
 
-const routes: Routes = [
-  { path: '', redirectTo: 'tagger', pathMatch: 'full'},
+export const routes: Routes = [
+  { path: '', redirectTo: 'tagger', pathMatch: 'full' },
   { path: 'tagger', component: TaggerComponent },
   { path: 'about', component: AboutComponent },
   { path: 'history', component: HistoryComponent },
