@@ -1,8 +1,8 @@
-.PHONY: default start install eslint
+.PHONY: default run install eslint
 
-default: start
+default: run
 
-start:
+run:
 	npm start
 
 install:
