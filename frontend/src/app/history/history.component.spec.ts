@@ -14,6 +14,7 @@ import {
   BUTTON_DISABLED_NO_HISTORY_ERROR_MSG,
   END_OF_TAGGING_HISTORY,
   NO_MORE_HISTORY_FOUND_MSG,
+  EMPTY_HISTORY_RELOAD_ERROR_MSG,
 } from '../shared/error-constants';
 import { HistoryData } from '../shared/history-data';
 
@@ -127,6 +128,20 @@ describe('HistoryComponent', () => {
 
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       BUTTON_DISABLED_NO_HISTORY_ERROR_MSG,
+    );
+    expect(fetchHistorySpy).not.toHaveBeenCalled();
+  });
+
+  it('should not call fetchHistory and log EMPTY_HISTORY_RELOAD_ERROR_MSG when the button is enabled but the history is empty', () => {
+    const consoleErrorSpy = spyOn(console, 'error');
+    component.buttonDisabled[component.tagType] = false;
+
+    const fetchHistorySpy = spyOn(component as any, 'fetchHistory');
+
+    component.reloadHistory();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      EMPTY_HISTORY_RELOAD_ERROR_MSG,
     );
     expect(fetchHistorySpy).not.toHaveBeenCalled();
   });
