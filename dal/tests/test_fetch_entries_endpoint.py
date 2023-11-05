@@ -17,7 +17,6 @@ class TestFetchEntries(unittest.TestCase):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
 
-        mock_get_collection.return_value.find_one.return_value = 'some returned value'
         mock_get_collection.return_value.find.return_value.sort.return_value.limit.return_value = mocked_db_entry
 
         # Make a valid request
@@ -49,7 +48,6 @@ class TestFetchEntries(unittest.TestCase):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
 
-        mock_get_collection.return_value.find_one.return_value = 'some returned value'
         mock_get_collection.return_value.find.return_value.sort.return_value.limit.return_value = mocked_db_entry
 
         # Make a valid request
