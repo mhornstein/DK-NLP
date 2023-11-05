@@ -10,6 +10,7 @@ const messages = require('../src/util/messages')
 
 describe('Fetch Entries Route', () => {
   let sandbox
+  const responseData = 'some response data'
 
   beforeEach(() => {
     // To mock the axios instance we will use a sinon sandbox
@@ -23,11 +24,6 @@ describe('Fetch Entries Route', () => {
 
   it('should return a 200 response when a GET request with mode as "pos" is successful', async () => {
     // Step 1: Mock the axios get method to return a successful response
-    const responseData = [{
-      _id: '6541ee58581af05899ccf7c6',
-      date: 'Wed, 01 Nov 2023 06:21:09 GMT',
-      tagged_sentence: [['How', 'WRB'], ['John', 'NNP'], ['is', 'VBZ'], ['doing', 'VBG'], ['in', 'IN'], ['Japan', 'NNP'], ['?', '.']]
-    }]
     const axiosGetStub = sandbox.stub(axios, 'get')
     axiosGetStub.resolves({ status: 200, data: responseData })
 
@@ -43,11 +39,6 @@ describe('Fetch Entries Route', () => {
 
   it('should return a 200 response when a GET request with mode as "pos" and num_entries=5 is successful', async () => {
     // Step 1: Mock the axios get method to return a successful response
-    const responseData = [{
-      _id: '6541ee58581af05899ccf7c6',
-      date: 'Wed, 01 Nov 2023 06:21:09 GMT',
-      tagged_sentence: [['How', 'WRB'], ['John', 'NNP'], ['is', 'VBZ'], ['doing', 'VBG'], ['in', 'IN'], ['Japan', 'NNP'], ['?', '.']]
-    }]
     const axiosGetStub = sandbox.stub(axios, 'get')
     axiosGetStub.resolves({ status: 200, data: responseData })
 
@@ -63,11 +54,6 @@ describe('Fetch Entries Route', () => {
 
   it('should return a 200 response when a GET request with mode as "pos" and entry_id is successful', async () => {
     // Step 1: Mock the axios get method to return a successful response
-    const responseData = [{
-      _id: '6541ee58581af05899ccf7c6',
-      date: 'Wed, 01 Nov 2023 06:21:09 GMT',
-      tagged_sentence: [['How', 'WRB'], ['John', 'NNP'], ['is', 'VBZ'], ['doing', 'VBG'], ['in', 'IN'], ['Japan', 'NNP'], ['?', '.']]
-    }]
     const axiosGetStub = sandbox.stub(axios, 'get')
     axiosGetStub.resolves({ status: 200, data: responseData })
 
