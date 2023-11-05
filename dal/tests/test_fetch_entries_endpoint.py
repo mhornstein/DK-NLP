@@ -45,7 +45,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response.get_json(), {'error': messages.INVALID_MODE_PARAMETER})
 
     @patch('app.routes.get_collection')
-    def test_num_entries_valid_positive(self, mock_get_collection):
+    def test_valid_num_entries(self, mock_get_collection):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
 
