@@ -85,6 +85,9 @@ def add_entry():
 def fetch_entries():
     '''
     To fetch tagged entries, send a GET request to this endpoint.
+    The API call will respond with a dictionary that includes:
+    * entries - a list of the retrieved entries.
+    * end_of_history - flag to indicate whether the oldest entry in the collection has been fetched, signifying the end of the available history.
 
     Query Parameters:
     - entry_id (hex number, optional): The ID of the entry from which to start fetching.
@@ -125,7 +128,20 @@ def fetch_entries():
             query['_id'] = {'$lt': ObjectId(entry_id)}
 
         entries = list(history_collection.find(query).sort([('_id', -1)]).limit(num_entries))
-        result = [{"_id": str(entry['_id']), "date": entry['date'], "tagged_sentence": entry['tagged_sentence']} for entry in entries]
+
+        result = {
+            "entries": [{"_id": str(entry['_id']), "date": entry['date'], "tagged_sentence": entry['tagged_sentence']}
+                        for entry in entries]
+        }
+
+        # Check if the oldest entry was fetched, indicating the end of history
+        oldest_entry = history_collection.find_one(sort=[('_id', 1)])
+        if oldest_entry is None: # The collection is empty
+            result["end_of_history"] = True
+        elif oldest_entry['_id'] == entries[-1]['_id']: # the collection is not empty and the last entity was fetched
+            result["end_of_history"] = True
+        else:
+            result["end_of_history"] = False
 
         return jsonify(result), 200
 
