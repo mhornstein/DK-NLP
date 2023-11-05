@@ -50,6 +50,8 @@ frontend/Thumbs.db
 /dal/__pycache__/*.pyc
 /dal/app/__pycache__/*.pyc
 /dal/tests/__pycache__/*.pyc
+/dal/*.coverage
+/dal/tests/*.coverage
 
 #########################
 # Ignoring tagger files #
