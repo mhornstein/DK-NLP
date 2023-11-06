@@ -1,4 +1,3 @@
-/*
 import {
   ComponentFixture,
   TestBed,
@@ -17,14 +16,14 @@ import {
   NO_MORE_HISTORY_FOUND_MSG,
   EMPTY_HISTORY_RELOAD_ERROR_MSG,
 } from '../shared/error-constants';
-import { HistoryData } from '../shared/history-data';
+import { HistoryData, EntryData } from '../shared/history-data';
 
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
   let fixture: ComponentFixture<HistoryComponent>;
   let historyService: jasmine.SpyObj<HistoryService>;
   let errorHandlerService: jasmine.SpyObj<ErrorHandlerService>;
-  const mockHistoryList: HistoryData[] = [
+  const mockEntriesList: EntryData[] = [
     {
       _id: '1',
       date: '2023-11-03',
@@ -95,23 +94,23 @@ describe('HistoryComponent', () => {
 
   it('should not call fetchHistory when historyData length is not 0', () => {
     component.buttonDisabled[component.tagType] = false;
-    component.historyDataDict[component.tagType] = mockHistoryList;
+    component.entriesDataDict[component.tagType] = mockEntriesList;
     const fetchHistorySpy = spyOn(component as any, 'fetchHistory');
     component.loadHistory();
     expect(fetchHistorySpy).not.toHaveBeenCalled();
   });
 
-  it('should set buttonDisabled to true when fetchHistory returns false', fakeAsync(() => {
+  it('should set buttonDisabled to true when fetchHistory returns true', fakeAsync(() => {
     const fetchHistorySpy = spyOn(component as any, 'fetchHistory');
-    fetchHistorySpy.and.returnValue(of(false));
+    fetchHistorySpy.and.returnValue(of(true));
     component.loadHistory();
     expect(fetchHistorySpy).toHaveBeenCalled();
     expect(component.buttonDisabled[component.tagType]).toBe(true);
   }));
 
-  it('should keep buttonDisabled false when fetchHistory returns true', fakeAsync(() => {
+  it('should keep buttonDisabled false when fetchHistory returns false', fakeAsync(() => {
     const fetchHistorySpy = spyOn(component as any, 'fetchHistory');
-    fetchHistorySpy.and.returnValue(of(true));
+    fetchHistorySpy.and.returnValue(of(false));
     component.loadHistory();
     expect(fetchHistorySpy).toHaveBeenCalled();
     expect(component.buttonDisabled[component.tagType]).toBe(false); // button disabling remains false
@@ -147,31 +146,10 @@ describe('HistoryComponent', () => {
     expect(fetchHistorySpy).not.toHaveBeenCalled();
   });
 
-  it('should call fetchHistory with the appropriate arguments when the button is not disabled and historyData is not empty, and do nothing when fetchHistory returns true', () => {
+  it('should call fetchHistory with the appropriate arguments when the button is not disabled and historyData is not empty, and do nothing when fetchHistory returns false', () => {
     component.buttonDisabled[component.tagType] = false;
-    component.historyDataDict[component.tagType] = mockHistoryList;
-    const lastId = mockHistoryList[mockHistoryList.length - 1]._id;
-    const fetchHistorySpy = spyOn(
-      component as any,
-      'fetchHistory',
-    ).and.returnValue(of(true));
-
-    component.reloadHistory();
-
-    expect(fetchHistorySpy).toHaveBeenCalledWith(
-      mockHistoryList,
-      component.tagType,
-      lastId,
-    );
-    expect(component.buttonDisabled[component.tagType]).toBe(false);
-    expect(errorHandlerService.openErrorDialog).not.toHaveBeenCalled();
-  });
-
-  it('should call fetchHistory with the appropriate arguments when the button is not disabled and historyData is not empty, and disable the button + display a pop-up when fetchHistory returns false', () => {
-    component.buttonDisabled[component.tagType] = false;
-    component.historyDataDict[component.tagType] = mockHistoryList;
-    const lastId = mockHistoryList[mockHistoryList.length - 1]._id;
-
+    component.entriesDataDict[component.tagType] = mockEntriesList;
+    const lastId = mockEntriesList[mockEntriesList.length - 1]._id;
     const fetchHistorySpy = spyOn(
       component as any,
       'fetchHistory',
@@ -179,9 +157,30 @@ describe('HistoryComponent', () => {
 
     component.reloadHistory();
 
+    expect(fetchHistorySpy).toHaveBeenCalledWith(
+      mockEntriesList,
+      component.tagType,
+      lastId,
+    );
+    expect(component.buttonDisabled[component.tagType]).toBe(false);
+    expect(errorHandlerService.openErrorDialog).not.toHaveBeenCalled();
+  });
+
+  it('should call fetchHistory with the appropriate arguments when the button is not disabled and historyData is not empty, and disable the button + display a pop-up when fetchHistory returns true', () => {
+    component.buttonDisabled[component.tagType] = false;
+    component.entriesDataDict[component.tagType] = mockEntriesList;
+    const lastId = mockEntriesList[mockEntriesList.length - 1]._id;
+
+    const fetchHistorySpy = spyOn(
+      component as any,
+      'fetchHistory',
+    ).and.returnValue(of(true));
+
+    component.reloadHistory();
+
     // Expectations
     expect(fetchHistorySpy).toHaveBeenCalledWith(
-      mockHistoryList,
+      mockEntriesList,
       component.tagType,
       lastId,
     );
@@ -194,14 +193,14 @@ describe('HistoryComponent', () => {
 
   // fetchHistory tests
 
-  it('should return false when historyService.fetchHistory ends up with an empty list', fakeAsync(() => {
-    const historyData = component.historyDataDict[component.tagType];
+  it('should return false when end_of_history is false', fakeAsync(() => {
+    const mockHistoryData: HistoryData = {
+      entries: [],
+      end_of_history: false,
+    };
+    historyService.fetchHistory.and.returnValue(of(mockHistoryData));
 
-    historyService.fetchHistory.and.returnValue(of([]));
-    const observer = (component as any).fetchHistory(
-      historyData,
-      component.tagType,
-    );
+    const observer = (component as any).fetchHistory([], component.tagType);
 
     let result: boolean | undefined;
     observer.subscribe((value: boolean) => {
@@ -213,17 +212,14 @@ describe('HistoryComponent', () => {
     expect(result).toBe(false);
   }));
 
-  it('should return true and add data to historyData when historyService.fetchHistory does not end up with an empty list', fakeAsync(() => {
-    const historyData = [
-      { _id: '3', date: '2023-11-05', tagged_sentence: [['word5', 'tag5']] },
-    ];
-    const exprectedHistoryData = [...historyData, ...mockHistoryList];
+  it('should return true when end_of_history is true', fakeAsync(() => {
+    const mockHistoryData: HistoryData = {
+      entries: [],
+      end_of_history: true,
+    };
+    historyService.fetchHistory.and.returnValue(of(mockHistoryData));
 
-    historyService.fetchHistory.and.returnValue(of(mockHistoryList));
-    const observer = (component as any).fetchHistory(
-      historyData,
-      component.tagType,
-    );
+    const observer = (component as any).fetchHistory([], component.tagType);
 
     let result: boolean | undefined;
     observer.subscribe((value: boolean) => {
@@ -233,19 +229,13 @@ describe('HistoryComponent', () => {
     tick();
 
     expect(result).toBe(true);
-    expect(historyData).toEqual(exprectedHistoryData);
   }));
 
   it('should call errorService.handle when historyService.fetchHistory returns an error', fakeAsync(() => {
-    const historyData = component.historyDataDict[component.tagType];
     const testError = new Error('Test error');
-
     historyService.fetchHistory.and.returnValue(throwError(testError));
 
-    const observer = (component as any).fetchHistory(
-      historyData,
-      component.tagType,
-    );
+    const observer = (component as any).fetchHistory([], component.tagType);
 
     let result: boolean | undefined;
     observer.subscribe({
@@ -265,4 +255,3 @@ describe('HistoryComponent', () => {
     expect(errorHandlerService.handle).toHaveBeenCalledWith(testError);
   }));
 });
-*/
