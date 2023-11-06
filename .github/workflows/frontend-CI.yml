@@ -98,7 +98,7 @@ jobs:
           COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
 
       - name: Update README with coverage information
-        run: bash extract-coverage.sh
+        run: bash scripts/extract-coverage.sh
         env:
           COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
         working-directory: ${{ github.workspace }}
