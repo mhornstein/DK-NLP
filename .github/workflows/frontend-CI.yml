@@ -66,3 +66,40 @@ jobs:
       run: |
         cd frontend
         npx ng test --watch=false --browsers=ChromeHeadless
+
+  calculate-coverage:
+    needs: build-ubuntu # Make sure this job runs after the tests in build-ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18.16.0
+
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
+    - name: Install project dependencies
+      run: |
+        cd frontend
+        npm install
+
+    - name: Run tests with code coverage
+      run: |
+        cd frontend
+        npx ng test --no-watch --code-coverage
+
+    - name: Generate coverage report
+      run: |
+        npx istanbul report --include frontend/src/**/*.ts text-summary
+        npx istanbul report --include frontend/src/**/*.ts lcov
+      continue-on-error: true
+
+    - name: Update README with coverage data
+      run: |
+        COVERAGE=$(cat frontend/coverage/coverage-summary.json | jq -r .total.lines.pct)
+        sed -i "s/Test coverage status: \[![coverage]\](/Test coverage status: \[![coverage]\](\/$COVERAGE%/g" frontend/README.md
+      if: success()
