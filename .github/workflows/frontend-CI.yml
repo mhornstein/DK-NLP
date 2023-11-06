@@ -103,20 +103,5 @@ jobs:
           # Extract coverage information from the COVERAGE_OUTPUT environment variable
           COVERAGE_INFO=$(echo "$COVERAGE_OUTPUT" | grep 'Statements\|Branches\|Functions\|Lines')
           echo "$COVERAGE_INFO"
-          # Format the coverage information
-          FORMATTED_COVERAGE=$(echo "$COVERAGE_INFO" | sed 's/^/    /')
-          # Replace the placeholder in the README with the updated coverage information
-          sed -i '/<!-- Coverage Report Placeholder - Start -->/,/<!-- Coverage Report Placeholder - End -->/c<!-- Coverage Report Placeholder - Start -->\n'"$FORMATTED_COVERAGE"'\n<!-- Coverage Report Placeholder - End -->' README.md
-        env:
-          COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
-        working-directory: ${{ github.workspace }}
 
-      - name: Commit and push changes to README
-        run: |
-          cd frontend
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add README.md
-          git commit -m "Update coverage information [automated CI process by GitHub Actions]"
-          git push
 
