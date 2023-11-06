@@ -13,3 +13,6 @@ install:
 
 eslint:
 	npx eslint .
+
+eslint-fix:
+	npx eslint . --fix
