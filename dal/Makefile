@@ -10,6 +10,9 @@ lint:
 test:
 	python -m pytest -vv ./tests/
 
+cov-report:
+	cd tests && python -m coverage run -m unittest && coverage report && cd htmlcov && start chrome "file:///%CD%/tests/htmlcov/index.html" & cd ../..
+
 run:
 	python run.py
 	
