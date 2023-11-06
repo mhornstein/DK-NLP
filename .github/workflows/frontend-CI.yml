@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'frontend/**'
+      - '!frontend/README.md' # Exclude README
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
