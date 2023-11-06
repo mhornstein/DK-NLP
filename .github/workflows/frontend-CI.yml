@@ -94,10 +94,10 @@ jobs:
 
     - name: Extract coverage data
       run: |
-        STATEMENTS=$(cat frontend/coverage/index.html | grep -oP 'Statements<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        BRANCHES=$(cat frontend/coverage/index.html | grep -oP 'Branches<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        FUNCTIONS=$(cat frontend/coverage/index.html | grep -oP 'Functions<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        LINES=$(cat frontend/coverage/index.html | grep -oP 'Lines<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        STATEMENTS=$(cat frontend/coverage/frontend/index.html | grep -oP 'Statements<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        BRANCHES=$(cat frontend/coverage/frontend/index.html | grep -oP 'Branches<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        FUNCTIONS=$(cat frontend/coverage/frontend/index.html | grep -oP 'Functions<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        LINES=$(cat frontend/coverage/frontend/index.html | grep -oP 'Lines<\/span>\n\s*<span class="strong">\K\d+\.\d+')
     
         sed -i "s/Statements: \[![statements]\](/Statements: \[![statements]\](\/$STATEMENTS%/g" frontend/README.md
         sed -i "s/Branches: \[![branches]\](/Branches: \[![branches]\](\/$BRANCHES%/g" frontend/README.md
