@@ -7,6 +7,8 @@
 
 This is the frontend component of the Angular-based Part of Speech (POS) and Named Entity Recognition (NER) tagging application. This README provides essential information for setting up, running, testing, and maintaining this Angular app.
 
+The commands attached should be run in the `forntend` directory path of the project.
+
 ## Prerequisites
 
 This application was developed using Node.js version 18.16.0.
