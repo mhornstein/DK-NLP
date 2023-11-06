@@ -8,6 +8,9 @@ run:
 test:
 	npm test
 
+cov-report:
+	nyc report --reporter=text
+
 install:
 	npm install
 
