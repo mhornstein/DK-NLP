@@ -50,11 +50,8 @@ To run the tests locally, execute the following command:
 make test
 ```
 
-The Coverage report will be presented at the end of the testing. To present it afterwards again, type:
+The Coverage report will be presented at the end of the testing.
 
-```bash
-make cov-report
-```
 
 ## Linting and Code Formatting
 
