@@ -4,12 +4,33 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { HistoryService } from './history.service';
-// import { HistoryData } from '../shared/history-data';
+import { HistoryData } from '../shared/history-data';
 import { HttpErrorResponse } from '@angular/common/http';
 
 describe('HistoryService', () => {
   let historyService: HistoryService;
   let httpTestingController: HttpTestingController;
+  const mockHistoryData: HistoryData = {
+    entries: [
+      {
+        _id: '1',
+        date: '2023-11-02',
+        tagged_sentence: [
+          ['tag1', 'word1'],
+          ['tag2', 'word2'],
+        ],
+      },
+      {
+        _id: '2',
+        date: '2023-11-03',
+        tagged_sentence: [
+          ['tag3', 'word3'],
+          ['tag4', 'word4'],
+        ],
+      },
+    ],
+    end_of_history: true,
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -28,31 +49,12 @@ describe('HistoryService', () => {
     expect(historyService).toBeTruthy();
   });
 
-  /*
   it('should fetch history successfully when last_id defined', () => {
     const tagType = 'someType';
     const lastId = 'someId';
-    const mockData: HistoryData[] = [
-      {
-        _id: '1',
-        date: '2023-11-02',
-        tagged_sentence: [
-          ['tag1', 'word1'],
-          ['tag2', 'word2'],
-        ],
-      },
-      {
-        _id: '2',
-        date: '2023-11-03',
-        tagged_sentence: [
-          ['tag3', 'word3'],
-          ['tag4', 'word4'],
-        ],
-      },
-    ];
 
     historyService.fetchHistory(tagType, lastId).subscribe((data) => {
-      expect(data).toEqual(mockData); // Validate that the mock data is returned
+      expect(data).toEqual(mockHistoryData); // Validate that the mock data is returned
     });
 
     const req = httpTestingController.expectOne((req) => {
@@ -63,32 +65,14 @@ describe('HistoryService', () => {
       );
     });
 
-    req.flush(mockData); // Mock response with the defined data
+    req.flush(mockHistoryData); // Mock response with the defined data
   });
 
   it('should fetch history successfully when last_id undefined', () => {
     const tagType = 'someType';
-    const mockData: HistoryData[] = [
-      {
-        _id: '1',
-        date: '2023-11-02',
-        tagged_sentence: [
-          ['tag1', 'word1'],
-          ['tag2', 'word2'],
-        ],
-      },
-      {
-        _id: '2',
-        date: '2023-11-03',
-        tagged_sentence: [
-          ['tag3', 'word3'],
-          ['tag4', 'word4'],
-        ],
-      },
-    ];
 
     historyService.fetchHistory(tagType).subscribe((data) => {
-      expect(data).toEqual(mockData); // Validate that the mock data is returned
+      expect(data).toEqual(mockHistoryData); // Validate that the mock data is returned
     });
 
     const req = httpTestingController.expectOne((req) => {
@@ -98,10 +82,9 @@ describe('HistoryService', () => {
       );
     });
 
-    req.flush(mockData); // Mock response with the defined data
+    req.flush(mockHistoryData); // Mock response with the defined data
   });
 
-  */
   it('should handle API error', () => {
     const tagType = 'someType';
     const lastId = 'someId';
