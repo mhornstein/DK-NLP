@@ -90,7 +90,7 @@ jobs:
     - name: Run tests with code coverage
       run: |
         cd frontend
-        npx ng test --no-watch --code-coverage
+        npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
 
     - name: Generate coverage report
       run: |
