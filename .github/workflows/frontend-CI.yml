@@ -69,31 +69,45 @@ jobs:
         npx ng test --watch=false --browsers=ChromeHeadless
 
   calculate-test-coverage:
-    runs-on: ubuntu-20.04
-  
+    needs: build-ubuntu
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-  
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18.16.0
-  
-    - name: Install test coverage tools
-      run: |
-        cd frontend
-        npm install --save-dev istanbul
-  
-    - name: Run test coverage
-      run: |
-        cd frontend
-        npx ng test --code-coverage
-  
-    - name: Calculate coverage percentage
-      run: |
-        cd frontend
-        npx nyc report --reporter=lcov
-        COVERAGE_PERCENTAGE=$(cat coverage/lcov-report/index.html | grep -oP '(?<=<span class="strong">)[0-9.]+(?=%</span>)')
-        echo "Test Coverage: $COVERAGE_PERCENTAGE%" >> frontend/README.md
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.16.0
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install project dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run tests with code coverage
+        run: |
+          cd frontend
+          COVERAGE_OUTPUT=$(npx ng test --watch=false --browsers=ChromeHeadless --code-coverage)
+          echo "$COVERAGE_OUTPUT" > coverage-output.txt
+        env:
+          COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
+
+      - name: Update README with coverage information
+        run: bash extract-coverage.sh
+        env:
+          COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
+        working-directory: ${{ github.workspace }}
+
+      - name: Commit and push changes to README
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Update coverage information [automated CI process]"
+          git push
 
