@@ -68,71 +68,32 @@ jobs:
         cd frontend
         npx ng test --watch=false --browsers=ChromeHeadless
 
-  calculate-coverage:
-    needs: build-ubuntu # Make sure this job runs after the tests in build-ubuntu
-    runs-on: ubuntu-latest
+  calculate-test-coverage:
+    runs-on: ubuntu-20.04
+  
     steps:
     - name: Check out code
       uses: actions/checkout@v2
-
+  
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: 18.16.0
-
-    - name: Install Angular CLI
-      run: npm install -g @angular/cli
-
-    - name: Install project dependencies
+  
+    - name: Install test coverage tools
       run: |
         cd frontend
-        npm install
-
-    - name: Run tests with code coverage
+        npm install --save-dev istanbul
+  
+    - name: Run test coverage
       run: |
         cd frontend
-        npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
-
-    - name: List files in coverage directory
+        npx ng test --code-coverage
+  
+    - name: Calculate coverage percentage
       run: |
         cd frontend
-        ls -R coverage
-
-    - name: List files in coverage/frontend directory
-      run: |
-        cd frontend
-        ls -R coverage/frontend
-
-
-    - name: Extract coverage data
-      run: |
-        cd frontend
-        STATEMENTS=$(cat coverage/frontend/index.html | grep -oP 'Statements<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        BRANCHES=$(cat coverage/frontend/index.html | grep -oP 'Branches<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        FUNCTIONS=$(cat coverage/frontend/index.html | grep -oP 'Functions<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        LINES=$(cat coverage/frontend/index.html | grep -oP 'Lines<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-    
-        echo "::set-output name=statements::$STATEMENTS"
-        echo "::set-output name=branches::$BRANCHES"
-        echo "::set-output name=functions::$FUNCTIONS"
-        echo "::set-output name=lines::$LINES"
-      if: success()
-    
-    - name: Update README with coverage data
-      run: |
-        STATEMENTS=$INPUT_STATEMENTS
-        BRANCHES=$INPUT_BRANCHES
-        FUNCTIONS=$INPUT_FUNCTIONS
-        LINES=$INPUT_LINES
-    
-        sed -i "s|Statements: \[![statements]](/|Statements: [![statements]](/$STATEMENTS%|g" frontend/README.md
-        sed -i "s|Branches: \[![branches]](/|Branches: [![branches]](/$BRANCHES%|g" frontend/README.md
-        sed -i "s|Functions: \[![functions]](/|Functions: [![functions]](/$FUNCTIONS%|g" frontend/README.md
-        sed -i "s|Lines: \[![lines]](/|Lines: [![lines]](/$LINES%|g" frontend/README.md
-      env:
-        INPUT_STATEMENTS: ${{ steps.extract_coverage.outputs.statements }}
-        INPUT_BRANCHES: ${{ steps.extract_coverage.outputs.branches }}
-        INPUT_FUNCTIONS: ${{ steps.extract_coverage.outputs.functions }}
-        INPUT_LINES: ${{ steps.extract_coverage.outputs.lines }}
-      if: success()
+        npx nyc report --reporter=lcov
+        COVERAGE_PERCENTAGE=$(cat coverage/lcov-report/index.html | grep -oP '(?<=<span class="strong">)[0-9.]+(?=%</span>)')
+        echo "Test Coverage: $COVERAGE_PERCENTAGE%" >> frontend/README.md
 
