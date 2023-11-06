@@ -93,6 +93,17 @@ jobs:
         cd frontend
         npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
 
+    - name: List files in coverage directory
+      run: |
+        cd frontend
+        ls -R coverage
+
+    - name: List files in coverage/frontend directory
+      run: |
+        cd frontend
+        ls -R coverage/frontend
+
+
     - name: Extract coverage data
       run: |
         cd frontend
