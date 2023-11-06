@@ -94,14 +94,33 @@ jobs:
 
     - name: Extract coverage data
       run: |
-        STATEMENTS=$(cat frontend/coverage/frontend/index.html | grep -oP 'Statements<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        BRANCHES=$(cat frontend/coverage/frontend/index.html | grep -oP 'Branches<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        FUNCTIONS=$(cat frontend/coverage/frontend/index.html | grep -oP 'Functions<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        LINES=$(cat frontend/coverage/frontend/index.html | grep -oP 'Lines<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        cd frontend
+        STATEMENTS=$(cat coverage/frontend/index.html | grep -oP 'Statements<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        BRANCHES=$(cat coverage/frontend/index.html | grep -oP 'Branches<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        FUNCTIONS=$(cat coverage/frontend/index.html | grep -oP 'Functions<\/span>\n\s*<span class="strong">\K\d+\.\d+')
+        LINES=$(cat coverage/frontend/index.html | grep -oP 'Lines<\/span>\n\s*<span class="strong">\K\d+\.\d+')
     
-        sed -i "s/Statements: \[![statements]\](/Statements: \[![statements]\](\/$STATEMENTS%/g" frontend/README.md
-        sed -i "s/Branches: \[![branches]\](/Branches: \[![branches]\](\/$BRANCHES%/g" frontend/README.md
-        sed -i "s/Functions: \[![functions]\](/Functions: \[![functions]\](\/$FUNCTIONS%/g" frontend/README.md
-        sed -i "s/Lines: \[![lines]\](/Lines: \[![lines]\](\/$LINES%/g" frontend/README.md
+        echo "::set-output name=statements::$STATEMENTS"
+        echo "::set-output name=branches::$BRANCHES"
+        echo "::set-output name=functions::$FUNCTIONS"
+        echo "::set-output name=lines::$LINES"
+      if: success()
+    
+    - name: Update README with coverage data
+      run: |
+        STATEMENTS=$INPUT_STATEMENTS
+        BRANCHES=$INPUT_BRANCHES
+        FUNCTIONS=$INPUT_FUNCTIONS
+        LINES=$INPUT_LINES
+    
+        sed -i "s|Statements: \[![statements]](/|Statements: [![statements]](/$STATEMENTS%|g" frontend/README.md
+        sed -i "s|Branches: \[![branches]](/|Branches: [![branches]](/$BRANCHES%|g" frontend/README.md
+        sed -i "s|Functions: \[![functions]](/|Functions: [![functions]](/$FUNCTIONS%|g" frontend/README.md
+        sed -i "s|Lines: \[![lines]](/|Lines: [![lines]](/$LINES%|g" frontend/README.md
+      env:
+        INPUT_STATEMENTS: ${{ steps.extract_coverage.outputs.statements }}
+        INPUT_BRANCHES: ${{ steps.extract_coverage.outputs.branches }}
+        INPUT_FUNCTIONS: ${{ steps.extract_coverage.outputs.functions }}
+        INPUT_LINES: ${{ steps.extract_coverage.outputs.lines }}
       if: success()
 
