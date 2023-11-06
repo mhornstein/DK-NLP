@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryData } from '../shared/history-data';
+import { EntryData, HistoryData } from '../shared/history-data';
 import { HistoryService } from '../services/history.service';
 import { ErrorHandlerService } from '../services/error-handler.service';
-import { Observable } from 'rxjs';
 import {
   BUTTON_DISABLED_NO_HISTORY_ERROR_MSG,
   EMPTY_HISTORY_RELOAD_ERROR_MSG,
@@ -16,7 +15,7 @@ import {
   styleUrls: ['./history.component.scss', '../app.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-  historyDataDict: { [key: string]: HistoryData[] } = {
+  entriesDataDict: { [key: string]: EntryData[] } = {
     pos: [],
     ner: [],
   };
@@ -36,16 +35,19 @@ export class HistoryComponent implements OnInit {
   }
 
   loadHistory(): void {
-    const historyData = this.historyDataDict[this.tagType];
-    if (!this.buttonDisabled[this.tagType] && historyData.length === 0) {
-      // If historyData is empty, call fetchHistory with just tagType
-      this.fetchHistory(historyData, this.tagType).subscribe(
-        (history_added) => {
-          if (!history_added) {
+    const entriesData = this.entriesDataDict[this.tagType];
+    if (!this.buttonDisabled[this.tagType] && entriesData.length === 0) {
+      this.historyService.fetchHistory(this.tagType).subscribe({
+        next: (historyData: HistoryData) => {
+          entriesData.push(...historyData.entries);
+          if (historyData.end_of_history) {
             this.buttonDisabled[this.tagType] = true;
           }
         },
-      );
+        error: (error) => {
+          this.errorService.handle(error);
+        },
+      });
     }
   }
 
@@ -54,16 +56,18 @@ export class HistoryComponent implements OnInit {
       console.error(BUTTON_DISABLED_NO_HISTORY_ERROR_MSG);
       return;
     }
-    const historyData = this.historyDataDict[this.tagType];
-    if (historyData.length == 0) {
+    const entriesData = this.entriesDataDict[this.tagType];
+    if (entriesData.length == 0) {
       console.error(EMPTY_HISTORY_RELOAD_ERROR_MSG);
       return;
     }
-    const lastItem = historyData[historyData.length - 1];
+    const lastItem = entriesData[entriesData.length - 1];
     const lastId = lastItem._id;
-    this.fetchHistory(historyData, this.tagType, lastId).subscribe(
-      (history_added) => {
-        if (!history_added) {
+
+    this.historyService.fetchHistory(this.tagType, lastId).subscribe({
+      next: (historyData: HistoryData) => {
+        entriesData.push(...historyData.entries);
+        if (historyData.end_of_history) {
           this.buttonDisabled[this.tagType] = true;
           this.errorService.openErrorDialog(
             END_OF_TAGGING_HISTORY,
@@ -71,29 +75,9 @@ export class HistoryComponent implements OnInit {
           );
         }
       },
-    );
-  }
-
-  private fetchHistory(
-    historyData: HistoryData[],
-    tagType: string,
-    lastId?: string,
-  ): Observable<boolean> {
-    return new Observable<boolean>((observer) => {
-      this.historyService.fetchHistory(tagType, lastId).subscribe({
-        next: (data: HistoryData[]) => {
-          if (data.length > 0) {
-            historyData.push(...data);
-            observer.next(true); // Data was fetched successfully
-          } else {
-            observer.next(false); // No data was fetched
-          }
-          observer.complete();
-        },
-        error: (error) => {
-          this.errorService.handle(error);
-        },
-      });
+      error: (error) => {
+        this.errorService.handle(error);
+      },
     });
   }
 }
