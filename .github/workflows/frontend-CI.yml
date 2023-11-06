@@ -1,44 +1,38 @@
-name: Frontend CI
+name: Server CI
 
 on:
   push:
     paths:
-      - 'frontend/**'
-      - '!frontend/README.md' # Exclude README
+      - 'server/**'
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
 
-  build-ubuntu:
-    runs-on: ubuntu-20.04
+  build-linux:
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: 18.16.0
 
     - name: Install dependencies
       run: |
-        cd frontend
+        cd server
         make install
 
-    - name: Format code
+    - name: Lint and format code with ESLint
       run: |
-        cd frontend
-        make format
-
-    - name: Lint the code
-      run: |
-        cd frontend
-        make lint
+        cd server
+        make eslint
 
     - name: Run tests
       run: |
-        cd frontend
+        cd server
         make test
 
   build-windows:
@@ -48,60 +42,22 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: 18.16.0
 
     - name: Install dependencies
       run: |
-        cd frontend
+        cd server
         npm install
 
-    - name: Lint the code
+    - name: Lint and format code with ESLint
       run: |
-        cd frontend
-        npm run lint
+        cd server
+        npx eslint .
 
     - name: Run tests
       run: |
-        cd frontend
-        npx ng test --watch=false --browsers=ChromeHeadless
-
-  calculate-test-coverage:
-    needs: build-ubuntu
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18.16.0
-
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
-      - name: Install project dependencies
-        run: |
-          cd frontend
-          npm install
-
-      - name: Run tests with code coverage
-        run: |
-          cd frontend
-          export COVERAGE_OUTPUT=$(npx ng test --watch=false --browsers=ChromeHeadless --code-coverage)
-          echo "$COVERAGE_OUTPUT"  # Optional: You can print the output for debugging
-        env:
-          COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
-
-      - name: Update README with coverage information
-        run: |
-          cd frontend
-          # Extract coverage information from the COVERAGE_OUTPUT environment variable
-          COVERAGE_INFO=$(echo "$COVERAGE_OUTPUT" | grep 'Statements\|Branches\|Functions\|Lines')
-          echo "$COVERAGE_INFO"
-
-
+        cd server
+        npm test
