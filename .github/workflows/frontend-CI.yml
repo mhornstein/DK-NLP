@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'frontend/**'
+      - '!frontend/README.md' # Exclude README
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
@@ -67,41 +68,46 @@ jobs:
         cd frontend
         npx ng test --watch=false --browsers=ChromeHeadless
 
-  calculate-coverage:
-    needs: build-ubuntu # Make sure this job runs after the tests in build-ubuntu
+  calculate-test-coverage:
+    needs: build-ubuntu
     runs-on: ubuntu-latest
+
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18.16.0
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.16.0
 
-    - name: Install Angular CLI
-      run: npm install -g @angular/cli
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
 
-    - name: Install project dependencies
-      run: |
-        cd frontend
-        npm install
+      - name: Install project dependencies
+        run: |
+          cd frontend
+          npm install
 
-    - name: Run tests with code coverage
-      run: |
-        cd frontend
-        npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
+      - name: Run tests with code coverage
+        run: |
+          cd frontend
+          COVERAGE_OUTPUT=$(npx ng test --watch=false --browsers=ChromeHeadless --code-coverage)
+          echo "$COVERAGE_OUTPUT" > coverage-output.txt
+        env:
+          COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
 
-    - name: Extract coverage data
-      run: |
-        STATEMENTS=$(cat frontend/coverage/index.html | grep -oP 'Statements<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        BRANCHES=$(cat frontend/coverage/index.html | grep -oP 'Branches<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        FUNCTIONS=$(cat frontend/coverage/index.html | grep -oP 'Functions<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-        LINES=$(cat frontend/coverage/index.html | grep -oP 'Lines<\/span>\n\s*<span class="strong">\K\d+\.\d+')
-    
-        sed -i "s/Statements: \[![statements]\](/Statements: \[![statements]\](\/$STATEMENTS%/g" frontend/README.md
-        sed -i "s/Branches: \[![branches]\](/Branches: \[![branches]\](\/$BRANCHES%/g" frontend/README.md
-        sed -i "s/Functions: \[![functions]\](/Functions: \[![functions]\](\/$FUNCTIONS%/g" frontend/README.md
-        sed -i "s/Lines: \[![lines]\](/Lines: \[![lines]\](\/$LINES%/g" frontend/README.md
-      if: success()
+      - name: Update README with coverage information
+        run: bash scripts/extract-coverage.sh
+        env:
+          COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
+        working-directory: ${{ github.workspace }}
+
+      - name: Commit and push changes to README
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Update coverage information [automated CI process]"
+          git push
 
