@@ -98,13 +98,21 @@ jobs:
           COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
 
       - name: Update README with coverage information
-        run: bash frontend/scripts/extract-coverage.sh
+        run: |
+          cd frontend
+          # fisrt: Extract coverage information from the output
+          COVERAGE_INFO=$(grep 'Statements\|Branches\|Functions\|Lines' output.txt)
+          # second: Format the coverage information
+          FORMATTED_COVERAGE=$(echo "$COVERAGE_INFO" | sed 's/^/    /') # Format the coverage information
+          # last: Replace the placeholder in the README with the updated coverage information
+          sed -i '/<!-- Coverage Report Placeholder - Start -->/,/<!-- Coverage Report Placeholder - End -->/c\<!-- Coverage Report Placeholder - Start -->\n'"$FORMATTED_COVERAGE"'\n<!-- Coverage Report Placeholder - End -->' README.md
         env:
           COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
         working-directory: ${{ github.workspace }}
 
       - name: Commit and push changes to README
         run: |
+          cd frontend
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add README.md
