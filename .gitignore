@@ -65,3 +65,4 @@ frontend/Thumbs.db
 # Ignoring server files #
 #########################
 /server/node_modules
+/server/.nyc_output/*
