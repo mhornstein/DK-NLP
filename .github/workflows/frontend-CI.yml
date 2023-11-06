@@ -92,20 +92,21 @@ jobs:
       - name: Run tests with code coverage
         run: |
           cd frontend
-          COVERAGE_OUTPUT=$(npx ng test --watch=false --browsers=ChromeHeadless --code-coverage)
-          echo "$COVERAGE_OUTPUT" > coverage-output.txt
+          export COVERAGE_OUTPUT=$(npx ng test --watch=false --browsers=ChromeHeadless --code-coverage)
+          echo "$COVERAGE_OUTPUT"  # Optional: You can print the output for debugging
         env:
           COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
 
       - name: Update README with coverage information
         run: |
           cd frontend
-          # fisrt: Extract coverage information from the output
-          COVERAGE_INFO=$(grep 'Statements\|Branches\|Functions\|Lines' output.txt)
-          # second: Format the coverage information
-          FORMATTED_COVERAGE=$(echo "$COVERAGE_INFO" | sed 's/^/    /') # Format the coverage information
-          # last: Replace the placeholder in the README with the updated coverage information
-          sed -i '/<!-- Coverage Report Placeholder - Start -->/,/<!-- Coverage Report Placeholder - End -->/c\<!-- Coverage Report Placeholder - Start -->\n'"$FORMATTED_COVERAGE"'\n<!-- Coverage Report Placeholder - End -->' README.md
+          # Extract coverage information from the COVERAGE_OUTPUT environment variable
+          COVERAGE_INFO=$(echo "$COVERAGE_OUTPUT" | grep 'Statements\|Branches\|Functions\|Lines')
+          echo "$COVERAGE_INFO"
+          # Format the coverage information
+          FORMATTED_COVERAGE=$(echo "$COVERAGE_INFO" | sed 's/^/    /')
+          # Replace the placeholder in the README with the updated coverage information
+          sed -i '/<!-- Coverage Report Placeholder - Start -->/,/<!-- Coverage Report Placeholder - End -->/c<!-- Coverage Report Placeholder - Start -->\n'"$FORMATTED_COVERAGE"'\n<!-- Coverage Report Placeholder - End -->' README.md
         env:
           COVERAGE_OUTPUT: ${{ steps.calculate-coverage.outputs.coverage-output }}
         working-directory: ${{ github.workspace }}
