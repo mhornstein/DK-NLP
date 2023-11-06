@@ -22,3 +22,6 @@ format-fix:
 
 test:
 	npx ng test --watch=false --browsers=ChromeHeadless
+
+test-cov:
+	ng test --no-watch --code-coverage
