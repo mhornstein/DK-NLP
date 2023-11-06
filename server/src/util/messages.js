@@ -1,6 +1,6 @@
 module.exports = {
   // server errors
-  INVALID_PARAMETER_ERROR: 'Invalide parameter error',
+  SERVER_ERROR: 'Error reported by server',
   // tag errors
   INVALID_TAG_REQUEST: 'Invalid mode or sentence parameters. Mode must be "ner" or "pos". Sentence is required.',
   // fetchEntries errors

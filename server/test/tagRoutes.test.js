@@ -58,7 +58,7 @@ describe('Tagging Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.deep.equal({ error: messages.INVALID_PARAMETER_ERROR, details: messages.INVALID_TAG_REQUEST })
+    expect(response.body).to.deep.equal({ error: messages.SERVER_ERROR, details: messages.INVALID_TAG_REQUEST })
   })
 
   it('should return a 400 error when the "mode" parameter is neither "pos" nor "ner"', async () => {
@@ -69,7 +69,7 @@ describe('Tagging Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.deep.equal({ error: messages.INVALID_PARAMETER_ERROR, details: messages.INVALID_TAG_REQUEST })
+    expect(response.body).to.deep.equal({ error: messages.SERVER_ERROR, details: messages.INVALID_TAG_REQUEST })
   })
 
   it('should return a 400 error when "sentence" parameter is missing', async () => {
@@ -80,7 +80,7 @@ describe('Tagging Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.deep.equal({ error: messages.INVALID_PARAMETER_ERROR, details: messages.INVALID_TAG_REQUEST })
+    expect(response.body).to.deep.equal({ error: messages.SERVER_ERROR, details: messages.INVALID_TAG_REQUEST })
   })
 
   it('should return a 400 error when "sentence" parameter is empty', async () => {
@@ -91,7 +91,7 @@ describe('Tagging Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.deep.equal({ error: messages.INVALID_PARAMETER_ERROR, details: messages.INVALID_TAG_REQUEST })
+    expect(response.body).to.deep.equal({ error: messages.SERVER_ERROR, details: messages.INVALID_TAG_REQUEST })
   })
 
   it('should return a 500 error when the GET call to the tag service returns a 400 error code (or any other error code)', async () => {

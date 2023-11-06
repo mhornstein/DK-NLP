@@ -74,7 +74,7 @@ describe('Fetch Entries Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.include({ error: messages.INVALID_PARAMETER_ERROR, details: messages.ILLEGAL_OR_MISSING_MODE })
+    expect(response.body).to.include({ error: messages.SERVER_ERROR, details: messages.ILLEGAL_OR_MISSING_MODE })
   })
 
   it('should return a 400 response when a GET request with incorrect mode', async () => {
@@ -85,7 +85,7 @@ describe('Fetch Entries Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.include({ error: messages.INVALID_PARAMETER_ERROR, details: messages.ILLEGAL_OR_MISSING_MODE })
+    expect(response.body).to.include({ error: messages.SERVER_ERROR, details: messages.ILLEGAL_OR_MISSING_MODE })
   })
 
   it('should return a 400 response when a GET request with num_entries as a non-numeric string', async () => {
@@ -96,7 +96,7 @@ describe('Fetch Entries Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.include({ error: messages.INVALID_PARAMETER_ERROR, details: messages.NUM_ENTRIES_MUST_BE_INT })
+    expect(response.body).to.include({ error: messages.SERVER_ERROR, details: messages.NUM_ENTRIES_MUST_BE_INT })
   })
 
   it('should return a 400 response when a GET request with num_entries as zero', async () => {
@@ -107,7 +107,7 @@ describe('Fetch Entries Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.include({ error: messages.INVALID_PARAMETER_ERROR, details: messages.NUM_ENTRIES_MUST_BE_POSITIVE })
+    expect(response.body).to.include({ error: messages.SERVER_ERROR, details: messages.NUM_ENTRIES_MUST_BE_POSITIVE })
   })
 
   it('should return a 400 response when a GET request with num_entries as a negative number', async () => {
@@ -118,7 +118,7 @@ describe('Fetch Entries Route', () => {
 
     // Step 2: Assertions
     expect(response).to.have.status(400)
-    expect(response.body).to.include({ error: messages.INVALID_PARAMETER_ERROR, details: messages.NUM_ENTRIES_MUST_BE_POSITIVE })
+    expect(response.body).to.include({ error: messages.SERVER_ERROR, details: messages.NUM_ENTRIES_MUST_BE_POSITIVE })
   })
 
   it('should return a 500 error when the GET call to the dal service encounters "ECONNREFUSED" error', async () => {
