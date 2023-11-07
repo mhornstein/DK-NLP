@@ -198,5 +198,23 @@ class TestAddEntryEndpoint(unittest.TestCase):
         self.assertIn('error', data)
         self.assertEqual(data['error'], messages.TAGGED_SENTENCE_LENGTH_EXCEEDED)
 
+    @patch('app.routes.get_collection')
+    def test_add_entry_exception(self, mock_get_collection):
+        error_txt = "Database error"
+        mock_get_collection.return_value.insert_one.side_effect = Exception(error_txt)
+
+        invalid_data = {
+            'date': '2023-10-24T14:30:00+00:00',
+            'mode': 'pos',
+            'tagged_sentence': [['tag11', 'word1'], ['tag2', 'word2']]
+        }
+
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 500)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], error_txt)
+
 if __name__ == '__main__':
     unittest.main()

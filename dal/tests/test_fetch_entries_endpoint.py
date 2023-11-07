@@ -1,3 +1,4 @@
+import json
 import sys
 sys.path.append('../')
 
@@ -185,6 +186,20 @@ class TestFetchEntries(unittest.TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json(), {'error': messages.INVALID_ENTRY_ID_FORMAT})
+
+    @patch('app.routes.get_collection')
+    def test_fetch_entries_exception(self, mock_get_collection):
+        error_txt = "Database error"
+
+        mock_get_collection.side_effect = Exception(error_txt)
+
+        response = self.app.get('/fetch_entries?mode=pos')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 500)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], error_txt)
+
 
 if __name__ == '__main__':
     unittest.main()
