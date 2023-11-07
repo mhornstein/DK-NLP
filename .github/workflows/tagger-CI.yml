@@ -36,8 +36,8 @@ jobs:
 
     - name: Run tests
       run: |
-        cd tagger
-        python -m pytest -vv ./tests/
+        cd tagger/tests
+        python -m pytest -vv .
 
   build-ubuntu:
     runs-on: ubuntu-20.04
