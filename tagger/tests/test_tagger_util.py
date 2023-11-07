@@ -4,6 +4,7 @@ sys.path.append("../app")
 
 import unittest
 from app.tagger_util import Tagger
+import app.bilstm_modules as bilstm_modules
 
 class TestTagger(unittest.TestCase):
     @classmethod
