@@ -8,7 +8,7 @@ lint:
 	pylint --disable=R,C app
 	
 test:
-	python -m pytest -vv ./tests/
+	cd tests && python -m pytest -vv . && cd ..
 
 cov-report:
 	cd tests && python -m coverage run -m unittest && coverage report && coverage html && cd htmlcov && start chrome "file:///%CD%/tests/htmlcov/index.html" & cd ../..
