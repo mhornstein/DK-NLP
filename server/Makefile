@@ -9,7 +9,7 @@ test:
 	npm test
 
 cov-report:
-	nyc report --reporter=text
+	npm test & nyc report --reporter=html && start chrome "file:///%CD%/coverage/index.html"
 
 install:
 	npm install
