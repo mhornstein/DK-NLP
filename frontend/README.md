@@ -44,7 +44,7 @@ Testing for this application is done using Karma, with the following test covera
 
 **Note:** The testing process includes continuous integration (CI) using GitHub Actions, which automatically tests the application on both Linux and Windows environments as part of our CI pipeline. The test status is indicated in the badge at the top of this readme file.
 
-To run the tests locally, execute the following command:
+To run the tests locally, execute the following command (avaiable only on windows with Chrome installed):
 
 ```bash
 make test
