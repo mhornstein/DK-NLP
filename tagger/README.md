@@ -26,13 +26,21 @@ This command will use pip to install all the required packages. You can find the
 
 ## Running the Application
 
-To launch the microservice, use the following command:
+To start the microservice, execute the following command:
 
 ```bash
 make run
 ```
 
-The API will be accessible at `http://localhost:4000/`.
+By default, the API will be accessible at `http://localhost:4000/` as port `4000` is the default setting.
+
+If you need to modify the API port to a custom value, you can do so by using the following command with the port flag:
+
+```bash
+python run.py --port=<custom port>
+```
+
+Replace `<custom port>` with the preferred port number for the API.
 
 ## Testing
 
