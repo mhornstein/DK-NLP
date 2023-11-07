@@ -154,5 +154,49 @@ class TestAddEntryEndpoint(unittest.TestCase):
         self.assertIn('error', data)
         self.assertEqual(data['error'], messages.INVALID_TAGGED_SENTENCE_STRUCTURE)
 
+    def test_invalid_data_type(self):
+        invalid_data = "not_a_dictionary"
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_JSON_OBJECT)
+
+    def test_missing_required_keys(self):
+        invalid_data = {
+            'mode': 'pos',
+            'mispelled_date': '2023-10-24T14:30:00+00:00', # note that this is an incorrect key
+            'tagged_sentence': [['tag11', 'word1'], ['tag2', 'word2']]
+        }
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_DATA_KEYS)
+
+    def test_invalid_tagged_sentence_type(self):
+        invalid_data = {
+            'date': '2023-10-24T14:30:00+00:00',
+            'mode': 'ner',
+            'tagged_sentence': "tagged_sentence is not a list and therefore not valid"
+        }
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.INVALID_TAGGED_SENTENCE_TYPE)
+
+    def test_tagged_sentence_length_exceeded(self):
+        invalid_data = {
+            'date': '2023-10-24T14:30:00+00:00',
+            'mode': 'pos',
+            'tagged_sentence': [['tag11', 'word1']] * 251  # tagged_sentence exceeds the length limit
+        }
+        response = self.app.post('/add_entry', json=invalid_data, content_type='application/json')
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', data)
+        self.assertEqual(data['error'], messages.TAGGED_SENTENCE_LENGTH_EXCEEDED)
+
 if __name__ == '__main__':
     unittest.main()
