@@ -69,3 +69,13 @@ class TestTagEndpoint(unittest.TestCase):
         data = response.get_json()
         self.assertEqual(response.status_code, 400)
         self.assertEqual(data, {"error": messages.INVALID_SENTENCE_LENGTH_ERROR})
+
+    @patch("app.routes.get_tagger")
+    def test_tagger_exception(self, mock_get_tagger):
+        mock_get_tagger.side_effect = Exception("Simulated exception")
+        response = self.client.get(
+            "/tag?mode=pos&sentence=How%20John%20is%20doing%20in%20Japan%3F"
+        )
+        self.assertEqual(response.status_code, 500)
+        expected_response = {"error": "Simulated exception"}
+        self.assertEqual(response.get_json(), expected_response)
