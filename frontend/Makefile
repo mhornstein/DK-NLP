@@ -23,5 +23,5 @@ format-fix:
 test:
 	npx ng test --watch=false --browsers=ChromeHeadless
 
-cov-report:
+test-cov:
 	ng test --code-coverage --watch=false --browsers=ChromeHeadless && start chrome "file:///%CD%/coverage/frontend/index.html"
