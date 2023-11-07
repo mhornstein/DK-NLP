@@ -68,3 +68,4 @@ frontend/Thumbs.db
 #########################
 /server/node_modules
 /server/.nyc_output/*
+/server/coverage
