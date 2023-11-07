@@ -1,9 +1,31 @@
 const express = require('express')
 const tagRoutes = require('./routes/tagRoutes')
 const fetchEntriesRoutes = require('./routes/fetchEntriesRoutes')
+const yargs = require('yargs/yargs')
+const { hideBin } = require('yargs/helpers')
 
 const app = express()
-const port = 3000
+
+// Configure yargs to parse the command line arguments
+const argv = yargs(hideBin(process.argv))
+  .option('port', {
+    alias: 'p',
+    describe: 'Port to run the server on',
+    type: 'number',
+    default: 3000
+  })
+  .check((argv, _options) => {
+    if (isNaN(argv.port)) {
+      throw new Error('Port must be a number')
+    }
+    if (argv.port <= 0 || argv.port > 65535) {
+      throw new Error('Port must be a valid TCP/IP port (1-65535)')
+    }
+    return true
+  })
+  .argv
+
+const port = argv.port
 
 // CORS Middleware - TODO configure this more securely in a production environment
 app.use((req, res, next) => {
