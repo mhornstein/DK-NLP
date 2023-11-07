@@ -10,9 +10,9 @@ export class TaggerService {
   constructor(private http: HttpClient) {}
 
   tagText(inputText: string, tagType: string): Observable<[string, string][]> {
-    const url = `${environment.serverUri}/tag?mode=${tagType}&sentence=${encodeURIComponent(
-      inputText,
-    )}`;
+    const url = `${
+      environment.serverUri
+    }/tag?mode=${tagType}&sentence=${encodeURIComponent(inputText)}`;
     return this.http.get<[string, string][]>(url);
   }
 }

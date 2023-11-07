@@ -33,24 +33,34 @@ const argv = yargs(hideBin(process.argv))
       throw new Error(`The "port" option must be a number".`);
     }
     if (argv.mode === 'build' && argv.port !== DEFAULT_PORT) {
-      throw new Error('The "port" option can only be set when the "mode" is set to "serve".');
+      throw new Error(
+        'The "port" option can only be set when the "mode" is set to "serve".',
+      );
     }
     return true; // Tell Yargs that the arguments passed the check
-  })
-  .argv;
+  }).argv;
 
 const serverUri = argv['server-uri'];
 const mode = argv.mode;
 const port = argv.port; // This will only be set if mode is 'serve'
 
-console.log(`Lunching client with Server URI: ${serverUri}, Mode: ${mode}${mode === 'serve' ? `, Port: ${port}` : ''}`);
+console.log(
+  `Lunching client with Server URI: ${serverUri}, Mode: ${mode}${
+    mode === 'serve' ? `, Port: ${port}` : ''
+  }`,
+);
 
 // Step 2: Update the environment file
-const environmentFilePath = path.join(__dirname, '../src/environments/environment.ts');
+const environmentFilePath = path.join(
+  __dirname,
+  '../src/environments/environment.ts',
+);
 const environmentContent = `export const environment = { serverUri: '${serverUri}' };`;
 
 try {
-  fs.writeFileSync(environmentFilePath, environmentContent, { encoding: 'utf8' });
+  fs.writeFileSync(environmentFilePath, environmentContent, {
+    encoding: 'utf8',
+  });
   console.log('Environment file updated successfully.');
 } catch (error) {
   console.error('Error writing environment file:', error);
