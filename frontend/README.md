@@ -24,15 +24,52 @@ make install
 
 This command will use npm to install all required packages.
 
-## Running the Application
 
-To launch the Angular app, use the following command:
+## Running (and building) the Application
+
+To serve the application, execute the following command in the terminal:
 
 ```bash
 make run
 ```
 
-The client will be accessible in the browser at `http://localhost:4200/`.
+Upon running the command, the client interface will be available on the web browser at the following URL:
+
+```
+http://localhost:4200/
+```
+
+### Advanced Usage
+
+For additional options regarding the running and building of the client, execute the `lunch.js` script located in the `scripts` directory using Node.js:
+
+**Parameters:**
+- `--server-uri` / `-s`: Define the URI of the server to connect to the Angular app (default: "http://127.0.0.1:3000").
+- `--mode` / `-m`: Set the script to either 'serve' for launching the client or 'build' for building the application (default: "serve").
+- `--port` / `-p`: Assign the port number for the client when the script mode is 'serve' (default: 4200).
+
+**How to Use:**
+
+Run the script as follows:
+
+```bash
+node scripts/lunch.js [options]
+```
+
+For instance, to run the client on port 4201 with a different server URI of http://localhost:5000, you can use:
+
+```bash
+node scripts/lunch.js --server-uri=http://localhost:5000 --mode=serve --port=4201
+```
+
+**Important Notes:**
+- The `--port` option is only applicable when the `--mode` is set to 'serve'.
+- If the `--mode` is 'build', the script will ignore the `--port` parameter and will use its default setting.
+
+When the script is executed, it will:
+- Parse the command line arguments supplied.
+- Update the [environment configuration file](https://github.com/mhornstein/DK-NLP/tree/main/frontend/src/environments) with the provided `server-uri`.
+- Run the Angular CLI command that corresponds with the specified `mode`.
 
 ## Testing
 
