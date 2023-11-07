@@ -60,6 +60,8 @@ frontend/Thumbs.db
 /tagger/__pycache__/*.pyc
 /tagger/app/__pycache__/*.pyc
 /tagger/tests/__pycache__/*.pyc
+/tagger/*.coverage
+/tagger/tests/*.coverage
 
 #########################
 # Ignoring server files #
