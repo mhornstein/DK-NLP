@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HistoryData } from '../shared/history-data';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,9 @@ export class HistoryService {
   fetchHistory(tagType: string, lastId?: string): Observable<HistoryData> {
     let url = '';
     if (lastId == undefined) {
-      url = `http://127.0.0.1:3000/fetch_entries?mode=${tagType}`;
+      url = `${environment.serverUri}/fetch_entries?mode=${tagType}`;
     } else {
-      url = `http://127.0.0.1:3000/fetch_entries?mode=${tagType}&entry_id=${lastId}`;
+      url = `${environment.serverUri}/fetch_entries?mode=${tagType}&entry_id=${lastId}`;
     }
     return this.http.get<HistoryData>(url);
   }

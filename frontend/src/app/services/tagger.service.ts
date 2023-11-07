@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export class TaggerService {
   constructor(private http: HttpClient) {}
 
   tagText(inputText: string, tagType: string): Observable<[string, string][]> {
-    const url = `http://127.0.0.1:3000/tag?mode=${tagType}&sentence=${encodeURIComponent(
+    const url = `${environment.serverUri}/tag?mode=${tagType}&sentence=${encodeURIComponent(
       inputText,
     )}`;
     return this.http.get<[string, string][]>(url);
