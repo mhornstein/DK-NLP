@@ -31,13 +31,21 @@ This command will use pip to install all the required packages. You can find the
 
 ## Running the Application
 
-To launch the microservice, use the following command:
+To launch the microservice, you can use the following command:
 
 ```bash
 make run
 ```
 
-The API will be accessible at `http://localhost:5000/`.
+This command will start the application with default settings. The API will be accessible at `http://localhost:5000/`, and the MongoDB instance will be reached via `mongodb://localhost:27017`, which is the default configuration for MongoDB.
+
+If you wish to customize the API port or specify a custom MongoDB URI, you can use the following command with the appropriate flags:
+
+```bash
+python run.py --port=<custom port> --mongo-uri=<custom MongoDB URI>
+```
+
+Replace `<custom port>` with the desired port number for the API and `<custom MongoDB URI>` with the specific URI for the MongoDB instance.
 
 ## Testing
 
