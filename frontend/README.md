@@ -1,3 +1,4 @@
+
 [![Frontend CI](https://github.com/mhornstein/DK-NLP/actions/workflows/frontend-CI.yml/badge.svg)](https://github.com/mhornstein/DK-NLP/actions/workflows/frontend-CI.yml)
 
 
@@ -35,7 +36,7 @@ The client will be accessible in the browser at `http://localhost:4200/`.
 
 ## Testing
 
-Testing for this application is done using Karma, with the following test coverage:
+Testing for this application is done using [Karma](https://karma-runner.github.io/latest/index.html), with the following test coverage:
 
 - Statements: 98.93% (93/94)
 - Branches: 100% (20/20)
@@ -58,7 +59,7 @@ make test-cov
 
 ## Linting
 
-I use ESLint for linting. To check the code for linting errors, run the following command:
+I use [ESLint](https://eslint.org/) for linting. To check the code for linting errors, run the following command:
 
 ```bash
 make lint
@@ -84,4 +85,4 @@ For automated code formatting, use the following command:
 make format-fix
 ```
 
-Both commands use the Prettier library.
+Both commands use the [Prettier library](https://prettier.io/).
