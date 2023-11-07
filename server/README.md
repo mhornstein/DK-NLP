@@ -1,10 +1,11 @@
+
 [![Server CI](https://github.com/mhornstein/DK-NLP/actions/workflows/server-CI.yml/badge.svg)](https://github.com/mhornstein/DK-NLP/actions/workflows/server-CI.yml)
 
 # Angular POS and NER Tagging Application Server
 
 ## Introduction
 
-This is the server (Express server) component of the Part of Speech (POS) and Named Entity Recognition (NER) tagging application. This README provides essential information for setting up, running, testing, and maintaining it.
+This is the server ([Express](https://expressjs.com/) server) component of the Part of Speech (POS) and Named Entity Recognition (NER) tagging application. This README provides essential information for setting up, running, testing, and maintaining it.
 
 The commands attached should be run in the `server` directory path of the project.
 
@@ -34,7 +35,7 @@ The server will be accessible via `http://localhost:3000/`.
 
 ## Testing
 
-The testing process uses libraries like Chai and Mocha. Istanbul (nyc) is used for testing the coverage.
+The testing process uses libraries like [Chai](https://www.chaijs.com/) and [Mocha](https://mochajs.org/). [Istanbul](https://www.npmjs.com/package/istanbul) (nyc) is used for testing the coverage.
 The up-to-date coverage is:
 
 - Statements: 100%
@@ -61,7 +62,7 @@ make test-cov
 
 ## Linting and Code Formatting
 
-I use ESLint for this purpose. To check the code for linting and formatting errors, run the following command:
+I use [ESLint](https://eslint.org/) for this purpose. To check the code for linting and formatting errors, run the following command:
 
 ```bash
 make eslint
