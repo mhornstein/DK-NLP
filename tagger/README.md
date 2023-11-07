@@ -69,4 +69,3 @@ make format
 ```
 
 I use [Black](https://pypi.org/project/black/) for code formatting, which helps maintain a uniform coding style.
-```
