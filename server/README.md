@@ -52,6 +52,12 @@ make test
 
 The Coverage report will be presented at the end of the testing.
 
+To generate a code coverage report and present it intreactively in chrome, use the following command (available only on Windows with Chrome installed):
+
+```bash
+make test-cov
+```
+
 
 ## Linting and Code Formatting
 
