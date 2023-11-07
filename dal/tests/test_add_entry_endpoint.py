@@ -215,6 +215,3 @@ class TestAddEntryEndpoint(unittest.TestCase):
         self.assertEqual(response.status_code, 500)
         self.assertIn('error', data)
         self.assertEqual(data['error'], error_txt)
-
-if __name__ == '__main__':
-    unittest.main()
