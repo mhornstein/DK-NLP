@@ -1,32 +1,38 @@
 openapi: 3.0.0
 info:
-  title: Tagging API
+  title: Server API
   version: 1.0.0
-  description: API for tagging sentences
+  description: This API tags sentences with parts of speech or named entities, logs the results, and retrieve the tagged data history.
 servers:
   - url: http://localhost:3000
 paths:
   /tag:
     get:
-      summary: Retrieve tagged sentence
-      description: Use to request a sentence tagging
+      summary: Retrieve Tagged Sentence
+      description: >
+        This endpoint performs tagging of a given sentence based on the specified mode. It supports two modes of tagging: 'pos' for Part of Speech tagging, which classifies each word into its corresponding part of speech, and 'ner' for Named Entity Recognition, which identifies and categorizes key information (entities) in the text. The results are logged in a database using the Data Access Layer (DAL) service unless a DAL service error occurs.
       parameters:
         - in: query
           name: mode
           schema:
             type: string
+            enum:
+              - pos
+              - ner
           required: true
-          description: Mode of tagging
+          description: Specifies the mode of tagging. Use 'pos' for Part of Speech tagging or 'ner' for Named Entity Recognition.
         - in: query
           name: sentence
           schema:
             type: string
           required: true
-          description: Sentence to be tagged
+          description: The sentence to be tagged by the API.
       responses:
         '200':
-          description: A successful response with the tagged sentence
+          description: The request was successful, and the response contains the tagged sentence.
+        '400':
+          description: Bad request, possibly due to missing or invalid parameters.
         '500':
-          description: Error from tagging service
+          description: An error occurred in the tagging service.
         '503':
-          description: DAL service unavailable
+          description: An error occurred in the DAL service. The tagged sentence is returned but not logged.
