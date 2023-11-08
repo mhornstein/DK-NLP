@@ -23,7 +23,7 @@ make install
 
 This command will use npm to install all the required packages.
 
-## Running the Application
+## Running the Server
 
 To launch the server, use the following command:
 
@@ -31,7 +31,30 @@ To launch the server, use the following command:
 make run
 ```
 
+This will be equivalent to running the server as:
+
+```bash
+node ./src/server.js
+```
+
 The server will be accessible via `http://localhost:3000/`.
+				 
+
+### Advanced Usage
+
+You can customize the server's behavior using the following parameters:
+
+- `-p` or `--port`: Specify the port number on which the server will run (default: 3000).
+- `-t` or `--taggerUri`: Set the Tagger Service URI (default: "127.0.0.1:4000").
+- `-d` or `--dalUri`: Set the Data Access Layer (DAL) Service URI (default: "127.0.0.1:5000").
+
+For example, to set the Tagger Service URI to `192.168.1.20:4000`, the DAL Service to `192.168.2.45:5000`, and run the server on port 3001, you can run:
+
+```bash
+node ./src/server.js --port=3001 --taggerUri=192.168.1.20:4000 --dalUri=192.168.2.45:5000
+```
+
+After running the command with the desired parameters, one should see output in the console indicating that the server is running on the specified port with the configured service URIs.
 
 ## Testing
 
