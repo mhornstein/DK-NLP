@@ -1,0 +1,47 @@
+swagger: '2.0'
+info:
+  title: Tagging Microservice API
+  version: "1.0.0"
+tags:
+  - name: "Tagging"
+paths:
+  /tag:
+    get:
+      tags:
+        - "Tagging"
+      summary: "Tags a sentence"
+      description: "Tags a sentence based on the specified mode ('pos' or 'ner')."
+      operationId: "tagSentence"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "mode"
+          in: "query"
+          description: "Specifies the tagging mode. It can be either 'pos' for Part-of-Speech or 'ner' for Named Entity Recognition."
+          required: true
+          type: "string"
+          enum: ["pos", "ner"]
+        - name: "sentence"
+          in: "query"
+          description: "The sentence you want to tag."
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/TagResult"
+        400:
+          description: "Invalid input"
+        500:
+          description: "Internal server error"
+definitions:
+  TagResult:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          type: "array"
+          items:
+            type: "string"
