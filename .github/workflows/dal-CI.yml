@@ -6,7 +6,6 @@ on:
       - 'dal/**'
     paths-ignore:
       - 'dal/README.md'
-      - 'README.md'
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
