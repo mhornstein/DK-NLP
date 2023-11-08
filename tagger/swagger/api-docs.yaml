@@ -49,4 +49,16 @@ definitions:
           max-items: 2
           min-items: 2
           description: A subarray containing a word and its corresponding tag.
+    example: {
+      "result": [
+        [
+          "hello",
+          "JJ"
+        ],
+        [
+          "world",
+          "NN"
+        ]
+      ]
+    }
 
