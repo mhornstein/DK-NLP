@@ -1,6 +1,7 @@
 const express = require('express')
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
+const morgan = require('morgan');
 
 const app = express()
 
@@ -38,6 +39,9 @@ const argv = yargs(hideBin(process.argv))
 const port = argv.port
 const dalUri = argv.dalUri
 const taggerUri = argv.taggerUri
+
+// Add morgan for logging requests and responses to console
+app.use(morgan('dev'));
 
 // CORS Middleware - TODO configure this more securely in a production environment
 app.use((req, res, next) => {
