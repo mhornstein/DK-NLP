@@ -1,6 +1,5 @@
 const express = require('express')
 const tagRoutes = require('./routes/tagRoutes')
-const fetchEntriesRoutes = require('./routes/fetchEntriesRoutes')
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 
@@ -14,7 +13,13 @@ const argv = yargs(hideBin(process.argv))
     type: 'number',
     default: 3000
   })
-  .check((argv, _options) => {
+  .option('dalUri', {
+    alias: 'd',
+    describe: 'DAL Service URI',
+    type: 'string',
+    default: 'http://127.0.0.1:5000'
+  })
+  .check((argv, options) => {
     if (isNaN(argv.port)) {
       throw new Error('Port must be a number')
     }
@@ -26,6 +31,7 @@ const argv = yargs(hideBin(process.argv))
   .argv
 
 const port = argv.port
+const dalUri = argv.dalUri
 
 // CORS Middleware - TODO configure this more securely in a production environment
 app.use((req, res, next) => {
@@ -37,11 +43,15 @@ app.use((req, res, next) => {
 
 // Use routes
 app.use(tagRoutes)
+
+// Inject URIs into routes
+const fetchEntriesRoutes = require('./routes/fetchEntriesRoutes')(dalUri)
 app.use(fetchEntriesRoutes)
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
+  console.log(`DAL Service URI: ${dalUri}`)
 })
 
 module.exports = app
