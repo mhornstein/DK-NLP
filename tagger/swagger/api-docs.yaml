@@ -1,6 +1,7 @@
 swagger: '2.0'
 info:
   title: Tagging Microservice API
+  description: This API enables Part-of-Speech (POS) and Name-Entity Recognition (NER) tagging.
   version: "1.0.0"
 tags:
   - name: "Tagging"
@@ -45,3 +46,7 @@ definitions:
           type: "array"
           items:
             type: "string"
+          max-items: 2
+          min-items: 2
+          description: A subarray containing a word and its corresponding tag.
+
