@@ -1,5 +1,4 @@
 const express = require('express')
-const tagRoutes = require('./routes/tagRoutes')
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 
@@ -28,10 +27,17 @@ const argv = yargs(hideBin(process.argv))
     }
     return true
   })
+  .option('taggerUri', {
+    alias: 't',
+    describe: 'Tagger Service URI',
+    type: 'string',
+    default: 'http://127.0.0.1:4000'
+  })
   .argv
 
 const port = argv.port
 const dalUri = argv.dalUri
+const taggerUri = argv.taggerUri
 
 // CORS Middleware - TODO configure this more securely in a production environment
 app.use((req, res, next) => {
@@ -41,17 +47,18 @@ app.use((req, res, next) => {
   next()
 })
 
-// Use routes
-app.use(tagRoutes)
-
 // Inject URIs into routes
 const fetchEntriesRoutes = require('./routes/fetchEntriesRoutes')(dalUri)
 app.use(fetchEntriesRoutes)
+
+const tagRoutes = require('./routes/tagRoutes')(taggerUri, dalUri)
+app.use(tagRoutes)
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
   console.log(`DAL Service URI: ${dalUri}`)
+  console.log(`Tagger Service URI: ${taggerUri}`)
 })
 
 module.exports = app
