@@ -62,7 +62,7 @@ app.use(fetchEntriesRoutes)
 const tagRoutes = require('./routes/tagRoutes')(taggerUri, dalUri)
 app.use(tagRoutes)
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
 
 // Start the server
 app.listen(port, () => {
