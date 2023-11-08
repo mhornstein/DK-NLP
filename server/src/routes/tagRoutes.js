@@ -11,33 +11,6 @@ module.exports = (taggerUri, dalUri) => {
 
   router.use(bodyParser.json())
 
-  /**
- * @swagger
- * /tag:
- *   get:
- *     summary: Retrieve tagged sentence
- *     description: Use to request a sentence tagging
- *     parameters:
- *       - in: query
- *         name: mode
- *         schema:
- *           type: string
- *         required: true
- *         description: Mode of tagging
- *       - in: query
- *         name: sentence
- *         schema:
- *           type: string
- *         required: true
- *         description: Sentence to be tagged
- *     responses:
- *       '200':
- *         description: A successful response with the tagged sentence
- *       '500':
- *         description: Error from tagging service
- *       '503':
- *         description: DAL service unavailable
- */
   router.get('/tag', requestValidation.validateTagSentenceRequest, async (req, res) => {
     const { mode, sentence } = req.query
     let response

@@ -2,8 +2,8 @@ const express = require('express')
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 const morgan = require('morgan')
-const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
+const swaggerUtil = require('./swagger/swaggerUtil')
 
 const app = express()
 
@@ -42,23 +42,7 @@ const port = argv.port
 const dalUri = argv.dalUri
 const taggerUri = argv.taggerUri
 
-// Creating swagger configuration
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'API',
-      version: '1.0.0',
-      description: 'API Information',
-      contact: {
-        name: 'Developer'
-      },
-      servers: [`http://localhost:${port}`]
-    }
-  },
-  // ['.routes/*.js']
-  apis: ['src/routes/*.js']
-};
+const swaggerConfig = swaggerUtil.generateSwaggerConfig(port)
 
 // Add morgan for logging requests and responses to console
 app.use(morgan('dev'))
@@ -78,8 +62,7 @@ app.use(fetchEntriesRoutes)
 const tagRoutes = require('./routes/tagRoutes')(taggerUri, dalUri)
 app.use(tagRoutes)
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 // Start the server
 app.listen(port, () => {
