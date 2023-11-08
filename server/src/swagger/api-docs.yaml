@@ -36,3 +36,66 @@ paths:
           description: An error occurred in the tagging service.
         '503':
           description: An error occurred in the DAL service. The tagged sentence is returned but not logged.
+  /fetch_entries:
+    get:
+      summary: Fetch Tagged sentences history 
+      description: Fetches a sequence of tagged entries from the database. Specify an entry ID to begin the retrieval from that entry and move backwards historically (this entry will be excluded), set a limit on the number of entries returned, and select the tagging mode.
+      parameters:
+        - in: query
+          name: entry_id
+          schema:
+            type: string
+          required: false
+          description: The unique identifier of the entry where fetching starts, excluding this entry.
+        - in: query
+          name: num_entries
+          schema:
+            type: integer
+          required: false
+          description: The number of tagged entries to retrieve.
+        - in: query
+          name: mode
+          schema:
+            type: string
+            enum:
+              - pos
+              - ner
+          required: true
+          description: Specifies the mode of tagging used for the entries to be fetched.
+      responses:
+        '200':
+          description: Successfully retrieved the tagged entries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  end_of_history:
+                    type: boolean
+                    description: Indicates whether the end of the history has been reached.
+                  entries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: The unique identifier of the entry.
+                        date:
+                          type: string
+                          description: The date when the entry was tagged.
+                        tagged_sentence:
+                          type: array
+                          description: An array of word-tag pairs.
+                          items:
+                            type: array
+                            maxItems: 2
+                            minItems: 2
+                            items:
+                              type: string
+                            description: A subarray containing a word and its corresponding tag.
+
+        '400':
+          description: Bad request, possibly due to missing or invalid parameters.
+        '500':
+          description: Internal server error, possibly due to DAL service issues.
