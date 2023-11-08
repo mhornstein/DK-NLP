@@ -59,7 +59,7 @@ node scripts/lunch.js [options]
 For instance, to run the client on port 4201 with a different server URI of http://localhost:5000, you can use:
 
 ```bash
-node scripts/lunch.js --server-uri=http://localhost:5000 --mode=serve --port=4201
+node scripts/lunch.js --server-uri=127.0.0.1:5000 --mode=serve --port=4201
 ```
 
 **Important Notes:**
