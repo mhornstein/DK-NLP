@@ -36,13 +36,18 @@ const argv = yargs(hideBin(process.argv))
     type: 'string',
     default: '127.0.0.1:4000'
   })
+  .option('enable-api', {
+    alias: 'e',
+    describe: 'Enable Swagger API documentation',
+    type: 'boolean',
+    default: false
+  })
   .argv
 
 const port = argv.port
 const dalUri = argv.dalUri
 const taggerUri = argv.taggerUri
-
-const swaggerConfig = swaggerUtil.generateSwaggerConfig(port)
+const enableApi = argv['enable-api']
 
 // Add morgan for logging requests and responses to console
 app.use(morgan('dev'))
@@ -62,13 +67,20 @@ app.use(fetchEntriesRoutes)
 const tagRoutes = require('./routes/tagRoutes')(taggerUri, dalUri)
 app.use(tagRoutes)
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
+// lunch swagger if required
+if (enableApi) {
+  const swaggerConfig = swaggerUtil.generateSwaggerConfig(port)
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
+}
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
   console.log(`DAL Service URI: ${dalUri}`)
   console.log(`Tagger Service URI: ${taggerUri}`)
+  if (enableApi) {
+    console.log(`Swagger API documentation is available at http://localhost:${port}/api-docs`)
+  }
 })
 
 module.exports = app
