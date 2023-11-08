@@ -44,7 +44,7 @@ http://localhost:4200/
 For additional options regarding the running and building of the client, execute the `lunch.js` script located in the `scripts` directory using Node.js:
 
 **Parameters:**
-- `--server-uri` / `-s`: Define the URI of the server to connect to the Angular app (default: "http://127.0.0.1:3000").
+- `--server-uri` / `-s`: Define the URI of the server to connect to the Angular app (default: "127.0.0.1:3000").
 - `--mode` / `-m`: Set the script to either 'serve' for launching the client or 'build' for building the application (default: "serve").
 - `--port` / `-p`: Assign the port number for the client when the script mode is 'serve' (default: 4200).
 
@@ -56,7 +56,7 @@ Run the script as follows:
 node scripts/lunch.js [options]
 ```
 
-For instance, to run the client on port 4201 with a different server URI of http://localhost:5000, you can use:
+For instance, to run the client on port 4201 with a different server URI of 12.7.0.0.1:5000, you can use:
 
 ```bash
 node scripts/lunch.js --server-uri=127.0.0.1:5000 --mode=serve --port=4201
