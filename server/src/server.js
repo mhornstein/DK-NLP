@@ -70,7 +70,7 @@ app.use(tagRoutes)
 // lunch swagger if required
 if (enableApi) {
   const swaggerConfig = swaggerUtil.generateSwaggerConfig(port)
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
+  app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
 }
 
 // Start the server
@@ -79,7 +79,7 @@ app.listen(port, () => {
   console.log(`DAL Service URI: ${dalUri}`)
   console.log(`Tagger Service URI: ${taggerUri}`)
   if (enableApi) {
-    console.log(`Swagger API documentation is available at http://localhost:${port}/api-docs`)
+    console.log(`Swagger API documentation is available at http://localhost:${port}/apidocs`)
   }
 })
 

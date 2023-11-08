@@ -47,7 +47,7 @@ You can customize the server's behavior using the following parameters:
 - `-p` or `--port`: Specify the port number on which the server will run (default: 3000).
 - `-t` or `--taggerUri`: Set the Tagger Service URI (default: "127.0.0.1:4000").
 - `-d` or `--dalUri`: Set the Data Access Layer (DAL) Service URI (default: "127.0.0.1:5000").
-- `-e` or `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the server provides access to the Swagger UI at the `/api-docs` endpoint for interactive API documentation.
+- `-e` or `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the server provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
 
 For example, to set the Tagger Service URI to `192.168.1.20:4000`, the DAL Service to `192.168.2.45:5000`, and run the server on port 3001, with Swagger API enabled, you can run:
 
