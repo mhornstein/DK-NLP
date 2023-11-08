@@ -1,7 +1,7 @@
 
 [![Server CI](https://github.com/mhornstein/DK-NLP/actions/workflows/server-CI.yml/badge.svg)](https://github.com/mhornstein/DK-NLP/actions/workflows/server-CI.yml)
 
-# Angular POS and NER Tagging Application Server
+# POS and NER Tagging Application Server
 
 ## Introduction
 
