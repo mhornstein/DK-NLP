@@ -12,7 +12,7 @@ const argv = yargs(hideBin(process.argv))
     alias: 's',
     describe: 'The Server URI',
     type: 'string',
-    default: 'http://127.0.0.1:3000',
+    default: '127.0.0.1:3000',
   })
   .option('mode', {
     alias: 'm',

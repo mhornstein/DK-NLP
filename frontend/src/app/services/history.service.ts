@@ -13,9 +13,9 @@ export class HistoryService {
   fetchHistory(tagType: string, lastId?: string): Observable<HistoryData> {
     let url = '';
     if (lastId == undefined) {
-      url = `${environment.serverUri}/fetch_entries?mode=${tagType}`;
+      url = `http://${environment.serverUri}/fetch_entries?mode=${tagType}`;
     } else {
-      url = `${environment.serverUri}/fetch_entries?mode=${tagType}&entry_id=${lastId}`;
+      url = `http://${environment.serverUri}/fetch_entries?mode=${tagType}&entry_id=${lastId}`;
     }
     return this.http.get<HistoryData>(url);
   }

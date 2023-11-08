@@ -16,7 +16,7 @@ const argv = yargs(hideBin(process.argv))
     alias: 'd',
     describe: 'DAL Service URI',
     type: 'string',
-    default: 'http://127.0.0.1:5000'
+    default: '127.0.0.1:5000'
   })
   .check((argv, options) => {
     if (isNaN(argv.port)) {
@@ -31,7 +31,7 @@ const argv = yargs(hideBin(process.argv))
     alias: 't',
     describe: 'Tagger Service URI',
     type: 'string',
-    default: 'http://127.0.0.1:4000'
+    default: '127.0.0.1:4000'
   })
   .argv
 

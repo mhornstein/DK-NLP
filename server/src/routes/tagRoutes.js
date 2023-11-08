@@ -15,7 +15,7 @@ module.exports = (taggerUri, dalUri) => {
     const { mode, sentence } = req.query
     let response
     try {
-      response = await axios.get(`${taggerUri}/tag?mode=${mode}&sentence=${encodeURIComponent(sentence)}`)
+      response = await axios.get(`http://${taggerUri}/tag?mode=${mode}&sentence=${encodeURIComponent(sentence)}`)
     } catch (error) {
       if (error.code === 'ECONNREFUSED') { // The service wasn't avaiable
         return res.status(500).json({
@@ -43,7 +43,7 @@ module.exports = (taggerUri, dalUri) => {
     }
 
     try {
-      await axios.post(`${dalUri}/add_entry`, postData, {
+      await axios.post(`http://${dalUri}/add_entry`, postData, {
         headers: {
           'Content-Type': 'application/json'
         }

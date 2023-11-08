@@ -23,7 +23,7 @@ module.exports = (dalUri) => {
     }
 
     try {
-      const response = await axios.get(`${dalUri}/fetch_entries${queryParams}`)
+      const response = await axios.get(`http://${dalUri}/fetch_entries${queryParams}`)
       res.status(response.status).json(response.data)
     } catch (error) {
       if (error.code === 'ECONNREFUSED') { // The service wasn't avaiable
