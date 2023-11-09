@@ -31,16 +31,24 @@ To start the microservice, execute the following command:
 ```bash
 make run
 ```
+This will be equivalent to running the server as:
+```bash
+python run.py
+```
+The API will be accessible at `http://localhost:4000/`.
 
-By default, the API will be accessible at `http://localhost:4000/` as port `4000` is the default setting.
+### Advanced Usage
 
-If you need to modify the API port to a custom value, you can do so by using the following command with the port flag:
+You can customize the service's behavior using the following parameters:
+
+- `--port`: Specify the port number on which the service will run (default: 4000).
+- `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the service provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
+
+For example, to set the port to 4005 with Swagger API enabled, you can run:
 
 ```bash
-python run.py --port=<custom port>
+python run.py --port=4005 --enable-api
 ```
-
-Replace `<custom port>` with the preferred port number for the API.
 
 ## Testing
 
