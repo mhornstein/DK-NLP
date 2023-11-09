@@ -31,10 +31,13 @@ To start the microservice, execute the following command:
 ```bash
 make run
 ```
-This will be equivalent to running the server as:
+
+This will be equivalent to running the application as:
+
 ```bash
 python run.py
 ```
+
 The API will be accessible at `http://localhost:4000/`.
 
 ### Advanced Usage
