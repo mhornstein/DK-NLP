@@ -154,10 +154,12 @@ paths:
         - in: query
           name: entry_id
           type: string
+          required: false
           description: The ID of the entry from which to start fetching.
           example: "654758009382494910aef3c8"
         - in: query
           name: num_entries
           type: integer
+          required: false
           description: The maximum number of entries to fetch (with regard to the db capacity). Default is 10 entries.
           example: 5
