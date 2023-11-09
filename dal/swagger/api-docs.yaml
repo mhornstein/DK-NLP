@@ -68,3 +68,96 @@ paths:
                 type: string
                 description: An error message
                 example: An unexpected error occurred
+
+  /fetch_entries:
+    get:
+      summary: Fetch tagged entries
+      description: Retrieves tagged sentences from the database.
+      responses:
+        200:
+          description: Entries fetched successfully
+          schema:
+            type: object
+            properties:
+              entries:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: The entry ID.
+                    date:
+                      type: string
+                      description: The date of the tagged sentence.
+                    tagged_sentence:
+                      type: array
+                      description: A list of tagged words.
+                      items:
+                        type: array
+                        items:
+                          type: string
+                        minItems: 2
+                        maxItems: 2
+                      required: true
+                      example:
+                        - - tag1
+                          - word1
+                        - - tag2
+                          - word2
+              end_of_history:
+                type: boolean
+                description: Indicates whether the oldest entry in the collection has been fetched, signifying the end of the available history.
+            example:
+              end_of_history: true
+              entries:
+                - _id: "654c859b28a4cd4cc44d12f6"
+                  date: "Tue, 24 Oct 2023 14:30:00 GMT"
+                  tagged_sentence:
+                    - - tag1
+                      - word1
+                    - - tag2
+                      - word2
+                - _id: "654c853e990727e889cd8d6d"
+                  date: "Tue, 24 Oct 2023 14:30:00 GMT"
+                  tagged_sentence:
+                    - - tag1
+                      - word1
+                    - - tag2
+                      - word2
+        400:
+          description: Invalid request parameters
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: An error message
+                example: Invalid entry ID format or invalid mode parameter
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: An error message
+                example: An unexpected error occurred
+      parameters:
+        - in: query
+          name: mode
+          type: string
+          enum: [ "pos", "ner" ]
+          required: true
+          description: The tagging mode to filter entries by. Can be either "ner" (Named Entity Recognition) or "pos" (Part-of-Speech tagging).
+          example: ner
+        - in: query
+          name: entry_id
+          type: string
+          description: The ID of the entry from which to start fetching.
+          example: "654758009382494910aef3c8"
+        - in: query
+          name: num_entries
+          type: integer
+          description: The maximum number of entries to fetch (with regard to the db capacity). Default is 10 entries.
+          example: 5
