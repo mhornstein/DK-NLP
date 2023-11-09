@@ -1,0 +1,70 @@
+swagger: '2.0'
+info:
+  title: DAL Microservice API
+  description: This service is responsible for communicating with the database to handle tagging history retrieval and updates.
+  version: "1.0.0"
+paths:
+  /add_entry:
+    post:
+      summary: Add a new entry
+      description: Adds a new tagged sentence information to the database.
+      parameters:
+        - in: body
+          name: data
+          required: true
+          schema:
+            type: object
+            properties:
+              date:
+                type: string
+                description: The date of the tagged sentence in ISO 8601 format.
+                required: true
+                example: "2023-10-24T14:30:00+00:00"
+              mode:
+                type: string
+                description: The tagging mode, either "ner" (Named Entity Recognition) or "pos" (Part-of-Speech tagging).
+                required: true
+                example: ner
+              tagged_sentence:
+                type: array
+                description: A list of tagged words.
+                items:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 2
+                  maxItems: 2
+                required: true
+                example:
+                  - - tag1
+                    - word1
+                  - - tag2
+                    - word2
+      responses:
+        201:
+          description: Entry added successfully
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A success message
+                example: Tag added successfully
+        400:
+          description: Invalid request data
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: An error message
+                example: Invalid date format
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: An error message
+                example: An unexpected error occurred

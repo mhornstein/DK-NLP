@@ -1,5 +1,6 @@
 from app import *
 import argparse
+from flasgger import Swagger
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Dal Microservice")
@@ -10,4 +11,5 @@ def parse_arguments():
 if __name__ == '__main__':
     args = parse_arguments()
     app.config["MONGO_URI"] = args.mongo_uri  # Set the MongoDB URI from the command line
+    swagger = Swagger(app, template_file='../swagger/api-docs.yaml')
     app.run(host='0.0.0.0', port=args.port)
