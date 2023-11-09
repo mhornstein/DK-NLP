@@ -11,9 +11,7 @@ The microservice assumes the presence of a MongoDB instance, which is expected t
 
 If not specified by an `MONGO_URI` environment variable, the microservice assumes that the MongoDB instance is running at `localhost:27017` (for reference, see the [config.py file](https://github.com/mhornstein/DK-NLP/blob/main/dal/app/config.py)).
 
-This README provides a comprehensive guide for setting up, running, testing, and maintaining this microservice. Please ensure that all commands provided in this README are executed from the `dal` directory within the project.
-
-																										
+This README provides a comprehensive guide for setting up, running, testing, and maintaining this microservice. Please ensure that all commands provided in this README are executed from the `dal` directory within the project.																			
 
 ## Prerequisites
 
@@ -29,23 +27,36 @@ make install
 
 This command will use pip to install all the required packages. You can find the list of required packages in the [requirements.txt](https://github.com/mhornstein/DK-NLP/blob/main/tagger/requirements.txt) file.
 
+
 ## Running the Application
 
-To launch the microservice, you can use the following command:
+To start the microservice, execute the following command:
 
 ```bash
 make run
 ```
 
-This command will start the application with default settings. The API will be accessible at `http://localhost:5000/`, and the MongoDB instance will be reached via `mongodb://localhost:27017`, which is the default configuration for MongoDB.
-
-If you wish to customize the API port or specify a custom MongoDB URI, you can use the following command with the appropriate flags:
+This will be equivalent to running the application as:
 
 ```bash
-python run.py --port=<custom port> --mongo-uri=<custom MongoDB URI>
+python run.py
 ```
 
-Replace `<custom port>` with the desired port number for the API and `<custom MongoDB URI>` with the specific URI for the MongoDB instance.
+This command will start the application with default settings: The API will be accessible at `http://localhost:5000/`, and the MongoDB instance will be reached via `mongodb://localhost:27017`, which is the default configuration for MongoDB.
+
+### Advanced Usage
+
+You can customize the service's behavior using the following parameters:
+
+- `--port`: Specify the port number on which the service will run (default: `5000`).
+- `--mongo-uri`: the specific URI for the MongoDB instance (default: `mongodb://localhost:27017`)
+- `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the service provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
+
+For example, to set the port to `5005`, mongo URI of `mongodb://localhost:50000` with Swagger API enabled, you can run:
+
+```bash
+python run.py --port=4005 --mongo-uri=mongodb://localhost:50000 --enable-api
+```
 
 ## Testing
 
