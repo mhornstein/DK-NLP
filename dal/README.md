@@ -55,7 +55,7 @@ You can customize the service's behavior using the following parameters:
 For example, to set the port to `5005`, mongo URI of `mongodb://localhost:50000` with Swagger API enabled, you can run:
 
 ```bash
-python run.py --port=4005 --mongo-uri=mongodb://localhost:50000 --enable-api
+python run.py --port=5005 --mongo-uri=mongodb://localhost:50000 --enable-api
 ```
 
 ## Testing
