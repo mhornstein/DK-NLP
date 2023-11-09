@@ -94,7 +94,20 @@ paths:
                             items:
                               type: string
                             description: A subarray containing a word and its corresponding tag.
-
+                example:
+                  end_of_history: false
+                  entries:
+                    - _id: "654c75b175c709fbc4ea9c17"
+                      date: "Thu, 09 Nov 2023 06:01:21 GMT"
+                      tagged_sentence:
+                        - ["The" , "DT"]
+                        - ["brown" , "JJ"]
+                        - ["fox" , "NNP"]
+                    - _id: "654c75a775c709fbc4ea9c16"
+                      date: "Thu, 09 Nov 2023 06:01:11 GMT"
+                      tagged_sentence:
+                        - ["Hello" , "NN"]
+                        - ["world" , "NN"]                   
         '400':
           description: Bad request, possibly due to missing or invalid parameters.
         '500':
