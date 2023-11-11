@@ -23,19 +23,19 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd frontend
+        cd src/frontend
         make install
     - name: Format code
       run: |
-        cd frontend
+        cd src/frontend
         make format
     - name: Lint the code
       run: |
-        cd frontend
+        cd src/frontend
         make lint
     - name: Run tests
       run: |
-        cd frontend
+        cd src/frontend
         make test
   build-windows:
     runs-on: windows-latest
@@ -51,13 +51,13 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd frontend
+        cd src/frontend
         npm install
     - name: Lint the code
       run: |
-        cd frontend
+        cd src/frontend
         npm run lint
     - name: Run tests
       run: |
-        cd frontend
+        cd src/frontend
         npx ng test --watch=false --browsers=ChromeHeadless
