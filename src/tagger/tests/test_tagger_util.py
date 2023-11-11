@@ -11,14 +11,14 @@ class TestTagger(unittest.TestCase):
     def setUpClass(cls):
         # Initialize the taggers before running the tests
         cls.pos_tagger = Tagger(
-            model_path="../models/pos_model/model.pth",
-            vocab_file="../models/pos_model/vocabs",
-            dicts_file="../models/pos_model/dicts"
+            model_path="../app/models/pos_model/model.pth",
+            vocab_file="../app/models/pos_model/vocabs",
+            dicts_file="../app/models/pos_model/dicts"
         )
         cls.ner_tagger = Tagger(
-            model_path="../models/ner_model/model.pth",
-            vocab_file="../models/ner_model/vocabs",
-            dicts_file="../models/ner_model/dicts"
+            model_path="../app/models/ner_model/model.pth",
+            vocab_file="../app/models/ner_model/vocabs",
+            dicts_file="../app/models/ner_model/dicts"
         )
 
     def test_tag_pos(self):
