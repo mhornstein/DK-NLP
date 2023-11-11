@@ -3,69 +3,69 @@
 ###########################
 
 # Compiled output
-frontend/dist
-frontend/tmp
-frontend/out-tsc
-frontend/bazel-out
+src/frontend/dist
+src/frontend/tmp
+src/frontend/out-tsc
+src/frontend/bazel-out
 
 # Node
-frontend/node_modules
-frontend/npm-debug.log
-frontend/yarn-error.log
+src/frontend/node_modules
+src/frontend/npm-debug.log
+src/frontend/yarn-error.log
 
 # IDEs and editors
-frontend/.idea/
-frontend/.project
-frontend/.classpath
-frontend/.c9/
-frontend/*.launch
-frontend/.settings/
-frontend/*.sublime-workspace
+src/frontend/.idea/
+src/frontend/.project
+src/frontend/.classpath
+src/frontend/.c9/
+src/frontend/*.launch
+src/frontend/.settings/
+src/frontend/*.sublime-workspace
 
 # Visual Studio Code
-frontend/.vscode/*
-frontend/!.vscode/settings.json
-frontend/!.vscode/tasks.json
-frontend/!.vscode/launch.json
-frontend/!.vscode/extensions.json
-frontend/.history/*
+src/frontend/.vscode/*
+src/frontend/!.vscode/settings.json
+src/frontend/!.vscode/tasks.json
+src/frontend/!.vscode/launch.json
+src/frontend/!.vscode/extensions.json
+src/frontend/.history/*
 
 # Miscellaneous
-frontend/.angular/cache
-frontend/.sass-cache/
-frontend/connect.lock
-frontend/coverage
-frontend/libpeerconnection.log
-frontend/testem.log
-frontend/typings
+src/frontend/.angular/cache
+src/frontend/.sass-cache/
+src/frontend/connect.lock
+src/frontend/coverage
+src/frontend/libpeerconnection.log
+src/frontend/testem.log
+src/frontend/typings
 
 # System files
-frontend/.DS_Store
-frontend/Thumbs.db
+src/frontend/.DS_Store
+src/frontend/Thumbs.db
 
 ######################
 # Ignoring dal files #
 ######################
-/dal/.idea
-/dal/__pycache__/*.pyc
-/dal/app/__pycache__/*.pyc
-/dal/tests/__pycache__/*.pyc
-/dal/*.coverage
-/dal/tests/*.coverage
+src/dal/.idea
+src/dal/__pycache__/*.pyc
+src/dal/app/__pycache__/*.pyc
+src/dal/tests/__pycache__/*.pyc
+src/dal/*.coverage
+src/dal/tests/*.coverage
 
 #########################
 # Ignoring tagger files #
 #########################
-/tagger/.idea
-/tagger/__pycache__/*.pyc
-/tagger/app/__pycache__/*.pyc
-/tagger/tests/__pycache__/*.pyc
-/tagger/*.coverage
-/tagger/tests/*.coverage
+src/tagger/.idea
+src/tagger/__pycache__/*.pyc
+src/tagger/app/__pycache__/*.pyc
+src/tagger/tests/__pycache__/*.pyc
+src/tagger/*.coverage
+src/tagger/tests/*.coverage
 
 #########################
 # Ignoring server files #
 #########################
-/server/node_modules
-/server/.nyc_output/*
-/server/coverage
+src/server/node_modules
+src/server/.nyc_output/*
+src/server/coverage
