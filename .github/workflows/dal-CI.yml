@@ -3,8 +3,8 @@ name: Dal CI
 on:
   push:
     paths:
-      - 'dal/**'
-      - '!dal/README.md' # Exclude README
+      - 'src/dal/**'
+      - '!src/dal/README.md' # Exclude README
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
