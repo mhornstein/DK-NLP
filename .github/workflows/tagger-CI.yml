@@ -23,21 +23,22 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r ./tagger/requirements.txt
+        cd src/tagger
+        pip install -r requirements.txt
 
     - name: Format code with black
       run: |
-        cd tagger
+        cd src/tagger
         black .
 
     - name: Lint the code
       run: |
-        cd tagger
+        cd src/tagger
         pylint --disable=R,C app
 
     - name: Run tests
       run: |
-        cd tagger/tests
+        cd src/tagger/tests
         python -m pytest -vv .
 
   build-ubuntu:
@@ -54,20 +55,20 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd tagger
+        cd src/tagger
         make install
 
     - name: Format code with black
       run: |
-        cd tagger
+        cd src/tagger
         make format
 
     - name: Lint the code
       run: |
-        cd tagger
+        cd src/tagger
         make lint
 
     - name: Run tests
       run: |
-        cd tagger
+        cd src/tagger
         make test

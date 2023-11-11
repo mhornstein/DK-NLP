@@ -23,17 +23,17 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd server
+        cd src/server
         make install
 
     - name: Lint and format code with ESLint
       run: |
-        cd server
+        cd src/server
         make eslint
 
     - name: Run tests
       run: |
-        cd server
+        cd src/server
         make test
 
   build-windows:
@@ -50,15 +50,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd server
+        cd src/server
         npm install
 
     - name: Lint and format code with ESLint
       run: |
-        cd server
+        cd src/server
         npx eslint .
 
     - name: Run tests
       run: |
-        cd server
+        cd src/server
         npm test
