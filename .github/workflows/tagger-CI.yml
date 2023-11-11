@@ -3,8 +3,8 @@ name: Tagger CI
 on:
   push:
     paths:
-      - 'tagger/**'
-      - '!tagger/README.md' # Exclude README
+      - 'src/tagger/**'
+      - '!src/tagger/README.md' # Exclude README
   workflow_dispatch: # This event allows manual triggering
 
 jobs:
