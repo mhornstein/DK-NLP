@@ -23,21 +23,22 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r ./dal/requirements.txt
+        cd src/dal
+        pip install -r requirements.txt
 
     - name: Format code with black
       run: |
-        cd dal
+        cd src/dal
         black .
 
     - name: Lint the code
       run: |
-        cd dal
+        cd src/dal
         pylint --disable=R,C app
 
     - name: Run tests
       run: |
-        cd dal
+        cd src/dal
         python -m pytest -vv ./tests/
 
   build-ubuntu:
@@ -54,20 +55,20 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd dal
+        cd src/dal
         make install
 
     - name: Format code with black
       run: |
-        cd dal
+        cd src/dal
         make format
 
     - name: Lint the code
       run: |
-        cd dal
+        cd src/dal
         make lint
 
     - name: Run tests
       run: |
-        cd dal
+        cd src/dal
         make test
