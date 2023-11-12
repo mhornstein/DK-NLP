@@ -4,12 +4,13 @@ sys.path.append("../")
 
 import unittest
 from unittest.mock import patch
-from app import app
+from app import create_app
 import app.messages as messages
 
 
 class TestTagEndpoint(unittest.TestCase):
     def setUp(self):
+        app = create_app()
         app.testing = True
         self.client = app.test_client()
 

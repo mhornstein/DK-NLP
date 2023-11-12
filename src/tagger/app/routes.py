@@ -1,10 +1,10 @@
-from flask import request, jsonify
+from flask import request, jsonify, Blueprint
 from app.tagger_util import get_tagger
-from app import app
 import app.messages as messages
 
+tag_route_blueprint = Blueprint('tag_route_blueprint', __name__)
 
-@app.route("/tag", methods=["GET"])
+@tag_route_blueprint.route("/tag", methods=["GET"])
 def tag_sentence():
     """
     Tags a sentence based on the specified mode ('pos' or 'ner').
