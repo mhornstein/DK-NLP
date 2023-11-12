@@ -4,8 +4,8 @@ sys.path.append("../")
 
 import unittest
 from unittest.mock import patch
-from app import create_app
-import app.messages as messages
+from src.app import create_app
+import src.app.utils.messages as messages
 
 
 class TestTagEndpoint(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestTagEndpoint(unittest.TestCase):
         app.testing = True
         self.client = app.test_client()
 
-    @patch("app.routes.get_tagger")
+    @patch("src.app.api.routes.get_tagger")
     def test_valid_call(self, mock_get_tagger):
         tagged_sentence = [
             ["How", "WRB"],
@@ -71,7 +71,7 @@ class TestTagEndpoint(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(data, {"error": messages.INVALID_SENTENCE_LENGTH_ERROR})
 
-    @patch("app.routes.get_tagger")
+    @patch("src.app.api.routes.get_tagger")
     def test_tagger_exception(self, mock_get_tagger):
         mock_get_tagger.side_effect = Exception("Simulated exception")
         response = self.client.get(

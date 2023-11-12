@@ -1,6 +1,6 @@
 from flask import request, jsonify, Blueprint
-from app.tagger_util import get_tagger
-import app.messages as messages
+from ..services.tagger_util import get_tagger
+from ..utils import messages
 
 tag_route_blueprint = Blueprint('tag_route_blueprint', __name__)
 

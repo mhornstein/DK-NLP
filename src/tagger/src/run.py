@@ -19,7 +19,7 @@ if __name__ == "__main__":
     args = parse_arguments()
 
     if args.enable_api:
-        swagger = Swagger(app, template_file="../swagger/api-docs.yaml")
+        swagger = Swagger(app, template_file="./docs/api-docs.yaml")
         print(f"Swagger UI is enabled and can be accessed at /apidocs")
 
     app.run(host="0.0.0.0", port=args.port)

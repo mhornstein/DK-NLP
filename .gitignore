@@ -57,8 +57,12 @@ src/dal/tests/*.coverage
 # Ignoring tagger files #
 #########################
 src/tagger/.idea
-src/tagger/__pycache__/*.pyc
-src/tagger/app/__pycache__/*.pyc
+/src/tagger/src/__pycache__/*.pyc
+/src/tagger/src/app/__pycache__/*.pyc
+/src/tagger/src/app/api/__pycache__/*.pyc
+/src/tagger/src/app/models/__pycache__/*.pyc
+/src/tagger/src/app/services/__pycache__/*.pyc
+/src/tagger/src/app/utils/__pycache__/*.pyc
 src/tagger/tests/__pycache__/*.pyc
 src/tagger/*.coverage
 src/tagger/tests/*.coverage

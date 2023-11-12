@@ -8,9 +8,7 @@ from torch.utils.data import TensorDataset, DataLoader
 import sys
 import os
 
-current_dir = os.path.dirname(__file__)
-bilstm_modules_dir = os.path.abspath(current_dir)
-
+bilstm_modules_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models')
 sys.path.append(bilstm_modules_dir)  # this is required for torch.load(model_path) call
 
 UNKNOWN_TOKEN = "<UNK>"
@@ -100,16 +98,16 @@ def get_tagger(mode):
     if mode == "pos":
         if pos_tagger is None:
             pos_tagger = Tagger(
-                model_path=f"{current_dir}/models/pos_model/model.pth",
-                vocab_file=f"{current_dir}/models/pos_model/vocabs",
-                dicts_file=f"{current_dir}/models/pos_model/dicts",
+                model_path=f"{bilstm_modules_dir}/pos_model/model.pth",
+                vocab_file=f"{bilstm_modules_dir}/pos_model/vocabs",
+                dicts_file=f"{bilstm_modules_dir}/pos_model/dicts",
             )
         return pos_tagger
     else:  # this is ner
         if ner_tagger is None:
             ner_tagger = Tagger(
-                model_path=f"{current_dir}/models/ner_model/model.pth",
-                vocab_file=f"{current_dir}/models/ner_model/vocabs",
-                dicts_file=f"{current_dir}/models/ner_model/dicts",
+                model_path=f"{bilstm_modules_dir}/ner_model/model.pth",
+                vocab_file=f"{bilstm_modules_dir}/ner_model/vocabs",
+                dicts_file=f"{bilstm_modules_dir}/ner_model/dicts",
             )
         return ner_tagger

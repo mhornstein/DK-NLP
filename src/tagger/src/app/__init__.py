@@ -1,6 +1,6 @@
 from flask import Flask
 
-from .routes import tag_route_blueprint
+from .api.routes import tag_route_blueprint
 
 def create_app():
     app = Flask(__name__)

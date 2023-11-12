@@ -1,24 +1,19 @@
-import sys
-
-sys.path.append("../app")
-
 import unittest
-from app.tagger_util import Tagger
-import app.bilstm_modules as bilstm_modules
+from src.app.services.tagger_util import Tagger
 
 class TestTagger(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Initialize the taggers before running the tests
         cls.pos_tagger = Tagger(
-            model_path="../app/models/pos_model/model.pth",
-            vocab_file="../app/models/pos_model/vocabs",
-            dicts_file="../app/models/pos_model/dicts"
+            model_path="../src/app/models/pos_model/model.pth",
+            vocab_file="../src/app/models/pos_model/vocabs",
+            dicts_file="../src/app/models/pos_model/dicts"
         )
         cls.ner_tagger = Tagger(
-            model_path="../app/models/ner_model/model.pth",
-            vocab_file="../app/models/ner_model/vocabs",
-            dicts_file="../app/models/ner_model/dicts"
+            model_path="../src/app/models/ner_model/model.pth",
+            vocab_file="../src/app/models/ner_model/vocabs",
+            dicts_file="../src/app/models/ner_model/dicts"
         )
 
     def test_tag_pos(self):
