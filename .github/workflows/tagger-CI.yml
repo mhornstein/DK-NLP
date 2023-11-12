@@ -29,12 +29,12 @@ jobs:
     - name: Format code with black
       run: |
         cd src/tagger
-        black .
+        black ./**/*.py
 
     - name: Lint the code
       run: |
         cd src/tagger
-        pylint --disable=R,C app
+        pylint --disable=R,C ./src
 
     - name: Run tests
       run: |
