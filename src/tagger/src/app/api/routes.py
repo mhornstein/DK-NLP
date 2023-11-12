@@ -2,7 +2,8 @@ from flask import request, jsonify, Blueprint
 from ..services.tagger_util import get_tagger
 from ..utils import messages
 
-tag_route_blueprint = Blueprint('tag_route_blueprint', __name__)
+tag_route_blueprint = Blueprint("tag_route_blueprint", __name__)
+
 
 @tag_route_blueprint.route("/tag", methods=["GET"])
 def tag_sentence():

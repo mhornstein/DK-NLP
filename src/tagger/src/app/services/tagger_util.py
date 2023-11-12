@@ -8,7 +8,7 @@ from torch.utils.data import TensorDataset, DataLoader
 import sys
 import os
 
-bilstm_modules_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models')
+bilstm_modules_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "models")
 sys.path.append(bilstm_modules_dir)  # this is required for torch.load(model_path) call
 
 UNKNOWN_TOKEN = "<UNK>"
@@ -92,6 +92,7 @@ class Tagger:
 
 global pos_tagger, ner_tagger
 pos_tagger, ner_tagger = None, None
+
 
 def get_tagger(mode):
     global pos_tagger, ner_tagger
