@@ -99,6 +99,9 @@ app.listen(port, () => {
   if (enableApi) {
     console.log(`Swagger API documentation is available at http://localhost:${port}/apidocs`)
   }
+  if (serveClient) {
+    console.log(`client is avaiable at http://localhost:${port}/index.html`)
+  }
 })
 
 module.exports = app
