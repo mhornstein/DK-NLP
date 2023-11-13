@@ -29,12 +29,12 @@ jobs:
     - name: Format code with black
       run: |
         cd src/dal
-        black .
+        black --line-length 110 ./**/*.py
 
     - name: Lint the code
       run: |
         cd src/dal
-        pylint --disable=R,C app
+        pylint --disable=R,C ./src
 
     - name: Run tests
       run: |
