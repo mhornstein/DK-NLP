@@ -4,8 +4,9 @@ sys.path.append('../')
 
 import unittest
 from unittest.mock import patch
-from app import create_app
-import app.messages as messages
+from src.app import create_app
+import src.app.utils.messages as messages
+
 
 class TestFetchEntries(unittest.TestCase):
 
@@ -14,7 +15,7 @@ class TestFetchEntries(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_valid_call_when_db_is_empty(self, mock_get_collection):
         mocked_db_entry = []
         mocked_oldest_entry = None
@@ -31,7 +32,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response_data['entries'], mocked_db_entry)
         self.assertEqual(response_data['end_of_history'], True)
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_valid_call_with_end_of_history(self, mock_get_collection):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
@@ -49,7 +50,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response_data['entries'], mocked_db_entry)
         self.assertEqual(response_data['end_of_history'], True)
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_valid_call_without_end_of_history(self, mock_get_collection):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
@@ -85,7 +86,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json(), {'error': messages.INVALID_MODE_PARAMETER})
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_valid_num_entries_with_end_of_history(self, mock_get_collection):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
@@ -103,7 +104,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response_data['entries'], mocked_db_entry)
         self.assertEqual(response_data['end_of_history'], True)
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_valid_num_entries_without_end_of_history(self, mock_get_collection):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
@@ -139,7 +140,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json(), {'error': messages.NUM_ENTRIES_INVALID})
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_valid_entry_id_with_end_of_history(self, mock_get_collection):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
@@ -156,7 +157,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response_data['entries'], mocked_db_entry)
         self.assertEqual(response_data['end_of_history'], True)
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_valid_entry_id_without_end_of_history(self, mock_get_collection):
         mocked_db_entry = [{"_id": "653e9b4b7290809194e2801c", "date": "Tue, 24 Oct 2023 14:30:00 GMT",
              "tagged_sentence": [["tag11", "word1"], ["tag2", "word2"]]}]
@@ -174,7 +175,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response_data['entries'], mocked_db_entry)
         self.assertEqual(response_data['end_of_history'], False)
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_missing_entry_id(self, mock_get_collection):
         mock_get_collection.return_value.find_one.return_value = None
         response = self.app.get('/fetch_entries?entry_id=653eac8162d523d831ddcf98&num_entries=5&mode=ner')
@@ -188,7 +189,7 @@ class TestFetchEntries(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json(), {'error': messages.INVALID_ENTRY_ID_FORMAT})
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_fetch_entries_exception(self, mock_get_collection):
         error_txt = "Database error"
 

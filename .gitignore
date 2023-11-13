@@ -47,11 +47,13 @@ src/frontend/Thumbs.db
 # Ignoring dal files #
 ######################
 src/dal/.idea
-src/dal/__pycache__/*.pyc
-src/dal/app/__pycache__/*.pyc
 src/dal/tests/__pycache__/*.pyc
-src/dal/*.coverage
 src/dal/tests/*.coverage
+/src/dal/src/__pycache__/*.pyc
+/src/dal/src/app/__pycache__/*.pyc
+/src/dal/src/app/api/__pycache__/*.pyc
+/src/dal/src/app/services/__pycache__/*.pyc
+/src/dal/src/app/utils/__pycache__/*.pyc
 
 #########################
 # Ignoring tagger files #

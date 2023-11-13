@@ -4,8 +4,9 @@ sys.path.append('../')
 import unittest
 import json
 from unittest.mock import patch
-from app import create_app
-import app.messages as messages
+from src.app import create_app
+import src.app.utils.messages as messages
+
 
 class TestAddEntryEndpoint(unittest.TestCase):
     def setUp(self):
@@ -13,7 +14,7 @@ class TestAddEntryEndpoint(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_add_valid_entry(self, mock_get_collection):
         mock_get_collection.return_value.insert_one.return_value = None
 
@@ -199,7 +200,7 @@ class TestAddEntryEndpoint(unittest.TestCase):
         self.assertIn('error', data)
         self.assertEqual(data['error'], messages.TAGGED_SENTENCE_LENGTH_EXCEEDED)
 
-    @patch('app.routes.get_collection')
+    @patch('src.app.api.routes.get_collection')
     def test_add_entry_exception(self, mock_get_collection):
         error_txt = "Database error"
         mock_get_collection.return_value.insert_one.side_effect = Exception(error_txt)
