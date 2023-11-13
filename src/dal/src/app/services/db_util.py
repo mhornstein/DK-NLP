@@ -9,9 +9,11 @@ from flask import current_app
 mongo_client = None
 db_name = "tags"
 
+
 def create_collection_if_not_exists(db, collection_name):
     if collection_name not in db.list_collection_names():
         db.create_collection(collection_name)
+
 
 def get_collection(mode):
     """
@@ -25,7 +27,7 @@ def get_collection(mode):
     """
     global mongo_client
     collection_name = "ner_collection" if mode == "ner" else "pos_collection"
-    mongo_client = MongoClient(current_app.config['MONGO_URI']) if mongo_client is None else mongo_client
+    mongo_client = MongoClient(current_app.config["MONGO_URI"]) if mongo_client is None else mongo_client
     db = mongo_client[db_name]
     create_collection_if_not_exists(db, collection_name)
     return db[collection_name]
