@@ -75,3 +75,4 @@ src/tagger/tests/*.coverage
 src/server/node_modules
 src/server/.nyc_output/*
 src/server/coverage
+src/server/src/dist/*
