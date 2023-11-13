@@ -3,7 +3,8 @@ const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 const morgan = require('morgan')
 const swaggerUi = require('swagger-ui-express')
-const swaggerUtil = require('./swagger/swaggerUtil')
+const YAML = require('yamljs')
+const path = require('path')
 
 const app = express()
 
@@ -69,7 +70,9 @@ app.use(tagRoutes)
 
 // lunch swagger if required
 if (enableApi) {
-  const swaggerConfig = swaggerUtil.generateSwaggerConfig(port)
+  const yamlFilePath = path.join(__dirname, 'docs/api-docs.yaml')
+  const swaggerConfig = YAML.load(yamlFilePath)
+  swaggerConfig.servers = [{ url: `http://localhost:${port}` }]
   app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
 }
 
