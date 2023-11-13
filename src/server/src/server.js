@@ -43,23 +43,38 @@ const argv = yargs(hideBin(process.argv))
     type: 'boolean',
     default: false
   })
+  .option('serve-client', {
+    alias: 's',
+    describe: 'Serve client',
+    type: 'boolean',
+    default: false
+  })
   .argv
 
 const port = argv.port
 const dalUri = argv.dalUri
 const taggerUri = argv.taggerUri
 const enableApi = argv['enable-api']
+const serveClient = argv['serve-client'];
 
 // Add morgan for logging requests and responses to console
 app.use(morgan('dev'))
 
-// CORS Middleware - TODO configure this more securely in a production environment
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*') // TODO - remove upon production!
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  next()
-})
+if (serveClient) {
+  const angularDistPath = path.join(__dirname, './dist/frontend');
+  app.use(express.static(angularDistPath));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(angularDistPath, 'index.html'));
+  });
+} else { // when the client is served elsewhere - we need to adjust CORS configuration
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+    next()
+  })
+}
 
 // Inject URIs into routes
 const fetchEntriesRoutes = require('./routes/fetchEntriesRoutes')(dalUri)
