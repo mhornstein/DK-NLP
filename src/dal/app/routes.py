@@ -1,10 +1,11 @@
 from datetime import datetime
-from flask import request, jsonify
+from flask import request, jsonify, Blueprint
 from bson import ObjectId
-from app import app
 import app.messages as messages
 from app.db_util import get_collection
 import re
+
+api = Blueprint('api', __name__)
 
 def validate_entry_data(data):
     '''
@@ -51,7 +52,7 @@ objectid_pattern = re.compile(r'^[0-9a-fA-F]{24}$')
 def is_valid_objectid(entry_id):
     return bool(objectid_pattern.match(entry_id))
 
-@app.route('/add_entry', methods=['POST'])
+@api.route('/add_entry', methods=['POST'])
 def add_entry():
     '''
     To add a new tag, send a POST request to this endpoint with JSON data containing a date and tagged_sentence.
@@ -81,7 +82,7 @@ def add_entry():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/fetch_entries', methods=['GET'])
+@api.route('/fetch_entries', methods=['GET'])
 def fetch_entries():
     '''
     To fetch tagged entries, send a GET request to this endpoint.
