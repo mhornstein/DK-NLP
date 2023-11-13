@@ -57,12 +57,8 @@ class Tagger:
         sentence_suffixes = [t[-3:] for t in tokens]
 
         words_features = self.create_features(sentence_words, self.w2i, UNKNOWN_TOKEN)
-        prefix_features = self.create_features(
-            sentence_prefixes, self.p2i, UNKNOWN_TOKEN[:3]
-        )
-        suffix_features = self.create_features(
-            sentence_suffixes, self.s2i, UNKNOWN_TOKEN[-3:]
-        )
+        prefix_features = self.create_features(sentence_prefixes, self.p2i, UNKNOWN_TOKEN[:3])
+        suffix_features = self.create_features(sentence_suffixes, self.s2i, UNKNOWN_TOKEN[-3:])
 
         test_data_set = TensorDataset(
             self.list_to_tensor(words_features),
@@ -70,9 +66,7 @@ class Tagger:
             self.list_to_tensor(suffix_features),
             torch.LongTensor(np.array([sent_length])),
         )
-        test_data_loader = DataLoader(
-            dataset=test_data_set, batch_size=1, shuffle=False
-        )
+        test_data_loader = DataLoader(dataset=test_data_set, batch_size=1, shuffle=False)
 
         with torch.no_grad():
             batch = next(iter(test_data_loader))

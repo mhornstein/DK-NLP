@@ -22,12 +22,8 @@ class BiLSTM_Tagger_C(nn.Module):
         super(BiLSTM_Tagger_C, self).__init__()
 
         self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=pad_index)
-        self.prefix_embeddings = nn.Embedding(
-            prefix_vocab_size, embedding_dim, padding_idx=pad_index
-        )
-        self.suffix_embeddings = nn.Embedding(
-            suffix_vocab_size, embedding_dim, padding_idx=pad_index
-        )
+        self.prefix_embeddings = nn.Embedding(prefix_vocab_size, embedding_dim, padding_idx=pad_index)
+        self.suffix_embeddings = nn.Embedding(suffix_vocab_size, embedding_dim, padding_idx=pad_index)
 
         self.lstm = nn.LSTM(
             embedding_dim,
@@ -43,9 +39,7 @@ class BiLSTM_Tagger_C(nn.Module):
 
     def forward(self, text, text_prefix, text_suffix, text_lengths):
         embedded = (
-            self.prefix_embeddings(text_prefix)
-            + self.embedding(text)
-            + self.suffix_embeddings(text_suffix)
+            self.prefix_embeddings(text_prefix) + self.embedding(text) + self.suffix_embeddings(text_suffix)
         )
         packed_embedded = pack_padded_sequence(embedded, text_lengths, batch_first=True)
 

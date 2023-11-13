@@ -2,7 +2,7 @@ install:
 	pip install -r requirements.txt
 	
 format:
-	black ./**/*.py
+	black --line-length 110 ./**/*.py
 	
 lint:
 	pylint --disable=R,C ./src

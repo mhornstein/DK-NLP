@@ -5,12 +5,8 @@ from app import create_app
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Tagging Microservice")
-    parser.add_argument(
-        "--port", type=int, default=4000, help="Port to expose the tagging microservice"
-    )
-    parser.add_argument(
-        "--enable-api", action="store_true", help="Enable Swagger API documentation"
-    )
+    parser.add_argument("--port", type=int, default=4000, help="Port to expose the tagging microservice")
+    parser.add_argument("--enable-api", action="store_true", help="Enable Swagger API documentation")
     return parser.parse_args()
 
 
