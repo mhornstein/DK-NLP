@@ -1,0 +1,20 @@
+# Dockerfile for Tagger Component
+#
+# To build the Docker image, run (from root):
+# docker build -f src/tagger/Dockerfile.tagger -t tagger-image .
+#
+# To run the Docker container so that port 4001 is exposed, run:
+# docker run -p 4001:4000 tagger-image
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY src/tagger/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/tagger/src /app
+
+EXPOSE 4000
+
+CMD ["python", "run.py"]
