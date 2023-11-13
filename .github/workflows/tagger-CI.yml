@@ -29,7 +29,7 @@ jobs:
     - name: Format code with black
       run: |
         cd src/tagger
-        black ./**/*.py
+        black --line-length 110 ./**/*.py
 
     - name: Lint the code
       run: |
