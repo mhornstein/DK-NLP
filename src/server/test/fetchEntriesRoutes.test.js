@@ -5,8 +5,8 @@ const { expect } = chai
 chai.use(chaiHttp)
 
 const server = require('../src/server')
-const axios = require('../src/util/axiosInstance')
-const messages = require('../src/util/messages')
+const axios = require('../src/utils/axiosInstance')
+const messages = require('../src/utils/messages')
 
 describe('Fetch Entries Route', () => {
   let sandbox

@@ -1,10 +1,10 @@
 const express = require('express')
-const axios = require('../util/axiosInstance')
+const axios = require('../utils/axiosInstance')
 const bodyParser = require('body-parser')
 const requestValidation = require('../middleware/requestValidation')
-const { extractErrorDetails } = require('../util/errorExtractor')
+const { extractErrorDetails } = require('../utils/errorExtractor')
 const { formatISO } = require('date-fns')
-const messages = require('../util/messages')
+const messages = require('../utils/messages')
 
 module.exports = (taggerUri, dalUri) => {
   const router = express.Router()

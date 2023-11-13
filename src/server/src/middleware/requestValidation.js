@@ -1,4 +1,4 @@
-const messages = require('../util/messages')
+const messages = require('../utils/messages')
 
 function validateTagSentenceRequest (req, res, next) {
   const { mode, sentence } = req.query

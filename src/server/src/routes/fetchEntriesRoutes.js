@@ -1,9 +1,9 @@
 const express = require('express')
-const axios = require('../util/axiosInstance')
+const axios = require('../utils/axiosInstance')
 const bodyParser = require('body-parser')
 const requestValidation = require('../middleware/requestValidation')
-const { extractErrorDetails } = require('../util/errorExtractor')
-const messages = require('../util/messages')
+const { extractErrorDetails } = require('../utils/errorExtractor')
+const messages = require('../utils/messages')
 
 const router = express.Router()
 
