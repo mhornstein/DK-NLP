@@ -55,18 +55,18 @@ const port = argv.port
 const dalUri = argv.dalUri
 const taggerUri = argv.taggerUri
 const enableApi = argv['enable-api']
-const serveClient = argv['serve-client'];
+const serveClient = argv['serve-client']
 
 // Add morgan for logging requests and responses to console
 app.use(morgan('dev'))
 
 if (serveClient) {
-  const angularDistPath = path.join(__dirname, './dist/frontend');
-  app.use(express.static(angularDistPath));
+  const angularDistPath = path.join(__dirname, './dist/frontend')
+  app.use(express.static(angularDistPath))
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(angularDistPath, 'index.html'));
-  });
+    res.sendFile(path.join(angularDistPath, 'index.html'))
+  })
 } else { // when the client is served elsewhere - we need to adjust CORS configuration
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
