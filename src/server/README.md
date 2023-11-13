@@ -38,7 +38,7 @@ node ./src/server.js
 ```
 
 The server will be accessible via `http://localhost:3000/`.
-				 
+	 
 
 ### Advanced Usage
 
@@ -48,14 +48,16 @@ You can customize the server's behavior using the following parameters:
 - `-t` or `--taggerUri`: Set the Tagger Service URI (default: "127.0.0.1:4000").
 - `-d` or `--dalUri`: Set the Data Access Layer (DAL) Service URI (default: "127.0.0.1:5000").
 - `-e` or `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the server provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
+- `-s` or `--serve-client`: Enable serving of the Angular client. When this flag is set, the server will serve the Angular client from the `dist/frontend` directory. Ensure that you have run `ng build` in the client folder and placed the build output in the server's directory before enabling this option.
 
-For example, to set the Tagger Service URI to `192.168.1.20:4000`, the DAL Service to `192.168.2.45:5000`, and run the server on port 3001, with Swagger API enabled, you can run:
+For example, to set the Tagger Service URI to `192.168.1.20:4000`, the DAL Service to `192.168.2.45:5000`, run the server on port 3001, with Swagger API enabled, and serve the Angular client, you can run:
 
 ```bash
-node ./src/server.js --port=3001 --taggerUri=192.168.1.20:4000 --dalUri=192.168.2.45:5000 --enable-api
+node ./src/server.js --port=3001 --taggerUri=192.168.1.20:4000 --dalUri=192.168.2.45:5000 --enable-api --serve-client
 ```
 
-After running the command with the desired parameters, one should see output in the console indicating that the server is running on the specified port with the configured service URIs.
+After running the command with the desired parameters, the console will display output indicating that the server is running on the specified port with the configured service URIs. If the `--serve-client` flag is enabled, the server will also be serving the Angular client.
+
 
 ## Testing
 
