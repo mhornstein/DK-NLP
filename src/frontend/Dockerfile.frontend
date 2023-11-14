@@ -1,0 +1,36 @@
+# Dockerfile for Frontend Component
+#
+# Build Image:
+#   To build the Docker image, run (from project's root):
+#   docker build -f src/frontend/Dockerfile.frontend -t frontend-image .
+#
+# Dependencies:
+#   This image is configured to connect to the server at localhost:3000 by default.
+#   Ensure the server is running and accessible at this address on localhost.
+#
+# Note:
+#   The angular client is lunched in a simple server that is not for production.
+#   Please use this env for dev env only.
+#
+# Run Container:
+#   docker run -p 4200:4200 --name frontend frontend-image
+
+FROM node:18.16.0
+
+WORKDIR /app
+
+# Install Angular CLI globally (so we can use ng command)
+RUN npm install -g @angular/cli
+
+# Install required node modules
+COPY src/frontend/package*.json ./
+RUN npm install
+
+COPY src/frontend /app
+
+EXPOSE 4200
+
+# When a service inside a Docker container binds to localhost, it is not accessible outside the container.
+# To make it accessible, we need to bind the Angular development server to 0.0.0.0.
+# That will allow it to accept connections from any IP address, including the host machine.
+CMD ["ng", "serve", "--host", "0.0.0.0"]
