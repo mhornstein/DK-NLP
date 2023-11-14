@@ -13,7 +13,7 @@
 #   Please use this env for dev env only.
 #
 # Run Container:
-#   docker run -p 4200:4200 --name frontend frontend-image
+#   docker run --detach -p 4200:4200 --name frontend frontend-image
 
 FROM node:18.16.0
 
