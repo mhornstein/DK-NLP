@@ -1,0 +1,25 @@
+# Dockerfile for Server Component
+#
+# Build Image:
+#   To build the Docker image, run (from project's root):
+#   docker build -f src/server/Dockerfile.server -t server-image .
+#
+# Dependencies:
+#   This image is configured to connect to tagger service in localhost:4000 and dal service in localhost:5000.
+#   Ensure this microservices are running and accessible at this addresses on the machine.
+#   
+# Run Container:
+#   docker run --detach -p 3000:3000 --name server server-image
+
+FROM node:18.16.0
+
+WORKDIR /app
+
+COPY src/server/package*.json ./
+RUN npm install
+
+COPY src/server/src /app
+
+EXPOSE 3000
+
+CMD ["node", "server.js", "--taggerUri=host.docker.internal:4000", "--dalUri=host.docker.internal:5000"]
