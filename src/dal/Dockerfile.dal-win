@@ -33,4 +33,4 @@ COPY src/dal/src /app
 
 EXPOSE 5000
 
-CMD ["python", "run.py", "--mongo-uri=mongodb://host.docker.internal:27017/"]
+CMD ["python", "run.py", "--mongo-uri=mongodb://host.docker.internal:27017/", "--enable-api"]
