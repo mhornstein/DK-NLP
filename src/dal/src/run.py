@@ -15,6 +15,7 @@ if __name__ == "__main__":
     args = parse_arguments()
     app = create_app()
     app.config["MONGO_URI"] = args.mongo_uri  # Set the MongoDB URI from the command line
+    print(f"Connecting to MongoDB instance in: {args.mongo_uri}")
     if args.enable_api:
         swagger = Swagger(app, template_file="./docs/api-docs.yaml")
         print("Swagger UI is enabled and can be accessed at /apidocs")
