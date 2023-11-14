@@ -6,7 +6,7 @@
 #   To build the Docker image, run (from project's root):
 #   docker build -f src/dal/Dockerfile.dal-win -t dal-win-image .
 #
-# MongoDB Connection:
+# Dependencies:
 #   This image is configured to connect to MongoDB at mongodb://localhost:27017 by default.
 #   Ensure MongoDB is running and accessible at this address on localhost.
 #
