@@ -30,12 +30,9 @@ function parseArguments(args) {
 function runNgCommand(ngArgs) {
   const command = `ng ${ngArgs.join(' ')}`;
 
-  const execOptions = {
-    // the command needs to be executed from the root of this component directory
-    cwd: path.join(__dirname, '..'),
-  };
+  console.log(`running command: ${command}`)
 
-  const child = exec(command, execOptions);
+  const child = exec(command);
 
   child.stdout.on('data', (data) => {
     console.log(data);

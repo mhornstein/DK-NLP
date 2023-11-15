@@ -5,12 +5,10 @@
 #   docker build -f src/frontend/Dockerfile.frontend -t frontend-image .
 #
 # Dependencies:
-#   This image is configured to connect to the server at localhost:3000 by default.
-#   Ensure the server is running and accessible at this address on localhost.
-#
-# Note:
-#   The angular client is lunched in a simple server that is not for production.
-#   Please use this env for dev env only.
+#   This image requires a server microservice to communicate with.
+#   These services can be specified using the --serverUri in the script/ng_wrapper.js script.
+#   The default CMD is configured for a Windows environment where the server runs with its default settings, i.e., port 3000.
+#   Modify the CMD as necessary to suit the required service configurations.
 #
 # Run Container:
 #   docker run --detach -p 4200:4200 --name frontend frontend-image
@@ -30,7 +28,7 @@ COPY src/frontend /app
 
 EXPOSE 4200
 
-# When a service inside a Docker container binds to localhost, it is not accessible outside the container.
-# To make it accessible, we need to bind the Angular development server to 0.0.0.0.
-# That will allow it to accept connections from any IP address, including the host machine.
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+ENTRYPOINT ["node", "./scripts/ng_wrapper.js"]
+
+# Note: we bind the Angular development server to 0.0.0.0 to make it accessible outside the container
+CMD ["serve", "--host", "0.0.0.0"]
