@@ -55,6 +55,8 @@ For example, to serve the client on port 4300 and set the server URI to `127.0.0
 node scripts/ng_wrapper.js serve --port 4300 --serverUri 127.0.0.1:3500
 ```
 
+Please note that the script needs to be ran from the root folder of the component, i.e. `src/frontend/`.
+
 ## Testing
 
 Testing for this application is done using [Karma](https://karma-runner.github.io/latest/index.html), with the following test coverage:
