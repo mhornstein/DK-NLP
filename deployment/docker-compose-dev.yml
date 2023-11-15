@@ -10,7 +10,7 @@
 #
 # To stop and remove the containers and networks:
 #    docker-compose -p dev -f deployment/docker-compose-dev.yml down
-# Note that the volume needs to be removed manually.
+# Note that the volume needs to be removed manually (especially in windows).
 
 version: '3.8'
 
