@@ -30,7 +30,7 @@ function parseArguments(args) {
 function runNgCommand(ngArgs) {
   const command = `ng ${ngArgs.join(' ')}`;
 
-  console.log(`running command: ${command}`)
+  console.log(`running command: ${command}`);
 
   const child = exec(command);
 
