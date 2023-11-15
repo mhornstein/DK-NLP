@@ -52,7 +52,7 @@ For more advanced scenarios, one can use either the `ng` CLI tool or `ng_wrapper
 For example, to serve the client on port 4300 and set the server URI to `127.0.0.1:3500`, you can run:
 
 ```bash
-node scripts/ng_wrapper.js serve --port 4300 --server-uri 127.0.0.1:3500
+node scripts/ng_wrapper.js serve --port 4300 --serverUri 127.0.0.1:3500
 ```
 
 ## Testing
