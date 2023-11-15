@@ -10,13 +10,13 @@ function parseArguments(args) {
   let i = 0;
 
   while (i < args.length) {
-    if (args[i] === '--server-uri') {
+    if (args[i] === '--serverUri') {
       if (i + 1 < args.length && !args[i + 1].startsWith('--')) {
         serverUri = args[i + 1]; // override serverUri value
-        i += 2; // Skip the next item since it's the value of --server-uri
+        i += 2; // Skip the next item since it's the value of --serverUri
       } else {
         throw new Error(
-          'Invalid value for --server-uri. A URI must follow the --server-uri flag.',
+          'Invalid value for --serverUri. A URI must follow the --serverUri flag.',
         );
       }
     } else {
