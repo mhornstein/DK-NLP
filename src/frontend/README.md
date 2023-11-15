@@ -39,37 +39,21 @@ Upon running the command, the client interface will be available on the web brow
 http://localhost:4200/
 ```
 
+This will be equivalent to running the frontend as:
+
+```
+node scripts/ng_wrapper.js serve
+```
+
 ### Advanced Usage
 
-For additional options regarding the running and building of the client, execute the `lunch.js` script located in the `scripts` directory using Node.js:
+For more advanced scenarios, one can use either the `ng` CLI tool or `ng_wrapper`. `ng_wrapper` is a wrapper around the `ng` tool, allowing to pass the same arguments as one would to `ng`. An additional feature of `ng_wrapper` is the ability to specify the server URI with which the client communicates.
 
-**Parameters:**
-- `--server-uri` / `-s`: Define the URI of the server to connect to the Angular app (default: "127.0.0.1:3000").
-- `--mode` / `-m`: Set the script to either 'serve' for launching the client or 'build' for building the application (default: "serve").
-- `--port` / `-p`: Assign the port number for the client when the script mode is 'serve' (default: 4200).
-
-**How to Use:**
-
-Run the script as follows:
+For example, to serve the client on port 4300 and set the server URI to `127.0.0.1:3500`, you can run:
 
 ```bash
-node scripts/lunch.js [options]
+node scripts/ng_wrapper.js serve --port 4300 --server-uri 127.0.0.1:3500
 ```
-
-For instance, to run the client on port 4201 with a different server URI of 12.7.0.0.1:5000, you can use:
-
-```bash
-node scripts/lunch.js --server-uri=127.0.0.1:5000 --mode=serve --port=4201
-```
-
-**Important Notes:**
-- The `--port` option is only applicable when the `--mode` is set to 'serve'.
-- If the `--mode` is 'build', the script will ignore the `--port` parameter and will use its default setting.
-
-When the script is executed, it will:
-- Parse the command line arguments supplied.
-- Update the [environment configuration file](https://github.com/mhornstein/DK-NLP/tree/main/frontend/src/environments) with the provided `server-uri`.
-- Run the Angular CLI command that corresponds with the specified `mode`.
 
 ## Testing
 
