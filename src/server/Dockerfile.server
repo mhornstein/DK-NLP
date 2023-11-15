@@ -1,0 +1,28 @@
+# Dockerfile for Server Component
+#
+# Build Image:
+#   To build the Docker image, run (from project's root):
+#   docker build -f src/server/Dockerfile.server -t server-image .
+#
+# Dependencies:
+#   This image requires a Tagger microservice and a DAL (Data Access Layer) microservice.
+#   These services are specified using the --taggerUri and --dalUri flags, respectively.
+#   The default CMD is configured for a Windows environment where the DAL and Tagger services run with their default settings, i.e. ports 4000 and 5000 respectively.
+#   Modify the CMD as necessary to suit the required service configurations.
+#
+# Run Container:
+#   docker run --detach -p 3000:3000 --name server server-image
+
+FROM node:18.16.0
+
+WORKDIR /app
+
+COPY src/server/package*.json ./
+RUN npm install
+
+COPY src/server/src /app
+
+EXPOSE 3000
+
+ENTRYPOINT ["node", "server.js"]
+CMD ["--taggerUri=host.docker.internal:4000", "--dalUri=host.docker.internal:5000", "--port=3000"]

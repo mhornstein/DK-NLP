@@ -1,0 +1,27 @@
+# Dockerfile for DAL Component
+#
+# Build Image:
+#   To build the Docker image, run (from project's root):
+#   docker build -f src/dal/Dockerfile.dal -t dal-image .
+#
+# Dependencies:
+#   This image requires a MongoDB instance accessible via the --mongo-uri flag.
+#   The default CMD is configured for a Windows environment where MongoDB runs on its default port (27017).
+#   Modify the CMD as necessary to suit the required MongoDB configuration.
+#   
+# Run Container:
+#   docker run --detach -p 5000:5000 --name dal dal-image
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY src/dal/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/dal/src /app
+
+EXPOSE 5000
+
+ENTRYPOINT ["python", "run.py"]
+CMD ["--mongo-uri=mongodb://host.docker.internal:27017/", "--port=5000"]
