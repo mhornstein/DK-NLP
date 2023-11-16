@@ -13,7 +13,7 @@
 # Run Container:
 #   docker run --detach -p 4200:4200 --name frontend frontend-image
 
-FROM node:18.16.0
+FROM node:18.16.0-alpine
 
 WORKDIR /app
 
