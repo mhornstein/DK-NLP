@@ -1,23 +1,33 @@
 # Docker Compose Configuration File for dev env
 #
 # To build the Docker images (if you have new changes or haven't built them before) run from the root directory:
-#    docker-compose -f deployment/docker-compose-dev.yml build
+#    docker-compose -f deployment/docker-compose/dev/docker-compose.yml build
 # Note that the images will be created with a "dev" prefix.
 #
 # To Run the containers (in the background - detached mode):
-#    docker-compose -p dev -f deployment/docker-compose-dev.yml up -d
+#    docker-compose -p dev -f deployment/docker-compose/dev/docker-compose.yml up -d
 # Note that the containers will be organized under a project named "dev".
 #
 # To stop and remove the containers and networks:
-#    docker-compose -p dev -f deployment/docker-compose-dev.yml down
+#    docker-compose -p dev -f deployment/docker-compose/dev/docker-compose.yml down
 # Note that the volume needs to be removed manually (especially in windows).
 
 version: '3.8'
 
 services:
+  frontend:
+    build:
+      context: ../../..
+      dockerfile: src/frontend/Dockerfile.frontend
+    image: dev-frontend-image
+    ports:
+      - "4200:4200"
+    depends_on:
+      - server
+    
   server:
     build:
-      context: ../
+      context: ../../..
       dockerfile: src/server/Dockerfile.server
     image: dev-server-image
     ports:
@@ -25,46 +35,31 @@ services:
     depends_on:
       - tagger
       - dal
-    networks:
-      - app-network
-    command: ["--taggerUri=tagger:4000", "--dalUri=dal:5000", "--port=3000", "--enable-api"]
 
   tagger:
     build:
-      context: ../
+      context: ../../..
       dockerfile: src/tagger/Dockerfile.tagger
     image: dev-tagger-image
     ports:
       - "4000:4000"
-    networks:
-      - app-network
-    command: ["--port=4000", "--enable-api"]
 
   dal:
     build:
-      context: ../
+      context: ../../..
       dockerfile: src/dal/Dockerfile.dal
     image: dev-dal-image
     ports:
       - "5000:5000"
-    command: ["--mongo-uri=mongodb://mongo:27017/", "--port=5000", "--enable-api"]
     depends_on:
       - mongo
-    networks:
-      - app-network
 
   mongo:
     image: mongo:7.0.2
     ports:
       - "27017:27017"
-    networks:
-      - app-network
     volumes:
       - mongo-data:/data/db
-
-networks:
-  app-network:
-    driver: bridge
 
 volumes:
   mongo-data:
