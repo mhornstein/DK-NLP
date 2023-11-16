@@ -31,4 +31,4 @@ EXPOSE 4200
 ENTRYPOINT ["node", "./scripts/ng_wrapper.js"]
 
 # Note: we bind the Angular development server to 0.0.0.0 to make it accessible outside the container
-CMD ["serve", "--host", "0.0.0.0"]
+CMD ["serve", "--host", "0.0.0.0", "--serverUri", "localhost:3000"]

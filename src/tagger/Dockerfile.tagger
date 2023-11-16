@@ -18,5 +18,4 @@ COPY src/tagger/src /app
 
 EXPOSE 4000
 
-ENTRYPOINT ["python", "run.py"]
-CMD ["--port=4000"]
+CMD ["python", "run.py", "--port", "4000"]

@@ -23,5 +23,4 @@ COPY src/dal/src /app
 
 EXPOSE 5000
 
-ENTRYPOINT ["python", "run.py"]
-CMD ["--mongo-uri=mongodb://host.docker.internal:27017/", "--port=5000"]
+CMD ["python", "run.py", "--mongo-uri", "mongodb://host.docker.internal:27017/", "--port", "5000"]
