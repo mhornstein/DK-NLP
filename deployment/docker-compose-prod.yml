@@ -38,6 +38,8 @@ services:
       - tagger
       - dal
       - frontend
+    networks:
+      - prod-network
 
   tagger:
     build:
@@ -46,6 +48,8 @@ services:
     image: prod-tagger-image
     ports:
       - "4000:4000"
+    networks:
+      - prod-network
 
   dal:
     build:
@@ -57,6 +61,8 @@ services:
     depends_on:
       - mongo
     command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000"]
+    networks:
+      - prod-network
 
   mongo:
     image: mongo:7.0.2
@@ -64,7 +70,14 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - prod-network
 
 volumes:
   mongo-data:
   angular-dist:
+
+networks:
+  prod-network:
+    driver: bridge
+
