@@ -60,6 +60,21 @@ const serveClient = argv['serve-client']
 // Add morgan for logging requests and responses to console
 app.use(morgan('dev'))
 
+// Inject URIs into routes
+const fetchEntriesRoutes = require('./routes/fetchEntriesRoutes')(dalUri)
+app.use(fetchEntriesRoutes)
+
+const tagRoutes = require('./routes/tagRoutes')(taggerUri, dalUri)
+app.use(tagRoutes)
+
+// lunch swagger if required
+if (enableApi) {
+  const yamlFilePath = path.join(__dirname, 'docs/api-docs.yaml')
+  const swaggerConfig = YAML.load(yamlFilePath)
+  swaggerConfig.servers = [{ url: `http://localhost:${port}` }]
+  app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
+}
+
 if (serveClient) {
   const angularDistPath = path.join(__dirname, './dist/frontend')
   app.use(express.static(angularDistPath))
@@ -74,21 +89,6 @@ if (serveClient) {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
     next()
   })
-}
-
-// Inject URIs into routes
-const fetchEntriesRoutes = require('./routes/fetchEntriesRoutes')(dalUri)
-app.use(fetchEntriesRoutes)
-
-const tagRoutes = require('./routes/tagRoutes')(taggerUri, dalUri)
-app.use(tagRoutes)
-
-// lunch swagger if required
-if (enableApi) {
-  const yamlFilePath = path.join(__dirname, 'docs/api-docs.yaml')
-  const swaggerConfig = YAML.load(yamlFilePath)
-  swaggerConfig.servers = [{ url: `http://localhost:${port}` }]
-  app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
 }
 
 // Start the server
