@@ -1,3 +1,12 @@
+/**
+ * This script enhances Angular CLI commands by allowing dynamic setting of the server URI in the
+ * Angular environment and executing Angular commands with additional arguments.
+ *
+ * Example usage:
+ * `node ng_wrapper.js --serverUri http://example.com --build --prod`
+ * This sets the server URI to 'http://example.com' and executes `ng build --prod`.
+ */
+
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
