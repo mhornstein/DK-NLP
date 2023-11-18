@@ -1,15 +1,15 @@
 # Docker Compose Configuration File for prod env
 #
 # To build the Docker images (if you have new changes or haven't built them before) run from the root directory:
-#    docker-compose -f deployment/docker-compose-prod.yml build
+#    docker-compose -f deployment/docker-compose.prod.yml build
 # Note that the images will be created with a "prod" prefix.
 #
 # To Run the containers (in the background - detached mode):
-#    docker-compose -p prod -f deployment/docker-compose-prod.yml up -d
+#    docker-compose -p prod -f deployment/docker-compose.prod.yml up -d
 # Note that the containers will be organized under a project named "prod".
 #
 # To stop and remove the containers and networks:
-#    docker-compose -p prod -f deployment/docker-compose-prod.yml down
+#    docker-compose -p prod -f deployment/docker-compose.prod.yml down
 # Note that the volume needs to be removed manually (especially in windows).
 
 version: '3.8'
