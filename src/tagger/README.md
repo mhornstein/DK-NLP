@@ -44,14 +44,17 @@ The API will be accessible at `http://localhost:4000/`.
 
 You can customize the service's behavior using the following parameters:
 
-- `--port`: Specify the port number on which the service will run (default: 4000).
+- `--port`: Specify the port number on which the service will run (default: `4000`).
 - `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the service provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
+- `--serve`: Choose the serve mode (`prod` for production, `dev` for development). Default is `dev`.
 
-For example, to set the port to 4005 with Swagger API enabled, you can run:
+For example, to set the port to `4005` with Swagger API enabled, and run in production mode, you can run:
 
 ```bash
-python run.py --port=4005 --enable-api
+python run.py --port=4005 --enable-api --serve=prod
 ```
+
+When running in production mode (`--serve=prod`), the application will be served using Waitress, which is more suitable for production environments. In development mode (`--serve=dev`), Flask's built-in server will be used.
 
 ## Testing
 

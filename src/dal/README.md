@@ -49,14 +49,17 @@ This command will start the application with default settings: The API will be a
 You can customize the service's behavior using the following parameters:
 
 - `--port`: Specify the port number on which the service will run (default: `5000`).
-- `--mongo-uri`: the specific URI for the MongoDB instance (default: `mongodb://localhost:27017`)
+- `--mongo-uri`: The specific URI for the MongoDB instance (default: `mongodb://localhost:27017`).
 - `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the service provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
+- `--serve`: Choose the serve mode (`prod` for production, `dev` for development). Default is `dev`.
 
-For example, to set the port to `5005`, mongo URI of `mongodb://localhost:50000` with Swagger API enabled, you can run:
+For example, to set the port to `5005`, mongo URI of `mongodb://localhost:50000` with Swagger API enabled, and run in production mode, you can run:
 
 ```bash
-python run.py --port=5005 --mongo-uri=mongodb://localhost:50000 --enable-api
+python run.py --port=5005 --mongo-uri=mongodb://localhost:50000 --enable-api --serve=prod
 ```
+
+When running in production mode (`--serve=prod`), the application will be served using Waitress, which is more suitable for production environments. In development mode (`--serve=dev`), Flask's built-in server will be used.
 
 ## Testing
 
