@@ -10,7 +10,7 @@ def create_app():
     parser.add(
         "--enable-api",
         env_var="ENABLE_API",
-        default="false",
+        default=False,
         action="store_true",
         help="Enable Swagger API documentation",
     )
