@@ -23,6 +23,7 @@ services:
     command: ["build", "--serverUri", "localhost:3000"]
     volumes:
       - angular-dist:/app/dist
+    restart: "no"
     
   server:
     build:
