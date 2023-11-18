@@ -1,0 +1,85 @@
+# Docker Compose Configuration File for dev env
+#
+# To build the Docker images (if you have new changes or haven't built them before) run from the root directory:
+#    docker-compose -f deployment/docker-compose.dev.yml build
+# Note that the images will be created with a "dev" prefix.
+#
+# To Run the containers (in the background - detached mode):
+#    docker-compose -p dev -f deployment/docker-compose.dev.yml up -d
+# Note that the containers will be organized under a project named "dev".
+#
+# To stop and remove the containers and networks:
+#    docker-compose -p dev -f deployment/docker-compose.dev.yml down
+# Note that the volume needs to be removed manually (especially in windows).
+
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ../
+      dockerfile: src/frontend/Dockerfile.frontend
+    image: dev-frontend-image
+    command: ["build", "--source-map", "--serverUri", "localhost:3000"]
+    volumes:
+      - angular-dist:/app/dist
+    restart: "no"
+    
+  server:
+    build:
+      context: ../
+      dockerfile: src/server/Dockerfile.server
+    volumes:
+      - angular-dist:/app/dist
+    command: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client"]
+    image: dev-server-image
+    ports:
+      - "3000:3000"
+    depends_on:
+      - tagger
+      - dal
+      - frontend
+    networks:
+      - dev-network
+
+  tagger:
+    build:
+      context: ../
+      dockerfile: src/tagger/Dockerfile.tagger
+    image: dev-tagger-image
+    ports:
+      - "4000:4000"
+    command: ["python", "run.py", "--port", "4000", "--serve", "dev"]
+    networks:
+      - dev-network
+
+  dal:
+    build:
+      context: ../
+      dockerfile: src/dal/Dockerfile.dal
+    image: dev-dal-image
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "dev"]
+    networks:
+      - dev-network
+
+  mongo:
+    image: mongo:7.0.2
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - dev-network
+
+volumes:
+  mongo-data:
+  angular-dist:
+
+networks:
+  dev-network:
+    driver: bridge
+
