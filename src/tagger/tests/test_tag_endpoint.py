@@ -6,10 +6,13 @@ import unittest
 from unittest.mock import patch
 from src.app import create_app
 import src.app.utils.messages as messages
+from mock_args import MockArgs
 
 
 class TestTagEndpoint(unittest.TestCase):
-    def setUp(self):
+    @patch("src.app.configargparse.ArgParser.parse_args")
+    def setUp(self, mock_parse_args):
+        mock_parse_args.return_value = MockArgs(enable_api=False, port=0)
         app = create_app()
         app.testing = True
         self.client = app.test_client()

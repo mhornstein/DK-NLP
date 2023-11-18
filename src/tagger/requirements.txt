@@ -6,3 +6,4 @@ pytest==7.4.3
 black==23.10.1
 pylint==2.9.6
 flasgger==0.9.7.1
+ConfigArgParse==1.7
