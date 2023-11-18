@@ -48,6 +48,7 @@ services:
     image: prod-tagger-image
     ports:
       - "4000:4000"
+    command: ["python", "run.py", "--port", "4000", "--serve", "prod"]
     networks:
       - prod-network
 
@@ -60,7 +61,7 @@ services:
       - "5000:5000"
     depends_on:
       - mongo
-    command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000"]
+    command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "prod"]
     networks:
       - prod-network
 
