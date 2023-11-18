@@ -42,15 +42,27 @@ The API will be accessible at `http://localhost:4000/`.
 
 ### Advanced Usage
 
-You can customize the service's behavior using the following parameters:
+You can customize the service's behavior using command-line parameters or environment variables. The following parameters are available:
 
-- `--port`: Specify the port number on which the service will run (default: 4000).
-- `--enable-api`: Toggle the Swagger API documentation on or off. If this flag is set, the service provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
+- `--port` / `PORT`: Specify the port number on which the service will run (default: 4000).
+- `--enable-api` / `ENABLE_API`: Toggle the Swagger API documentation on or off. If this flag is set, the service provides access to the Swagger UI at the `/apidocs` endpoint for interactive API documentation.
+
+#### Using Command-Line Arguments
 
 For example, to set the port to 4005 with Swagger API enabled, you can run:
 
 ```bash
 python run.py --port=4005 --enable-api
+```
+
+#### Using Environment Variables
+
+Alternatively, you can set these configurations using environment variables. For example:
+
+```bash
+export PORT=4005
+export ENABLE_API=true
+python run.py
 ```
 
 ## Testing
