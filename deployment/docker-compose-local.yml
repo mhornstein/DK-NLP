@@ -1,15 +1,15 @@
-# Docker Compose Configuration File for dev env
+# Docker Compose Configuration File for local env
 #
 # To build the Docker images (if you have new changes or haven't built them before) run from the root directory:
-#    docker-compose -f deployment/docker-compose-dev.yml build
-# Note that the images will be created with a "dev" prefix.
+#    docker-compose -f deployment/docker-compose-local.yml build
+# Note that the images will be created with a "local" prefix.
 #
 # To Run the containers (in the background - detached mode):
-#    docker-compose -p dev -f deployment/docker-compose-dev.yml up -d
-# Note that the containers will be organized under a project named "dev".
+#    docker-compose -p local -f deployment/docker-compose-local.yml up -d
+# Note that the containers will be organized under a project named "local".
 #
 # To stop and remove the containers and networks:
-#    docker-compose -p dev -f deployment/docker-compose-dev.yml down
+#    docker-compose -p local -f deployment/docker-compose-local.yml down
 # Note that the volume needs to be removed manually (especially in windows).
 
 version: '3.8'
@@ -19,7 +19,7 @@ services:
     build:
       context: ../
       dockerfile: src/frontend/Dockerfile.frontend
-    image: dev-frontend-image
+    image: local-frontend-image
     ports:
       - "4200:4200"
     depends_on:
@@ -29,7 +29,7 @@ services:
     build:
       context: ../
       dockerfile: src/server/Dockerfile.server
-    image: dev-server-image
+    image: local-server-image
     ports:
       - "3000:3000"
     depends_on:
@@ -40,7 +40,7 @@ services:
     build:
       context: ../
       dockerfile: src/tagger/Dockerfile.tagger
-    image: dev-tagger-image
+    image: local-tagger-image
     ports:
       - "4000:4000"
 
@@ -48,7 +48,7 @@ services:
     build:
       context: ../
       dockerfile: src/dal/Dockerfile.dal
-    image: dev-dal-image
+    image: local-dal-image
     ports:
       - "5000:5000"
     depends_on:
