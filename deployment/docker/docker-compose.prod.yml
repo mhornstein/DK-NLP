@@ -1,15 +1,15 @@
-# Docker Compose Configuration File for dev env
+# Docker Compose Configuration File for prod env
 #
 # To build the Docker images (if you have new changes or haven't built them before) run from the root directory:
-#    docker-compose -f deployment/docker-compose.dev.yml build
-# Note that the images will be created with a "dev" prefix.
+#    docker-compose -f deployment/docker/docker-compose.prod.yml build
+# Note that the images will be created with a "prod" prefix.
 #
 # To Run the containers (in the background - detached mode):
-#    docker-compose -p dev -f deployment/docker-compose.dev.yml up -d
-# Note that the containers will be organized under a project named "dev".
+#    docker-compose -p prod -f deployment/docker/docker-compose.prod.yml up -d
+# Note that the containers will be organized under a project named "prod".
 #
 # To stop and remove the containers and networks:
-#    docker-compose -p dev -f deployment/docker-compose.dev.yml down
+#    docker-compose -p prod -f deployment/docker/docker-compose.prod.yml down
 # Note that the volume needs to be removed manually (especially in windows).
 
 version: '3.8'
@@ -17,22 +17,22 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ../
+      context: ../../
       dockerfile: src/frontend/Dockerfile.frontend
-    image: dev-frontend-image
-    command: ["build", "--source-map", "--serverUri", "localhost:3000"]
+    image: prod-frontend-image
+    command: ["build", "--serverUri", "localhost:3000"]
     volumes:
       - angular-dist:/app/dist
     restart: "no"
     
   server:
     build:
-      context: ../
+      context: ../../
       dockerfile: src/server/Dockerfile.server
     volumes:
       - angular-dist:/app/dist
-    command: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client", "--enable-api"]
-    image: dev-server-image
+    command: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client"]
+    image: prod-server-image
     ports:
       - "3000:3000"
     depends_on:
@@ -40,31 +40,31 @@ services:
       - dal
       - frontend
     networks:
-      - dev-network
+      - prod-network
 
   tagger:
     build:
-      context: ../
+      context: ../../
       dockerfile: src/tagger/Dockerfile.tagger
-    image: dev-tagger-image
+    image: prod-tagger-image
     ports:
       - "4000:4000"
-    command: ["python", "run.py", "--port", "4000", "--serve", "dev", "--enable-api"]
+    command: ["python", "run.py", "--port", "4000", "--serve", "prod"]
     networks:
-      - dev-network
+      - prod-network
 
   dal:
     build:
-      context: ../
+      context: ../../
       dockerfile: src/dal/Dockerfile.dal
-    image: dev-dal-image
+    image: prod-dal-image
     ports:
       - "5000:5000"
     depends_on:
       - mongo
-    command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "dev", "--enable-api"]
+    command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "prod"]
     networks:
-      - dev-network
+      - prod-network
 
   mongo:
     image: mongo:7.0.2
@@ -73,13 +73,13 @@ services:
     volumes:
       - mongo-data:/data/db
     networks:
-      - dev-network
+      - prod-network
 
 volumes:
   mongo-data:
   angular-dist:
 
 networks:
-  dev-network:
+  prod-network:
     driver: bridge
 
