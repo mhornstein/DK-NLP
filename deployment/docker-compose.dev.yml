@@ -31,7 +31,7 @@ services:
       dockerfile: src/server/Dockerfile.server
     volumes:
       - angular-dist:/app/dist
-    command: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client"]
+    command: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client", "--enable-api"]
     image: dev-server-image
     ports:
       - "3000:3000"
@@ -49,7 +49,7 @@ services:
     image: dev-tagger-image
     ports:
       - "4000:4000"
-    command: ["python", "run.py", "--port", "4000", "--serve", "dev"]
+    command: ["python", "run.py", "--port", "4000", "--serve", "dev", "--enable-api"]
     networks:
       - dev-network
 
@@ -62,7 +62,7 @@ services:
       - "5000:5000"
     depends_on:
       - mongo
-    command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "dev"]
+    command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "dev", "--enable-api"]
     networks:
       - dev-network
 
