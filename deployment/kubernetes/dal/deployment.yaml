@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dal
+  template:
+    metadata:
+      labels:
+        app: dal
+    spec:
+      containers:
+      - name: dal
+        image: maorh10/dal:latest
+        imagePullPolicy: IfNotPresent # use a local version of the image if it exists, rather than pulling from Docker Hub
+        command: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "dev", "--enable-api"]
+        ports:
+        - containerPort: 5000
