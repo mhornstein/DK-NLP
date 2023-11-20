@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: tagger
-        image: tagger-image
-        imagePullPolicy: IfNotPresent # tells Kubernetes to use the local image instead of pulling it from a remote registry
+        image: maorh10/tagger:latest
+        imagePullPolicy: IfNotPresent # use a local version of the image if it exists, rather than pulling from Docker Hub
         command: ["python", "run.py", "--port", "4000", "--serve", "dev", "--enable-api"]
         ports:
         - containerPort: 4000
