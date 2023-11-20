@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: frontend-build
+spec:
+  template:
+    spec:
+      containers:
+      - name: build-frontend
+        image: maorh10/frontend
+        args: ["build", "--source-map", "--serverUri", "localhost:3000"]
+        volumeMounts:
+        - name: angular-dist
+          mountPath: /app/dist
+      restartPolicy: Never
+      volumes:
+      - name: angular-dist
+        persistentVolumeClaim:
+          claimName: angular-dist-pvc

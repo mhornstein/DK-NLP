@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: maorh10/server
+        args: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client", "--enable-api"]
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: angular-dist
+          mountPath: /app/dist
+      volumes:
+      - name: angular-dist
+        persistentVolumeClaim:
+          claimName: angular-dist-pvc
