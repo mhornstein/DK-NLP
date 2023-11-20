@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tagger
+spec:
+  selector:
+    app: tagger
+  ports:
+  - protocol: TCP
+    port: 4000
+    targetPort: 4000
