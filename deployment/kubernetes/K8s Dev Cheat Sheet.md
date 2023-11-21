@@ -14,8 +14,7 @@ To load the entire system, run the following commands in this order:
 ### Load Mongo Microservice
 
 ```bash
-kubectl apply -f storage/persistentvolumeclaims/mongo-data-pvc.yaml
-kubectl apply -f databases/mongo/deployment.yaml
+kubectl apply -f databases/mongo/statefulset.yml
 kubectl apply -f databases/mongo/service.yaml
 ```
 
@@ -64,9 +63,8 @@ To turn off the entire system and free its resources, run the following commands
 ### Delete Mongo Microservice
 
 ```bash
-kubectl delete -f databases/mongo/deployment.yaml
+kubectl delete -f databases/mongo/statefulset.yml
 kubectl delete -f databases/mongo/service.yaml
-kubectl delete -f storage/persistentvolumeclaims/mongo-data-pvc.yaml
 ```
 
 ### Delete DAL Microservice
