@@ -15,6 +15,7 @@ spec:
       containers:
       - name: server
         image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+        imagePullPolicy: {{ .Values.server.image.pullPolicy }}
         args: {{ tpl (index .Values.server.args .Values.global.mode | toYaml) . | nindent 12 }}
         ports:
         - containerPort: {{ .Values.server.containerPort }}

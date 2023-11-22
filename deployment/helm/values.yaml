@@ -52,6 +52,7 @@ server:
     port: 3000
   image:
     repository: maorh10/server
+    pullPolicy: IfNotPresent
     tag: latest
   args:
     dev: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client", "--enable-api"]
@@ -60,6 +61,7 @@ server:
 frontendBuild:
   image:
     repository: maorh10/frontend
+    pullPolicy: IfNotPresent
     tag: latest
   args:
     dev: ["build", "--source-map", "--serverUri", "localhost:3000"]

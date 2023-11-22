@@ -8,6 +8,7 @@ spec:
       containers:
       - name: build-frontend
         image: "{{ .Values.frontendBuild.image.repository }}:{{ .Values.frontendBuild.image.tag }}"
+        imagePullPolicy: {{ .Values.frontendBuild.image.pullPolicy }}
         args: {{ tpl (index .Values.frontendBuild.args .Values.global.mode | toYaml) . | nindent 12 }}
         volumeMounts:
         - name: angular-dist
