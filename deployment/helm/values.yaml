@@ -1,0 +1,18 @@
+global:
+  mode: dev # default mode. can be set to prod
+
+tagger:
+  replicaCount:
+    dev: 1
+    prod: 2
+  containerPort: 4000
+  image:
+    repository: maorh10/tagger
+    pullPolicy: IfNotPresent
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 4000
+  command:
+    dev: ["python", "run.py", "--port", "4000", "--serve", "dev", "--enable-api"]
+    prod: ["python", "run.py", "--port", "4000", "--serve", "prod"]

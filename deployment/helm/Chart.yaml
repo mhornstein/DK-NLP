@@ -1,0 +1,18 @@
+apiVersion: v2
+name: dk-nlp
+description: A Helm chart for dk-nlp application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+# To load the app:
+# default mode is dev: helm install dk-nlp ./deployment/helm
+# we can also use: helm install dk-nlp ./deployment/helm --set global.mode=dev
+# to set prod: helm install dk-nlp ./deployment/helm --set global.mode=prod
+
+# to delete and free resources: helm uninstall dk-nlp
+
+# We can still do port forwarding for debug
+# For tagger: kubectl port-forward service/tagger 4000:4000
+# For dal: kubectl port-forward service/dal 5000:5000
+# For server: kubectl port-forward service/server 3000:3000

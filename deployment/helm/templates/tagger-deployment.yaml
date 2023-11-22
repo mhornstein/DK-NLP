@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tagger
+spec:
+  replicas: {{ index .Values.tagger.replicaCount .Values.global.mode }}
+  selector:
+    matchLabels:
+      app: tagger
+  template:
+    metadata:
+      labels:
+        app: tagger
+    spec:
+      containers:
+      - name: tagger
+        image: "{{ .Values.tagger.image.repository }}:{{ .Values.tagger.image.tag }}"
+        imagePullPolicy: {{ .Values.tagger.image.pullPolicy }}
+        command: {{ index .Values.tagger.command .Values.global.mode | toYaml | nindent 12 }}
+        ports:
+        - containerPort: {{ .Values.tagger.containerPort }}
