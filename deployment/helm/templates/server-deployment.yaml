@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  replicas: {{ index .Values.server.replicaCount .Values.global.mode }}
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+        args: {{ tpl (index .Values.server.args .Values.global.mode | toYaml) . | nindent 12 }}
+        ports:
+        - containerPort: {{ .Values.server.containerPort }}
+        volumeMounts:
+        - name: angular-dist
+          mountPath: /app/dist
+      volumes:
+      - name: angular-dist
+        persistentVolumeClaim:
+          claimName: {{ .Values.frontendBuild.pvc.name }}

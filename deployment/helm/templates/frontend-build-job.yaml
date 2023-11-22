@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: frontend-build
+spec:
+  template:
+    spec:
+      containers:
+      - name: build-frontend
+        image: "{{ .Values.frontendBuild.image.repository }}:{{ .Values.frontendBuild.image.tag }}"
+        args: {{ tpl (index .Values.frontendBuild.args .Values.global.mode | toYaml) . | nindent 12 }}
+        volumeMounts:
+        - name: angular-dist
+          mountPath: /app/dist
+      restartPolicy: Never
+      volumes:
+      - name: angular-dist
+        persistentVolumeClaim:
+          claimName: {{ .Values.frontendBuild.pvc.name }}

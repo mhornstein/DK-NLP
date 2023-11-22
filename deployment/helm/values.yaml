@@ -42,3 +42,28 @@ dal:
   command:
     dev: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "dev", "--enable-api"]
     prod: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "prod"]
+
+server:
+  replicaCount:
+    dev: 1
+    prod: 1
+  containerPort: 3000
+  service:
+    port: 3000
+  image:
+    repository: maorh10/server
+    tag: latest
+  args:
+    dev: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client", "--enable-api"]
+    prod: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client"]
+
+frontendBuild:
+  image:
+    repository: maorh10/frontend
+    tag: latest
+  args:
+    dev: ["build", "--source-map", "--serverUri", "localhost:3000"]
+    prod: ["build", "--serverUri", "localhost:3000"]
+  pvc:
+    name: angular-dist-pvc
+    size: 1Gi
