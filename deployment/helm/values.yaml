@@ -16,3 +16,29 @@ tagger:
   command:
     dev: ["python", "run.py", "--port", "4000", "--serve", "dev", "--enable-api"]
     prod: ["python", "run.py", "--port", "4000", "--serve", "prod"]
+
+mongo:
+  replicaCount: 1
+  containerPort: 27017
+  service:
+    port: 27017
+  image:
+    repository: mongo
+    tag: "7.0.2"
+  persistence:
+    size: 1Gi
+
+dal:
+  replicaCount:
+    dev: 1
+    prod: 1
+  containerPort: 5000
+  image:
+    repository: maorh10/dal
+    pullPolicy: IfNotPresent
+    tag: latest
+  service:
+    port: 5000
+  command:
+    dev: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "dev", "--enable-api"]
+    prod: ["python", "run.py", "--mongo-uri", "mongodb://mongo:27017/", "--port", "5000", "--serve", "prod"]

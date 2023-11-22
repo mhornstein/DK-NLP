@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+  - protocol: TCP
+    port: {{ .Values.mongo.service.port }}
+    targetPort: {{ .Values.mongo.containerPort }}
+  clusterIP: None  # Headless service for StatefulSet

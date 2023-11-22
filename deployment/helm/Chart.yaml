@@ -10,6 +10,8 @@ appVersion: "1.0.0"
 # we can also use: helm install dk-nlp ./deployment/helm --set global.mode=dev
 # to set prod: helm install dk-nlp ./deployment/helm --set global.mode=prod
 
+# To update a running app: helm upgrade dk-nlp ./deployment/helm --install
+
 # to delete and free resources: helm uninstall dk-nlp
 
 # We can still do port forwarding for debug
