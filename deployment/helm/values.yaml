@@ -1,5 +1,6 @@
 global:
   mode: dev # default mode. can be set to prod
+  enableIngress: false # when set to true, will expose the app via port 80. otherwise will be served locally via port 3000
 
 tagger:
   replicaCount:
@@ -64,8 +65,13 @@ frontendBuild:
     pullPolicy: IfNotPresent
     tag: latest
   args:
-    dev: ["build", "--source-map", "--serverUri", "localhost:3000"]
-    prod: ["build", "--serverUri", "localhost:3000"]
+    dev: [] # these are place-holders to be overridden in the template
+    prod: []
+  serverUri:
+    base: "localhost"
+    port:
+      enableIngress: 80
+      disableIngress: 3000
   pvc:
     name: angular-dist-pvc
     size: 1Gi
