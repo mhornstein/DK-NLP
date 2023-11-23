@@ -33,4 +33,9 @@ describe('AppRoutingModule', () => {
     await router.navigate(['history']);
     expect(router.url).toBe('/history');
   });
+
+  it('should navigate to TaggerComponent when an unknown route is provided', async () => {
+    await router.navigate(['unknownRoute']);
+    expect(router.url).toBe('/tagger');
+  });
 });

@@ -9,6 +9,7 @@ export const routes: Routes = [
   { path: 'tagger', component: TaggerComponent },
   { path: 'about', component: AboutComponent },
   { path: 'history', component: HistoryComponent },
+  { path: '**', redirectTo: 'tagger' },
 ];
 
 @NgModule({
