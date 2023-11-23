@@ -9,4 +9,4 @@ spec:
   - protocol: TCP
     port: {{ .Values.mongo.service.port }}
     targetPort: {{ .Values.mongo.containerPort }}
-  clusterIP: None  # Headless service for StatefulSet
+  clusterIP: None  # This is for headless service, required for StatefulSets
