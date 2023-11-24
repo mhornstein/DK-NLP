@@ -67,11 +67,9 @@ app.use(fetchEntriesRoutes)
 const tagRoutes = require('./routes/tagRoutes')(taggerUri, dalUri)
 app.use(tagRoutes)
 
-// lunch swagger if required
-if (enableApi) {
+if (enableApi) { // lunch swagger if required
   const yamlFilePath = path.join(__dirname, 'docs/api-docs.yaml')
   const swaggerConfig = YAML.load(yamlFilePath)
-  swaggerConfig.servers = [{ url: `http://localhost:${port}` }]
   app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerConfig))
 }
 
@@ -82,7 +80,9 @@ if (serveClient) {
   app.get('*', (req, res) => {
     res.sendFile(path.join(angularDistPath, 'index.html'))
   })
-} else { // when the client is served elsewhere - we need to adjust CORS configuration
+}
+
+if(!serveClient || enableApi) { // We might get requests either from a client or an api served elsewhere
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')

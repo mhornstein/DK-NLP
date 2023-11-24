@@ -3,8 +3,6 @@ info:
   title: Server API
   version: 1.0.0
   description: This API tags sentences with parts of speech or named entities, logs the results, and retrieve the tagged data history.
-servers:
-  - url: http://localhost:3000
 paths:
   /tag:
     get:
