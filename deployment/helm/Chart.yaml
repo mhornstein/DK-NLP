@@ -30,4 +30,11 @@ appVersion: "1.0.0"
 
 # 3. to lunch:
 # helm install dk-nlp ./deployment/helm --set global.mode=dev --set global.enableIngress=true
+# helm install dk-nlp ./deployment/helm --set global.mode=prod --set global.enableIngress=true
+
 # helm install dk-nlp ./deployment/helm --set global.mode=dev --set global.enableIngress=false
+# helm install dk-nlp ./deployment/helm --set global.mode=prod --set global.enableIngress=false
+
+# to stop: 
+# helm uninstall dk-nlp
+# helm uninstall ingress-nginx

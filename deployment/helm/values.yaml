@@ -48,16 +48,16 @@ server:
   replicaCount:
     dev: 1
     prod: 1
-  containerPort: 3000
+  containerPort: 80
   service:
-    port: 3000
+    port: 80
   image:
     repository: maorh10/server
     pullPolicy: IfNotPresent
     tag: latest
   args:
-    dev: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client", "--enable-api"]
-    prod: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "3000", "--serve-client"]
+    dev: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "80", "--serve-client", "--enable-api"]
+    prod: ["--taggerUri", "tagger:4000", "--dalUri", "dal:5000", "--port", "80", "--serve-client"]
 
 frontendBuild:
   image:
@@ -65,13 +65,11 @@ frontendBuild:
     pullPolicy: IfNotPresent
     tag: latest
   args:
-    dev: [] # these are place-holders to be overridden in the template
+    dev: [] # these are place-holders to be overridden in the template by _helpers.tpl
     prod: []
   serverUri:
     base: "localhost"
-    port:
-      enableIngress: 80
-      disableIngress: 3000
+    port: 80
   pvc:
     name: angular-dist-pvc
     size: 1Gi
