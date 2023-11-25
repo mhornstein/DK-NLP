@@ -99,9 +99,18 @@ kubectl delete -f storage/persistentvolumeclaims/angular-dist-pvc.yaml
 
 ## General-purpose Useful Commands
 
+### Build an Image
+
+For example, to build the dal image, naming it "dal-image" run:
+
+```bash
+docker build -f src/dal/Dockerfile.dal -t yourimagename:tag .
+```
+
 ### Push Images to Dockerhub
 
-For example, to push the dal image, first build it and name it "dal-image" then run:
+For example, to push the dal image, first build it and name it "dal-image" as explained above.
+Then, run:
 
 ```bash
 docker login
