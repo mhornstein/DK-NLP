@@ -68,5 +68,5 @@ docker-compose -p prod -f deployment/docker-compose/docker-compose.prod.yml down
 
 ## Additional Resources
 
-- **Docker Images:** You can find the required Docker images (frontend, server, dal and tagger) on [my Docker Hub repository](https://hub.docker.com/u/maorh10).
+- **Docker Images:** You can find the built Docker images (frontend, server, dal and tagger) on [my Docker Hub repository](https://hub.docker.com/u/maorh10).
 - **Dockerfiles Location:** The Docker files for each component are located alongside the component code in the designated folder under [/src](https://github.com/mhornstein/DK-NLP/tree/main/src).
