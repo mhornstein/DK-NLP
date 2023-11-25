@@ -26,7 +26,7 @@ In both setups, the services are mapped to the following ports:
 
 ### 3. Kubernetes Deployment
 
-The Kubernetes configuration is provided for deploying the application in development mode only. 
+The Kubernetes configuration in `deployment\kubernetes` is provided for deploying the application in development mode only. 
 
 Here also, the services are mapped to the following ports and can be accessed using port forwarding:
 - Server: Port 3000
@@ -35,7 +35,7 @@ Here also, the services are mapped to the following ports and can be accessed us
 
 ### 4. Helm Chart Integration
 
-Helm is used to enhance the Kubernetes configuration, offering greater flexibility and customization: It supports deployment in both development and production modes, as well as external exposure of the app. 
+Helm (can be found in `deployment\helm`) is used to enhance the Kubernetes configuration, offering greater flexibility and customization: It supports deployment in both development and production modes, as well as external exposure of the app. 
 
 When exposed externally, the server is accessible via port 80 (standard HTTP port), otherwise, it remains on port 3000. The Tagger and DAL services are consistently available on ports 4000 and 5000, respectively.
 
