@@ -1,5 +1,6 @@
-
 # Deploying the app using Docker Compose
+
+This directory contains the necessary files and instructions for building and launching the app using Docker Compose.
 
 ## Development Environment Setup
 
