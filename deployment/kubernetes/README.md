@@ -1,82 +1,17 @@
+# Kubernetes Deployment Guide
 
-# Kubernetes Service Deployment Guide
+This directory contains Kubernetes (k8s) configuration files for deploying the application.
 
-This guide outlines basic steps for deploying, managing, and testing the project's services within a Kubernetes environment.
+Initially created as a learning resource to understand Kubernetes, this directory has evolved to be managed through Helm later on.
 
-## Prerequisites
+Therefore, here the focus is on deploying the app in development mode only.
+For enhancements such as production mode or application exposure, use the [Helm directory](https://github.com/mhornstein/DK-NLP/tree/main/deployment/helm).
 
-- A functioning Kubernetes cluster (I use Docker Desktop with Kubernetes enabled).
-- The `kubectl` command-line tool installed and configured.
 
-## Deployment Process
+## Docker Images
 
-### Launching Services
+The Docker images used in these configurations are hosted on [my Docker Hub repository](https://hub.docker.com/u/maorh10).
 
-To deploy a service, navigate to the directory containing the Kubernetes YAML configuration files and execute:
+## Deployment Instructions
 
-```bash
-kubectl apply -f <filename or directory>
-```
-
-For instance, to deploy the `tagger` service, navigate to `DK-NLP/deployment/kubernetes/tagger/` and run:
-
-```bash
-kubectl apply -f .
-```
-
-Alternatively, deploy from the project's root directory:
-
-```bash
-kubectl apply -f ./deployment/kubernetes/tagger
-```
-
-### Monitoring Services
-
-1. **Listing Pods:**
-
-   To view all pods associated with a specific service, use the label selector:
-
-   ```bash
-   kubectl get pods -l app=<label>
-   ```
-
-   Replace `<label>` with the label specified in the service's YAML file. For example, for the `tagger` service:
-
-   ```bash
-   kubectl get pods -l app=tagger
-   ```
-
-2. **Accessing Pod Logs:**
-
-   After identifying the pod's name using the previous command, retrieve its logs with:
-
-   ```bash
-   kubectl logs <pod-name>
-   ```
-   The pod's logs can be also browsed via Docker Desktop UI.
-
-### Removing Services
-
-To terminate and remove all resources related to a specific service, execute:
-
-```bash
-kubectl delete -f <filename or directory>
-```
-
-This will remove all Kubernetes resources defined in the specified file or directory.
-
-## Local Testing
-
-For local testing use *Port Forwarding*: map a local port to a service's port:
-
-```bash
-kubectl port-forward service/<service-name> <local-port>:<service-port>
-```
-
-For example, to forward local port 4000 to the `tagger` service's port 4000:
-
-```bash
-kubectl port-forward service/tagger 4000:4000
-```
-
-Access the service via `http://localhost:4000`. To cease port forwarding, use `Ctrl+C` in the terminal.
+To deploy the application using Kubernetes, use the **K8s Dev Cheat Sheet**: [K8s Dev Cheat Sheet](https://github.com/mhornstein/DK-NLP/blob/main/deployment/kubernetes/K8s%20Dev%20Cheat%20Sheet.md). It contains comprehensive instructions and personal notes on useful insights I've gathered.
