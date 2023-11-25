@@ -4,37 +4,3 @@ description: A Helm chart for dk-nlp application
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
-
-# To load the app:
-# default mode is dev: helm install dk-nlp ./deployment/helm
-# we can also use: helm install dk-nlp ./deployment/helm --set global.mode=dev
-# to set prod: helm install dk-nlp ./deployment/helm --set global.mode=prod
-
-# To update a running app: helm upgrade dk-nlp ./deployment/helm --install
-
-# to delete and free resources: helm uninstall dk-nlp
-
-# We can still do port forwarding for debug
-# For tagger: kubectl port-forward service/tagger 4000:4000
-# For dal: kubectl port-forward service/dal 5000:5000
-# For server: kubectl port-forward service/server 3000:3000
-
-# To expose the server outside via port 80:
-
-# 1. Make sure to have an ingress controller. One of the most common is the NGINX Ingress Controller. Get it by:
-# helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-# helm repo update
-
-# 2. Lunch an Ingress container:
-# helm install ingress-nginx ingress-nginx/ingress-nginx
-
-# 3. to lunch:
-# helm install dk-nlp ./deployment/helm --set global.mode=dev --set global.enableIngress=true
-# helm install dk-nlp ./deployment/helm --set global.mode=prod --set global.enableIngress=true
-
-# helm install dk-nlp ./deployment/helm --set global.mode=dev --set global.enableIngress=false
-# helm install dk-nlp ./deployment/helm --set global.mode=prod --set global.enableIngress=false
-
-# to stop: 
-# helm uninstall dk-nlp
-# helm uninstall ingress-nginx
