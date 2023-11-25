@@ -82,7 +82,7 @@ if (serveClient) {
   })
 }
 
-if(!serveClient || enableApi) { // We might get requests either from a client or an api served elsewhere
+if (!serveClient || enableApi) { // We might get requests either from a client or an api served elsewhere
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
