@@ -12,7 +12,7 @@ docker build -f src/dal/Dockerfile.dal -t dal:latest .
 
 This command builds the DAL image with the latest tag.
 
-### 2. Docker Compose Configuration
+### 2. Docker Compose Usage
 
 The `deployment\docker-compose` directory includes two docker-compose.yml files for different deployment modes:
 
@@ -24,7 +24,7 @@ In both setups, the services are mapped to the following ports:
 - Tagger: Port 4000
 - DAL: Port 5000
 
-### 3. Kubernetes Deployment
+### 3. Kubernetes Usage
 
 The Kubernetes configuration in `deployment\kubernetes` is provided for deploying the application in development mode only. 
 
@@ -33,7 +33,7 @@ Here also, the services are mapped to the following ports and can be accessed us
 - Tagger: Port 4000
 - DAL: Port 5000
 
-### 4. Helm Chart Integration
+### 4. Helm Usage
 
 Helm (can be found in `deployment\helm`) is used to enhance the Kubernetes configuration, offering greater flexibility and customization: It supports deployment in both development and production modes, as well as external exposure of the app. 
 
