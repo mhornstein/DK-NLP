@@ -1,9 +1,7 @@
 
 # K8s Cheat Sheet
 
-This file is a cheat sheet for the development process. 
-
-The commands are executed via `kubectl`, assuming you are in the `/DK-NLP/deployment/kubernetes` path. 
+The commands in this file should be executed via `kubectl`, assuming you are in the `/DK-NLP/deployment/kubernetes` path. 
 
 At the end of this file, general-purpose usable K8s commands are attached.
 
