@@ -12,6 +12,10 @@ The application is composed of 4 microservices:
 * **server:** Node server that communicates with the client.
 * **frontend:** Angular client.
 
+<img src="docs/pics/tagger-ui.PNG" width="500" alt="Tagger view">
+<img src="docs/pics/history-ui.PNG" width="500" alt="history view">
+
+
 ## Project Stages
 
 1. **Model Training:** The selected model is a text model for POS and NER tagging. Additional details about the model can be found in the [tagging component directory](https://github.com/mhornstein/DK-NLP/tree/main/tagger).
@@ -46,6 +50,8 @@ The application is composed of 4 microservices:
         * [Angular Unit Testing Made Easy video serie](https://www.youtube.com/watch?v=emnwsVy8wRs)
 
 4. **Exposing an API Using Swagger:** Enabling API exposure for the server and the dal and tagger microservices.
+
+<img src="docs/pics/swagger-ui.PNG" width="500" alt="swagger view">
 
 5. **Build and Deployment:** Enabling various options for building and deploying the app, with a focus on the Docker and Kubernetes ecosystem.
     * **Technologies:**
