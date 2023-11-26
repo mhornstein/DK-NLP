@@ -1,9 +1,7 @@
 
 # K8s Cheat Sheet
 
-This file is a cheat sheet for the development process. 
-
-The commands are executed via `kubectl`, assuming you are in the `/DK-NLP/deployment/kubernetes` path. 
+The commands in this file should be executed via `kubectl`, assuming you are in the `/DK-NLP/deployment/kubernetes` path. 
 
 At the end of this file, general-purpose usable K8s commands are attached.
 
@@ -50,9 +48,18 @@ kubectl apply -f server/service.yaml
 
 To reach the services via localhost for testing, run the relevant port-forward command:
 
-- For tagger: `kubectl port-forward service/tagger 4000:4000`
-- For dal: `kubectl port-forward service/dal 5000:5000`
-- For server: `kubectl port-forward service/server 3000:3000`
+- For tagger:
+```bash
+kubectl port-forward service/tagger 4000:4000
+```
+- For dal:
+```bash
+kubectl port-forward service/dal 5000:500
+```
+- For server:
+```bash
+kubectl port-forward service/server 3000:3000
+```
 
 Use `Ctrl+C` to terminate.
 

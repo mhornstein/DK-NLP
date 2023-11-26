@@ -5,7 +5,7 @@
 
 This project provides a practical learning experience in deploying and launching machine learning applications. While the core component is a machine learning model, the project's goal is to impart real-world knowledge and best practices in **building and automating software projects**.
 
-Each of the four components in the repository's directories created as a stand-alone delivery of the learning process:
+The application is composed of 4 microservices:
 
 * **dal:** A Data Access Layer.
 * **tagger:** Part-of-speech (POS) and named-entities recognition (NER) tagger.
@@ -47,17 +47,30 @@ Each of the four components in the repository's directories created as a stand-a
 
 4. **Exposing an API Using Swagger:** Enabling API exposure for the server and the dal and tagger microservices.
 
-5. **Containerization and Kubernetes Deployment:** Using containers and Kubernetes for component containerization and dependency management.
+5. **Build and Deployment:** Enabling various options for building and deploying the app, with a focus on the Docker and Kubernetes ecosystem.
+    * **Technologies:**
+        * Dockers
+        * Docker compose
+        * Kubernetes
+        * Helm
     * **Main Learning Source:**
+        * [Kubernetes Essential by IBM video serie](https://www.youtube.com/watch?v=2vMEQ5zs1ko&list=PLOspHqNVtKABAVX4azqPIu6UfsPzSu2YN)    
         * [Docker Containers and Kubernetes Fundamentals - Full Hands-On Course](https://www.youtube.com/watch?v=kTp5xUtcalw&t=40s)
+        * [Cloud Virtualization, Containers and APIs course](https://coursera.org/share/2d0cde0956bd64bdaaff9f7fba05dbde)
 
-6. **Cloud Integration:**
+7. **Cloud Integration:**
     * Initial platform: AWS cloud
     * TBD
 
-## Deployment
+## Future Aspiration
 
-TBD
+This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
+* Cloud Integration - using AWS, Azure, or GCP.
+* Continuous Delivery via GitHub Actions - exploring the possibility of maintaining an always-updated, live version of the app that updates with every push.
+* Implementing an auto-updating "coverage" badge to display the test coverage of the project, similar to the CI badge at the top of this README.
+* Completing the "About" page for the application.
+* Exploring logging mechanisms.
+* Conducting stress tests using Prometheus.
 
 ## What Would I Do Differently?
 
