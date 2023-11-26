@@ -6,7 +6,7 @@ This README provides detailed instructions for deploying and configuring the DK-
 
 The application supports two configurable options:
 
-1. **Mode**: `dev` Exposes the API while `prod` Does not expose the API. Default: `dev`.
+1. **Mode**: `dev` Exposes the API while `prod` Does not expose the API. `dev` also enables debugging capabilities which `prod` doesn't. Default: `dev`.
 
 2. **EnableIngress**: Controls whether the app is exposed externally. Default: `false`.
 
