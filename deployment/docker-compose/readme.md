@@ -9,7 +9,7 @@ This directory contains the necessary files and instructions for building and la
 If you're setting up for the first time or have made new changes, build the Docker images using:
 
 ```bash
-docker-compose -f deployment/docker-compose/docker-compose.dev.yml build
+docker-compose -f deployment/docker-compose/docker-compose.dev.yaml build
 ```
 
 **Note:** The images will be created with a "dev" prefix.
@@ -19,7 +19,7 @@ docker-compose -f deployment/docker-compose/docker-compose.dev.yml build
 To run the containers in the background (detached mode):
 
 ```bash
-docker-compose -p dev -f deployment/docker-compose/docker-compose.dev.yml up -d
+docker-compose -p dev -f deployment/docker-compose/docker-compose.dev.yaml up -d
 ```
 
 **Note:** The containers will be organized under a project named "dev".
@@ -29,7 +29,7 @@ docker-compose -p dev -f deployment/docker-compose/docker-compose.dev.yml up -d
 To stop and remove the containers and networks:
 
 ```bash
-docker-compose -p dev -f deployment/docker-compose/docker-compose.dev.yml down
+docker-compose -p dev -f deployment/docker-compose/docker-compose.dev.yaml down
 ```
 
 **Important:** Remember to manually remove the volume, especially on Windows systems.
@@ -41,7 +41,7 @@ docker-compose -p dev -f deployment/docker-compose/docker-compose.dev.yml down
 For production setup, build the Docker images with:
 
 ```bash
-docker-compose -f deployment/docker-compose/docker-compose.prod.yml build
+docker-compose -f deployment/docker-compose/docker-compose.prod.yaml build
 ```
 
 **Note:** The images will be created with a "prod" prefix.
@@ -51,7 +51,7 @@ docker-compose -f deployment/docker-compose/docker-compose.prod.yml build
 To run the containers in the background (detached mode) for production:
 
 ```bash
-docker-compose -p prod -f deployment/docker-compose/docker-compose.prod.yml up -d
+docker-compose -p prod -f deployment/docker-compose/docker-compose.prod.yaml up -d
 ```
 
 **Note:** The containers will be organized under a project named "prod".
@@ -61,7 +61,7 @@ docker-compose -p prod -f deployment/docker-compose/docker-compose.prod.yml up -
 To stop and remove the containers and networks in production:
 
 ```bash
-docker-compose -p prod -f deployment/docker-compose/docker-compose.prod.yml down
+docker-compose -p prod -f deployment/docker-compose/docker-compose.prod.yaml down
 ```
 
 **Important:** As with the development setup, remember to manually remove the volume, particularly on Windows systems.
