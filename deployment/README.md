@@ -1,6 +1,6 @@
 ## The Application Deployment
 
-This section details the procedures for building and launching the application, leveraging Docker, Docker Compose, Kubernetes, and Helm. Each step is designed to cater to different deployment environments and requirements.
+This section details the procedures for building and launching the application, leveraging Docker, Docker Compose, Kubernetes, and Helm. Each option is designed to cater to different deployment environments and requirements.
 
 ### 1. Dockerfile Usage
 
