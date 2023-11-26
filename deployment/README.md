@@ -14,7 +14,7 @@ This command builds the DAL image with the latest tag.
 
 ### 2. Docker Compose Usage
 
-The `deployment\docker-compose` directory includes two docker-compose.yml files for different deployment modes:
+The `deployment\docker-compose` directory includes two docker-compose yaml files for different deployment modes:
 
 - **Development Mode** - `docker-compose.dev.yaml`: Sets up the application with API exposure and client-side debugging capabilities. This mode is ideal for development and testing.
 - **Production Mode** - `docker-compose.prod.yaml`: used for production use. It doesn't offer the API exposure and client-side debugging capabilities.
