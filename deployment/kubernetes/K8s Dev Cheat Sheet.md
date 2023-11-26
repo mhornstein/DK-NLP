@@ -48,9 +48,18 @@ kubectl apply -f server/service.yaml
 
 To reach the services via localhost for testing, run the relevant port-forward command:
 
-- For tagger: `kubectl port-forward service/tagger 4000:4000`
-- For dal: `kubectl port-forward service/dal 5000:5000`
-- For server: `kubectl port-forward service/server 3000:3000`
+- For tagger:
+```bash
+kubectl port-forward service/tagger 4000:4000
+```
+- For dal:
+```bash
+kubectl port-forward service/dal 5000:500
+```
+- For server:
+```bash
+kubectl port-forward service/server 3000:3000
+```
 
 Use `Ctrl+C` to terminate.
 
