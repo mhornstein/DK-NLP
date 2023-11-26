@@ -5,7 +5,7 @@
 
 This project provides a practical learning experience in deploying and launching machine learning applications. While the core component is a machine learning model, the project's goal is to impart real-world knowledge and best practices in **building and automating software projects**.
 
-Each of the four components in the repository's directories created as a stand-alone delivery of the learning process:
+The application is composed of 4 microservices:
 
 * **dal:** A Data Access Layer.
 * **tagger:** Part-of-speech (POS) and named-entities recognition (NER) tagger.
