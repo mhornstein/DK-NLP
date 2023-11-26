@@ -1,6 +1,6 @@
 # Kubernetes Deployment Guide
 
-This directory contains Kubernetes (k8s) configuration files for deploying the application using the Kubernetes technology.
+This directory contains the Kubernetes (k8s) configuration files for deploying the application using the Kubernetes technology.
 
 Initially created as a learning resource to understand Kubernetes, this directory has evolved to be managed through Helm later on.
 
