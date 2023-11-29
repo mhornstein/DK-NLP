@@ -70,6 +70,3 @@ frontendBuild:
   serverUri:
     base: "localhost"
     port: 80
-  pvc:
-    name: angular-dist-pvc
-    size: 1Gi
