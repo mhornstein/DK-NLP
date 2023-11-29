@@ -68,5 +68,5 @@ frontendBuild:
     dev: [] # these are place-holders to be overridden in the template by _helpers.tpl
     prod: []
   serverUri:
-    base: "localhost"
+    base: "localhost" # localhost by default. Override with external server ip when needed
     port: 80
