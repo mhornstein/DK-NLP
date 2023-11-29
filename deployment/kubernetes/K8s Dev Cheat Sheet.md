@@ -121,7 +121,7 @@ Then, run:
 
 ```bash
 docker login
-docker tag dal-image maorh10/dal:latest
+docker tag dal maorh10/dal:latest
 docker push maorh10/dal:latest
 ```
 
