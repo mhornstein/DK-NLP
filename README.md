@@ -59,21 +59,23 @@ The application is composed of 4 microservices:
         * Docker compose
         * Kubernetes
         * Helm
-    * **Main Learning Source:**
+    * **Main Learning Sources:**
         * [Kubernetes Essential by IBM video serie](https://www.youtube.com/watch?v=2vMEQ5zs1ko&list=PLOspHqNVtKABAVX4azqPIu6UfsPzSu2YN)    
         * [Docker Containers and Kubernetes Fundamentals - Full Hands-On Course](https://www.youtube.com/watch?v=kTp5xUtcalw&t=40s)
         * [Cloud Virtualization, Containers and APIs course](https://coursera.org/share/2d0cde0956bd64bdaaff9f7fba05dbde)
 
-7. **Cloud Integration:**
-    * Initial platform: AWS cloud
-    * TBD
+6. **Cloud Integration (Exploring Google Cloud):** Having previously worked with AWS, I decided to broaden my experience by exploring another cloud provider, Google Cloud. My goal was to leverage Kubernetes and Helm for orchestrating and managing microservices, rather than deploying them on virtual machines. 
+    * **Technologies:** Google Kubernetes Engine (GKE).
+    * **Main Learning Sources:**
+        * [Creating a GKE cluster (demo)](https://www.youtube.com/watch?v=hxpGC19PzwI)
+        * [How to deploy applications to Google Kubernetes Engine via Helm (tutorial)](https://www.youtube.com/watch?v=1ozU69f8OSA&t=480s)  
 
 ## Future Aspiration
 
 This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
-* Cloud Integration - using AWS, Azure, or GCP.
-* Continuous Delivery via GitHub Actions - exploring the possibility of maintaining an always-updated, live version of the app that updates with every push.
+* Terraform - Using Terraform to automate cloud integration processes.
 * Implementing an auto-updating "coverage" badge to display the test coverage of the project, similar to the CI badge at the top of this README.
+* Continuous Delivery via GitHub Actions - exploring the possibility of maintaining an always-updated, live version of the app that updates with every push.
 * Completing the "About" page for the application.
 * Exploring logging mechanisms.
 * Conducting stress tests using Prometheus.

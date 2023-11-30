@@ -43,4 +43,6 @@ When exposed externally, the server is accessible via port 80 (standard HTTP por
 
 Detailed execution guides for each configuration can be found within the README files located in their respective configuration folders. These guides offer step-by-step instructions tailored to each specific setup (Docker Compose, Kubernetes, Helm).
 
+---
+
 **Important Note:** All commands mentioned in these guides are intended to be executed from the root directory of the project, unless explicitly stated otherwise.
