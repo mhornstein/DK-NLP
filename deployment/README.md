@@ -49,7 +49,7 @@ Other microservices are intentionally kept inaccessible, aligning with the antic
 
 ### Execution Context
 
-Detailed execution guides for each configuration can be found within the README files located in their respective configuration folders. These guides offer step-by-step instructions tailored to each specific setup (Docker Compose, Kubernetes, Helm).
+Detailed execution guides for each configuration can be found within the README files located in their respective configuration folders. These guides offer step-by-step instructions tailored to each specific setup (Docker Compose, Kubernetes, Helm and Terraform).
 
 ---
 
