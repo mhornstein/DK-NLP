@@ -13,3 +13,8 @@ variable "region" {
 variable "gcp_credentials_path" {
   description = "Path to the GCP credentials file"
 }
+
+variable "environment" {
+  description = "Deployment environment (dev or prod)"
+  type = string
+}

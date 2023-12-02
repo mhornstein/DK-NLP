@@ -86,3 +86,4 @@ src/server/src/dist/*
 /gcp-key
 /deployment/terraform/terraform.tfstate
 /deployment/terraform/terraform.tfstate.backup
+/deployment/terraform/*.backup
