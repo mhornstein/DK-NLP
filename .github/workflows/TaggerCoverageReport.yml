@@ -9,11 +9,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -27,12 +27,12 @@ jobs:
 
     - name: Test with coverage
       run: |
-		cd src/tagger
+        cd src/tagger
         python -m coverage run -m unittest
 
     - name: Generate coverage report
       run: |
-		cd src/tagger
+        cd src/tagger
         coverage report
         coverage xml
 
