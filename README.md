@@ -68,17 +68,24 @@ The application is composed of 4 microservices:
     * **Technologies:** Google Kubernetes Engine (GKE).
     * **Main Learning Sources:**
         * [Creating a GKE cluster (demo)](https://www.youtube.com/watch?v=hxpGC19PzwI)
-        * [How to deploy applications to Google Kubernetes Engine via Helm (tutorial)](https://www.youtube.com/watch?v=1ozU69f8OSA&t=480s)  
+        * [How to deploy applications to Google Kubernetes Engine via Helm (tutorial)](https://www.youtube.com/watch?v=1ozU69f8OSA&t=480s)
+     
+7. **Automated Cloud Deployment Using Terraform:** This phase focuses on deploying the application to Google Kubernetes Engine (GKE) using Terraform in conjunction with Helm, building upon the Helm charts established in step 5.
+    * **Technologies:** Terraform.
+    * **Main Learning Sources:**
+        As there wasn't a single comprehensive course for this segment, I relied on a variety of resources, including:
+        * [Full Tutorial: Deploying Helm Charts in Kubernetes with Terraform](https://www.youtube.com/watch?v=Qq1cfVw1Mx4)
+        * [This Github Repository](https://github.com/mr-pascal/medium-tf-gke-helm/tree/main)
 
 ## Future Aspiration
 
 This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
-* Terraform - Using Terraform to automate cloud integration processes.
 * Implementing an auto-updating "coverage" badge to display the test coverage of the project, similar to the CI badge at the top of this README.
 * Continuous Delivery via GitHub Actions - exploring the possibility of maintaining an always-updated, live version of the app that updates with every push.
 * Completing the "About" page for the application.
 * Exploring logging mechanisms.
-* Conducting stress tests using Prometheus.
+* Conducting stress tests.
+* Exploring Dashboards and monitoring tools.
 
 ## What Would I Do Differently?
 
