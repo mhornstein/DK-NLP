@@ -1,6 +1,6 @@
 ## The Application Deployment
 
-This section details the procedures for building and launching the application, leveraging Docker, Docker Compose, Kubernetes, and Helm. Each option is designed to cater to different deployment environments and requirements.
+This section details the procedures for building and launching the application, leveraging Docker, Docker Compose, Kubernetes, Helm and Terraform. Each option is designed to cater to different deployment environments and requirements.
 
 ### 1. Dockerfile Usage
 
@@ -38,6 +38,14 @@ Here also, the services are mapped to the following ports and can be accessed us
 Helm (can be found in `deployment\helm`) is used to enhance the Kubernetes configuration, offering greater flexibility and customization: It supports deployment in both development and production modes, as well as external exposure of the app. 
 
 When exposed externally, the server is accessible via port 80 (standard HTTP port), otherwise, it remains on port 3000. The Tagger and DAL services are consistently available on ports 4000 and 5000, respectively.
+
+### 5. Terraform Usage
+
+The Terraform configuration found in `deployment\terraform` is used for deploying the application on Google Cloud's Kubernetes Engine (GKE) using the above Helm charts.
+
+This setup is compatible with both development ("dev") and production ("prod") environments. Server access is enabled through a static IP address, which is provided after the application is successfully deployed. 
+
+Other microservices are intentionally kept inaccessible, aligning with the anticipated user experience upon their engagement with the app.
 
 ### Execution Context
 
