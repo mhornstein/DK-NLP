@@ -38,6 +38,8 @@ jobs:
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        file: ./coverage.xml
+        file: src/tagger/coverage.xml
         fail_ci_if_error: true
