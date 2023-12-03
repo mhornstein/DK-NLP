@@ -95,4 +95,5 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         file: src/tagger/tests/coverage.xml
+        flags: tagger
         fail_ci_if_error: true
