@@ -51,7 +51,7 @@ jobs:
     - name: Frontend - Run Coverage
       run: |
         cd src/frontend
-        ng test --code-coverage --watch=false --browsers=ChromeHeadless
+        make test-cov
 
     # Server Coverage
     - name: Server - Install Dependencies
@@ -72,5 +72,5 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         files: 
-          ./src/tagger/tests/coverage-tagger.xml,./src/dal/tests/coverage-dal.xml,./src/frontend/coverage/lcov.info,./src/server/coverage/lcov.info
+          ./src/tagger/tests/coverage-tagger.xml,./src/dal/tests/coverage-dal.xml,./src/frontend/coverage/frontend/lcov.info,./src/server/coverage/lcov.info
         fail_ci_if_error: true
