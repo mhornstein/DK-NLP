@@ -59,12 +59,7 @@ Please note that the script needs to be ran from the root folder of the componen
 
 ## Testing
 
-Testing for this application is done using [Karma](https://karma-runner.github.io/latest/index.html), with the following test coverage:
-
-- Statements: 98.93% (93/94)
-- Branches: 100% (20/20)
-- Functions: 95.83% (23/24)
-- Lines: 98.9% (90/91)
+Testing for this application is done using [Karma](https://karma-runner.github.io/latest/index.html). You can explore the up-to-date code coverage by navigating to [the frontend directory in Codecov](https://app.codecov.io/gh/mhornstein/DK-NLP/tree/main/src%2Ftfrontend).
 
 **Note:** The testing process includes continuous integration (CI) using GitHub Actions, which automatically tests the application on both Linux and Windows environments as part of our CI pipeline. The test status is indicated in the badge at the top of this readme file.
 
