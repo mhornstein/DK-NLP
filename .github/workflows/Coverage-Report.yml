@@ -1,14 +1,20 @@
 name: Coverage CI
 
 on:
-  push:
-    paths:
-      - 'src/**'
-      - '!src/**/README.md'
+  workflow_run:
+    workflows: ["Dal CI", "Tagger CI", "Server CI", "Frontend CI"]
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   coverage:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'workflow_dispatch' ||
+      github.event.workflow_run.head_branch == github.ref_name
     runs-on: ubuntu-latest
 
     steps:
