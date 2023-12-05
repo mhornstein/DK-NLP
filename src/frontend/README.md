@@ -74,11 +74,19 @@ To run the tests locally, execute the following command (avaiable only on window
 make test
 ```
 
-To generate a code coverage report, use the following command:
+To generate and present a code coverage report, use the following command:
 
 ```bash
 make test-cov
 ```
+
+If you are only interested in creating a coverage report (for instance, as used by Codecov), run the following command:
+
+```bash
+make cov-report
+```
+
+The report will be generated as an `.info` file located at `DK-NLP\src\frontend\coverage\frontend\Icov.info`.
 
 ## Linting
 
