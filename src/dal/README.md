@@ -63,7 +63,7 @@ When running in production mode (`--serve=prod`), the application will be served
 
 ## Testing
 
-Testing for this application is conducted using [unittest](https://docs.python.org/3/library/unittest.html) and [Pytest](https://docs.pytest.org/en/7.4.x/), achieving a test coverage of 98%.
+Testing for this application is conducted using [unittest](https://docs.python.org/3/library/unittest.html) and [Pytest](https://docs.pytest.org/en/7.4.x/). You can explore the code coverage by navigating to [the dal directory in Codecov](https://app.codecov.io/gh/mhornstein/DK-NLP/tree/main/src%2Ftdal).
 
 **Note:** The testing process also includes continuous integration (CI) using GitHub Actions, which automatically tests the application on both Linux and Windows environments as part of our CI pipeline. The test status is indicated by the badge at the top of this readme file.
 
