@@ -52,7 +52,6 @@ jobs:
       run: |
         cd src/frontend
         ng test --code-coverage --watch=false --browsers=ChromeHeadless
-        npx lcov-to-cobertura-converter -i coverage/frontend/lcov.info -o coverage-frontend.xml
 
     # Server Coverage
     - name: Server - Install Dependencies
@@ -65,12 +64,11 @@ jobs:
         cd src/server
         npm test
         npx nyc report --reporter=lcov
-        npx lcov-to-cobertura-converter -i coverage/lcov.info
 
     # Upload to Codecov
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
         files: 
-          ./src/tagger/coverage-tagger.xml,./src/dal/coverage-dal.xml,./src/frontend/coverage-frontend.xml,./src/server/coverage-server.xml
+          ./src/tagger/coverage-tagger.xml,./src/dal/coverage-dal.xml,./src/frontend/coverage/lcov.info,./src/server/coverage/lcov.info
         fail_ci_if_error: true
