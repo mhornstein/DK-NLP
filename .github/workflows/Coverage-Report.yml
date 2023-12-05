@@ -66,8 +66,7 @@ jobs:
     - name: Server - Run Coverage
       run: |
         cd src/server
-        npm test
-        npx nyc report --reporter=lcov
+        make cov-report
 
     # Upload to Codecov
     - name: Upload coverage to Codecov
