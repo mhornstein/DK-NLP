@@ -7,3 +7,4 @@ black==23.10.1
 pylint==2.9.6
 flasgger==0.9.7.1
 waitress==2.1.2
+coverage==7.3.2
