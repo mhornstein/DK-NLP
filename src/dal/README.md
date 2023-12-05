@@ -73,7 +73,7 @@ To run the tests locally, execute the following command:
 make test
 ```
 
-To generate and present code coverage report, use the following command (available only on Windows with Chrome installed):
+To generate and present a code coverage report, use the following command (available only on Windows with Chrome installed):
 
 ```bash
 make test-cov
