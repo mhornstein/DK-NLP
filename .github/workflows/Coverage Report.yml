@@ -1,0 +1,73 @@
+name: Coverage CI
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '!src/**/README.md'
+  workflow_dispatch:
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    # Tagger Coverage
+    - name: Tagger - Install Dependencies
+      run: |
+        cd src/tagger
+        pip install -r requirements.txt coverage
+
+    - name: Tagger - Run Coverage
+      run: |
+        cd src/tagger
+        python -m coverage run -m unittest
+        python -m coverage xml -o coverage-tagger.xml
+
+    # Dal Coverage
+    - name: Dal - Install Dependencies
+      run: |
+        cd src/dal
+        pip install -r requirements.txt coverage
+
+    - name: Dal - Run Coverage
+      run: |
+        cd src/dal
+        python -m coverage run -m unittest
+        python -m coverage xml -o coverage-dal.xml
+
+    # Frontend Coverage
+    - name: Frontend - Install Dependencies
+      run: |
+        cd src/frontend
+        npm install
+
+    - name: Frontend - Run Coverage
+      run: |
+        cd src/frontend
+        ng test --code-coverage --watch=false --browsers=ChromeHeadless
+        npx lcov-to-cobertura-converter -i coverage/frontend/lcov.info -o coverage-frontend.xml
+
+    # Server Coverage
+    - name: Server - Install Dependencies
+      run: |
+        cd src/server
+        npm install
+
+    - name: Server - Run Coverage
+      run: |
+        cd src/server
+        npm test
+        npx nyc report --reporter=lcov
+        npx lcov-to-cobertura-converter -i coverage/lcov.info
+
+    # Upload to Codecov
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        files: 
+          ./src/tagger/coverage-tagger.xml,./src/dal/coverage-dal.xml,./src/frontend/coverage-frontend.xml,./src/server/coverage-server.xml
+        fail_ci_if_error: true
