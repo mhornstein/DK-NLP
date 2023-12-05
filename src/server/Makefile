@@ -11,6 +11,9 @@ test:
 test-cov:
 	npm test & nyc report --reporter=html && start chrome "file:///%CD%/coverage/index.html"
 
+cov-report:
+	npm test && npx nyc report --reporter=lcov
+
 install:
 	npm install
 
