@@ -86,7 +86,7 @@ If you are only interested in creating a coverage report (for instance, as used 
 make cov-report
 ```
 
-The report will be generated as an `.info` file located at `DK-NLP\src\frontend\coverage\frontend\Icov.info`.
+The report will be generated as an `.info` file located at `.\coverage\frontend\Icov.info`.
 
 ## Linting
 
