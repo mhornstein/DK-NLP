@@ -54,6 +54,7 @@ src/dal/tests/*.coverage
 /src/dal/src/app/api/__pycache__/*.pyc
 /src/dal/src/app/services/__pycache__/*.pyc
 /src/dal/src/app/utils/__pycache__/*.pyc
+/src/dal/tests/coverage-dal.xml
 
 #########################
 # Ignoring tagger files #
@@ -68,6 +69,7 @@ src/tagger/.idea
 src/tagger/tests/__pycache__/*.pyc
 src/tagger/*.coverage
 src/tagger/tests/*.coverage
+src/tagger/tests/coverage-tagger.xml
 
 #########################
 # Ignoring server files #
