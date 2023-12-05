@@ -72,5 +72,5 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         files: 
-          ./src/tagger/tests/coverage-tagger.xml,./src/dal/tests/coverage-dal.xml,./src/frontend/coverage/lcov.info,./src/server/coverage/lcov.info
+          ./src/tagger/tests/coverage-tagger.xml,./src/dal/tests/coverage-dal.xml,./src/frontend/coverage/frontend/lcov.info,./src/server/coverage/lcov.info
         fail_ci_if_error: true
