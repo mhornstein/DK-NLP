@@ -27,17 +27,19 @@ jobs:
 
     - name: Test with coverage
       run: |
-        cd src/tagger
+        cd src/tagger/tests
         python -m coverage run -m unittest
 
     - name: Generate coverage report
       run: |
-        cd src/tagger
+        cd src/tagger/tests
         coverage report
         coverage xml
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        file: src/tagger/coverage.xml
+        file: src/tagger/tests/coverage.xml
         fail_ci_if_error: true

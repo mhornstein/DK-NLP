@@ -72,3 +72,28 @@ jobs:
       run: |
         cd src/dal
         make test
+
+    - name: Install coverage library
+      run: |
+        cd src/dal
+        pip install coverage
+
+    - name: Test with coverage
+      run: |
+        cd src/dal/tests
+        python -m coverage run -m unittest
+
+    - name: Generate coverage report
+      run: |
+        cd src/dal/tests
+        coverage report
+        coverage xml
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        file: src/dal/tests/coverage.xml
+        fail_ci_if_error: true
+        flags: dal
