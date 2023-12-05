@@ -67,7 +67,9 @@ jobs:
 
     # Upload to Codecov
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v1
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         files: 
           ./src/tagger/tests/coverage-tagger.xml,./src/dal/tests/coverage-dal.xml,./src/frontend/coverage/lcov.info,./src/server/coverage/lcov.info
