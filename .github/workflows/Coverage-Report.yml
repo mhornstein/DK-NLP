@@ -27,11 +27,10 @@ jobs:
         cd src/tagger
         pip install -r requirements.txt coverage
 
-    - name: Tagger - Run Coverage
+    - name: Tagger - Create Coverage Report
       run: |
-        cd src/tagger/tests
-        python -m coverage run -m unittest
-        python -m coverage xml -o coverage-tagger.xml
+        cd src/tagger
+        make cov-report
 
     # Dal Coverage
     - name: Dal - Install Dependencies
@@ -39,11 +38,10 @@ jobs:
         cd src/dal
         pip install -r requirements.txt coverage
 
-    - name: Dal - Run Coverage
+    - name: Dal - Create Coverage Report
       run: |
         cd src/dal/tests
-        python -m coverage run -m unittest
-        python -m coverage xml -o coverage-dal.xml
+        make cov-report
 
     # Frontend Coverage
     - name: Frontend - Install Dependencies
