@@ -45,6 +45,9 @@ jobs:
         cd src/frontend
         npm install
 
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
     - name: Frontend - Run Coverage
       run: |
         cd src/frontend
