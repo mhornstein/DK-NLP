@@ -81,7 +81,6 @@ The application is composed of 4 microservices:
 ## Future Aspiration
 
 This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
-* Implementing an auto-updating "coverage" badge to display the test coverage of the project, similar to the CI badge at the top of this README.
 * Continuous Delivery via GitHub Actions - exploring the possibility of maintaining an always-updated, live version of the app that updates with every push.
 * Completing the "About" page for the application.
 * Exploring logging mechanisms.
