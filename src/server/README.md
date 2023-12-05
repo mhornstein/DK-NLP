@@ -85,6 +85,14 @@ To generate a code coverage report and present it intreactively in chrome, use t
 make test-cov
 ```
 
+If you are only interested in creating a coverage report (for instance, as used by Codecov), run the following command:
+
+```bash
+make cov-report
+```
+
+The report will be generated as an `.info` file located at `.\coverage\Icov.info`.
+
 
 ## Linting and Code Formatting
 
