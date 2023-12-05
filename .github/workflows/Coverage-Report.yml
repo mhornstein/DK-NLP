@@ -55,7 +55,7 @@ jobs:
     - name: Frontend - Run Coverage
       run: |
         cd src/frontend
-        ng test --code-coverage --watch=false --browsers=ChromeHeadless
+        make cov-report
 
     # Server Coverage
     - name: Server - Install Dependencies
