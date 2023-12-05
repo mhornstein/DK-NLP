@@ -68,11 +68,19 @@ To run the tests locally, execute the following command:
 make test
 ```
 
-To generate a code coverage report, use the following command (available only on Windows with Chrome installed):
+To generate and present a code coverage report, use the following command (available only on Windows with Chrome installed):
 
 ```bash
 make test-cov
 ```
+
+If you are only interested in creating a coverage report (for instance, as used by Codecov), run the following command:
+
+```bash
+make cov-report
+```
+
+The report will be generated as an XML file located at `DK-NLP\src\tagger\tests\coverage-tagger.xml`.
 
 ## Linting
 
