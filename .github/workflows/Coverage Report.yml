@@ -23,7 +23,7 @@ jobs:
 
     - name: Tagger - Run Coverage
       run: |
-        cd src/tagger
+        cd src/tagger/tests
         python -m coverage run -m unittest
         python -m coverage xml -o coverage-tagger.xml
 
@@ -35,7 +35,7 @@ jobs:
 
     - name: Dal - Run Coverage
       run: |
-        cd src/dal
+        cd src/dal/tests
         python -m coverage run -m unittest
         python -m coverage xml -o coverage-dal.xml
 
@@ -70,5 +70,5 @@ jobs:
       uses: codecov/codecov-action@v2
       with:
         files: 
-          ./src/tagger/coverage-tagger.xml,./src/dal/coverage-dal.xml,./src/frontend/coverage/lcov.info,./src/server/coverage/lcov.info
+          ./src/tagger/tests/coverage-tagger.xml,./src/dal/tests/coverage-dal.xml,./src/frontend/coverage/lcov.info,./src/server/coverage/lcov.info
         fail_ci_if_error: true
