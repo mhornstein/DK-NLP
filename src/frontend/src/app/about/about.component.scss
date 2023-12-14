@@ -1,0 +1,21 @@
+p,
+h1 {
+  margin: 40px auto; // Top and bottom margins are 40px, left and right are auto
+  max-width: 50%; // Maximum width is 50% of the parent container
+  text-align: justify;
+}
+img {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
