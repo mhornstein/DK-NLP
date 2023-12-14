@@ -16,14 +16,13 @@ The application is composed of 4 microservices:
 <img src="docs/pics/ui-screenshots/history-ui.PNG" width="500" alt="history view">
 <img src="docs/pics/ui-screenshots/about-ui.PNG" width="240" alt="about view">
 
-
 ## Project Stages
 
 The stages are outlined in the following roadmap:
 
 <img src="docs/pics/illustrations/roadmap.png" width="800" alt="roadmap">
 
-and now, in more details:
+And now, in more details:
 
 1. **Model Training:** The selected model is a text model for POS and NER tagging. Additional details about the model can be found in the [tagging component directory](https://github.com/mhornstein/DK-NLP/tree/main/tagger).
     * **Technologies:** Pytorch
