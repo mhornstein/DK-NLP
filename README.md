@@ -20,7 +20,7 @@ The application is composed of 4 microservices:
 
 The stages are outlined in the following roadmap:
 
-<img src="docs/pics/roadmap.png" width="1000" alt="roadmap">
+<img src="docs/pics/roadmap.png" width="800" alt="roadmap">
 
 and now, in more details:
 
