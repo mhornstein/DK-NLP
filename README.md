@@ -94,6 +94,12 @@ Here is a visual summary of all the technologies and tools that I met and used a
 
 <img src="docs/pics/illustrations/techAndTools.PNG" width="700" alt="history view">
 
+## What Would I Do Differently?
+
+If I had begun the project from the start, I would have changed the order of the stages: I would have started with the Continuous Integration (CI) process first, then moved on to setting up the build configuration and options. This way is more in line with how development usually works, as it enables continuous integration and delivery right from the start, which would have saved me a lot of effort and trouble. 
+
+The order I originally chose was for learning purposes, allowing me to focus on understanding each tool step by step.
+
 ## Future Aspiration
 
 This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
@@ -102,8 +108,3 @@ This repository is continuously updated as my learning journey progresses. Curre
 * Exploring logging mechanisms.
 * Conducting stress tests.
 * Exploring Dashboards and monitoring tools.
-
-## What Would I Do Differently?
-
-* Reverse the steps and start with the CI process first, followed by Building the Applicable architecture for Using the Model simultaneously, as this approach aligns better with development practices and allows for continuous integration from the beginning. The order I used was chosen for educational purposes, enabling tool-specific learning at each stage.
-
