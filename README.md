@@ -14,6 +14,7 @@ The application is composed of 4 microservices:
 
 <img src="docs/pics/ui-screenshots/tagger-ui.PNG" width="500" alt="Tagger view">
 <img src="docs/pics/ui-screenshots/history-ui.PNG" width="500" alt="history view">
+<img src="docs/pics/ui-screenshots/about-ui.PNG" width="240" alt="about view">
 
 
 ## Project Stages
