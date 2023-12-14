@@ -100,11 +100,13 @@ If I had begun the project from the start, I would have changed the order of the
 
 The order I originally chose was for learning purposes, allowing me to focus on understanding each tool step by step.
 
-## Future Aspiration
+## Potential Improvements and Future Directions
 
-This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
+Since this project is an open-ended project, there is always room to work on it further. During the project, I set some additional goals that I eventually decided not to pursue within this project. This was mainly because they are more relevant to larger, more complex applications, and not as much to a relatively small app like this one.
+
+However, for future reference and to complete the process, I will mention them here:
+
 * Continuous Delivery via GitHub Actions - exploring the possibility of maintaining an always-updated, live version of the app that updates with every push.
-* Completing the "About" page for the application.
 * Exploring logging mechanisms.
 * Conducting stress tests.
 * Exploring Dashboards and monitoring tools.
