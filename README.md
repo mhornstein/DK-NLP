@@ -45,6 +45,7 @@ The application is composed of 4 microservices:
         * Testing: unittest, Pytest
         * Linting: pylint
         * Formatting: Black
+    * **Code Coverage**: Each component's coverage is tested separately using its designated technology. Subsequently, the "Coverage CI" workflow consistently recalculates and refreshes the overall project's code coverage. This mechanism guarantees that the coverage badge displayed at the top of this README, along with the [Codecov Dashboard](https://app.codecov.io/gh/mhornstein/DK-NLP), is kept up-to-date following each new commit.
     * **Main Learning Sources:**
         * [Cloud Computing Foundations course](https://www.coursera.org/account/accomplishments/certificate/CH4FFC84RHL5)
         * [Angular Unit Testing Made Easy video serie](https://www.youtube.com/watch?v=emnwsVy8wRs)
@@ -80,7 +81,6 @@ The application is composed of 4 microservices:
 ## Future Aspiration
 
 This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
-* Implementing an auto-updating "coverage" badge to display the test coverage of the project, similar to the CI badge at the top of this README.
 * Continuous Delivery via GitHub Actions - exploring the possibility of maintaining an always-updated, live version of the app that updates with every push.
 * Completing the "About" page for the application.
 * Exploring logging mechanisms.

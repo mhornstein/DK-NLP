@@ -61,13 +61,7 @@ After running the command with the desired parameters, the console will display 
 
 ## Testing
 
-The testing process uses libraries like [Chai](https://www.chaijs.com/) and [Mocha](https://mochajs.org/). [Istanbul](https://www.npmjs.com/package/istanbul) (nyc) is used for testing the coverage.
-The up-to-date coverage is:
-
-- Statements: 100%
-- Branches: 100%
-- Functions: 100%
-- Lines: 100%
+The testing process uses libraries like [Chai](https://www.chaijs.com/) and [Mocha](https://mochajs.org/). [Istanbul](https://www.npmjs.com/package/istanbul) (nyc) is used for testing the coverage. You can explore the up-to-date code coverage by navigating to [the server directory in Codecov](https://app.codecov.io/gh/mhornstein/DK-NLP/tree/main/src%2Ftserver).
 
 **Note:** The testing process includes continuous integration (CI) using GitHub Actions, which automatically tests the application on both Linux and Windows environments as part of our CI pipeline. The test status is indicated in the badge at the top of this readme file.
 
