@@ -12,15 +12,15 @@ The application is composed of 4 microservices:
 * **server:** Node server that communicates with the client.
 * **frontend:** Angular client.
 
-<img src="docs/pics/tagger-ui.PNG" width="500" alt="Tagger view">
-<img src="docs/pics/history-ui.PNG" width="500" alt="history view">
+<img src="docs/pics/ui-screenshots/tagger-ui.PNG" width="500" alt="Tagger view">
+<img src="docs/pics/ui-screenshots/history-ui.PNG" width="500" alt="history view">
 
 
 ## Project Stages
 
 The stages are outlined in the following roadmap:
 
-<img src="docs/pics/roadmap.png" width="800" alt="roadmap">
+<img src="docs/pics/illustrations/roadmap.png" width="800" alt="roadmap">
 
 and now, in more details:
 
@@ -58,7 +58,7 @@ and now, in more details:
 
 4. **Exposing an API Using Swagger:** Enabling API exposure for the server and the dal and tagger microservices.
 
-<img src="docs/pics/swagger-ui.PNG" width="500" alt="swagger view">
+<img src="docs/pics/ui-screenshots/swagger-ui.PNG" width="500" alt="swagger view">
 
 5. **Build and Deployment:** Enabling various options for building and deploying the app, with a focus on the Docker and Kubernetes ecosystem.
     * **Technologies:**
@@ -92,7 +92,7 @@ and now, in more details:
 
 Here is a visual summary of all the technologies and tools that I met and used along the way:
 
-<img src="docs/pics/techAndTools.PNG" width="700" alt="history view">
+<img src="docs/pics/illustrations/techAndTools.PNG" width="700" alt="history view">
 
 ## Future Aspiration
 
