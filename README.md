@@ -84,6 +84,10 @@ and now, in more details:
         * [Full Tutorial: Deploying Helm Charts in Kubernetes with Terraform](https://www.youtube.com/watch?v=Qq1cfVw1Mx4)
         * [This Github Repository](https://github.com/mr-pascal/medium-tf-gke-helm/tree/main)
 
+8. **Documentation and Summary**: During the project, I consistently documented the progress and the completed tasks. This documentation is important for two reasons. First, it helped in capturing the learning journey, ensuring that every new skill and piece of knowledge was noted down. Second, it provides a clear and organized summary of how the application was set up and developed, making it easier for anyone to understand how to deploy and run it (in any of the deployment options avaiable). In this final stage, I reviewed the documentation. Additionally, I wanted to include a visual representation of the journey I made that will be presented both in this README file and in the app "about" page. To achieve this, I **manually illustrated** the project's roadmap (which, as mentioned, you can find at the start of this README).
+    * **Tools:** Autodesk Sketchbook, Wacom tablet.
+    * **Main Learning Sources:** [Sketchnoting: Communicate with Visual Notes (Domestika course)](https://www.domestika.org/en/courses/4382-sketchnoting-communicate-with-visual-notes/course)
+
 ## Future Aspiration
 
 This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
