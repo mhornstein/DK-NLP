@@ -88,6 +88,12 @@ and now, in more details:
     * **Tools:** Autodesk Sketchbook, Wacom tablet.
     * **Main Learning Sources:** [Sketchnoting: Communicate with Visual Notes (Domestika course)](https://www.domestika.org/en/courses/4382-sketchnoting-communicate-with-visual-notes/course)
 
+## Technologies and Tools summary
+
+Here is a visual summary of all the technologies and tools that I met and used along the way:
+
+<img src="docs/pics/techAndTools.PNG" width="700" alt="history view">
+
 ## Future Aspiration
 
 This repository is continuously updated as my learning journey progresses. Currently, as a broad guideline, my next objectives include:
