@@ -156,3 +156,21 @@ Pod's logs can also be browsed via Docker Desktop UI.
 kubectl get pods # to get the pods
 kubectl exec -it [POD_NAME] -- /bin/sh
 ```
+
+### Verify Current Kubernetes Context
+Docker Desktop automatically configures `kubectl` to use its Kubernetes context after installation. To verify the current context, run the following command in your terminal:
+
+```bash
+kubectl config current-context
+```
+
+This command displays the current context of `kubectl`. Typically, it should show `docker-desktop` when using Docker Desktop's Kubernetes. If you are using Google Cloud Kubernetes with GKE integration, it may show a Google Cloud context.
+
+#### Switching Kubernetes Contexts
+If you need to switch between different Kubernetes contexts, use the `kubectl config use-context` command. For example, to switch to Docker Desktop's Kubernetes, run:
+
+```bash
+kubectl config use-context docker-desktop
+```
+
+Replace `docker-desktop` with the appropriate context name if you wish to switch to a different Kubernetes context.
