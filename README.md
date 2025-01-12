@@ -24,10 +24,10 @@ The stages are outlined in the following roadmap:
 
 And now, in more details:
 
-1. **Model Training:** The selected model is a text model for POS and NER tagging. Additional details about the model can be found in the [tagging component directory](https://github.com/mhornstein/DK-NLP/tree/main/tagger).
+1. **Model Training:** The selected model is a text model for POS and NER tagging. Additional details about the model can be found in the [tagging component directory](https://github.com/mhornstein/DK-NLP/tree/main/src/tagger).
     * **Technologies:** Pytorch
     * **Main Learning Source:**
-        * [Deep Learning Methods for Texts and Sequences](https://shoham.biu.ac.il/BiuCoursesViewer/CourseDetails.aspx?lid=748157) course at Bar Ilan University.
+        * [Deep Learning Methods for Texts and Sequences](https://courses.biu.ac.il/CourseDetails.aspx?lid=748157) course at Bar Ilan University.
 
 2. **Building the End-to-End Application Architecture for Using the Model:** The architecture includes a client-side Angular application, a Node.js server, a Flask microservice exposing the tagging model, and a MongoDB database exposed via a DAL microservice.
     * **Technologies:**
@@ -36,7 +36,7 @@ And now, in more details:
         * Microservices: Flask
         * Database: MongoDB
     * **Main Learning Source:**
-        * [Full Stack Web Development with Angular Specialization](https://www.coursera.org/specializations/full-stack-mobile-app-development)
+        * [Full Stack Web Development with Angular Specialization](https://seng.hkust.edu.hk/news/20150903/hkust-launches-open-online-courses-full-stack-web-development-coursera-advance-access-career-relevant-education)
 
 3. **Implementing Continuous Integration Practices:** Establishing a cycle of testing, linting, and code formatting for every code change.
     * **CI/CD platform:** GitHub Actions
